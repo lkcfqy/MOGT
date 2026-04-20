@@ -1,0 +1,20 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# Checkpoints / Model weights (Very large, do not push to Github, causes limit crash)
+*.pt
+*.pth
+*.safetensors
+mogt_checkpoints/
+
+# IDE / Gemini / Cache
+.gemini/
+.vscode/
+.idea/
+.ipynb_checkpoints/
+
+# Virtual Environment
+venv/
+env/
+miniconda3/

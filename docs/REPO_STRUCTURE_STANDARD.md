@@ -7,15 +7,15 @@ Last updated: 2026-05-04
 This document defines how the project should be organized while moving from a
 research scratchpad to a top-tier-paper codebase.
 
-The current repo contains valuable experimental history. Do not delete or move
-large groups of files only for neatness. First make results reproducible, then
-move code with import updates and smoke tests in the same change.
+The current repo is now a cleaned research handoff. Old exploratory root
+scripts were removed after their useful evidence was summarized into
+`benchmark_runs/`, `paper/`, and `docs/`.
 
 ## Current Policy
 
-Keep runnable Python files at the repository root for now. This avoids breaking
-old benchmark commands and checkpoint/evaluation scripts while the paper story
-is still moving.
+Keep the current paper/evidence Python entrypoints at the repository root for
+now. Do not reintroduce old MVP scripts unless they are brought back with a
+current report schema and a paper-facing reason.
 
 New strategic documents go in `docs/`.
 
@@ -30,7 +30,8 @@ The desired long-term layout is:
 ```text
 MOGT/
   README.md
-  requirements.txt
+  requirements-core.txt
+  requirements-optional-gpu.txt
   docs/
     TOP_TIER_TRANSFORMER_DISRUPTION_ROADMAP.md
     REPO_STRUCTURE_STANDARD.md
@@ -46,7 +47,7 @@ MOGT/
   baselines/
     __init__.py
     transformer.py
-    mamba.py
+    hf_mamba.py
     gru.py
   experiments/
     synthetic/

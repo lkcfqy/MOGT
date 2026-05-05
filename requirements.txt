@@ -1,9 +1,0 @@
-datasets
-transformers>=4.39.0
-wandb
-scipy
-matplotlib
-triton
-flash-attn
-mamba-ssm
-causal-conv1d>=1.2.0

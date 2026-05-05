@@ -31,7 +31,7 @@ Transformer baseline currently beats MOGT on the 32k, 200-step WikiText protocol
 
 3. The repo has moved from self-comparison to budget-matched baselines.
    - Evidence: `model_baseline_transformer.py`,
-     `train_budget_transformer.py`, `model_baseline_mamba.py`,
+     `train_budget_transformer.py`, `model_baseline_hf_mamba.py`,
      `train_budget_baseline.py`, and
      `benchmark_runs/budget_matched_baseline_summary.md`.
 

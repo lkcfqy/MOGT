@@ -78,8 +78,9 @@ Before leaving the VM, preserve these files/directories:
 - `paper/`
 - `docs/`
 - `benchmark_runs/`
-- root `*.py` scripts
-- `requirements.txt`
+- current root Python entrypoints used by the paper/evidence path
+- `requirements-core.txt`
+- `requirements-optional-gpu.txt`
 - `.gitignore`
 - `README.md`
 

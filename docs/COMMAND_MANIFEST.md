@@ -15,13 +15,14 @@ python3 sanity_triton_training.py
 python3 validate_experiment_reports.py
 ```
 
-## Current MOGT Baseline
+## Historical MOGT 32k Baseline
 
-```bash
-MOGT_RUN_PRESET=baseline_v1 MOGT_SEED=42 python3 train.py
-MOGT_RUN_PRESET=baseline_v1 MOGT_SEED=7 python3 train.py
-MOGT_RUN_PRESET=baseline_v1 MOGT_SEED=123 python3 train.py
-```
+The legacy all-in-one LM runner was removed from the clean GitHub handoff.
+The useful evidence is preserved as reports:
+
+- `benchmark_runs/baseline_v1_cayley_ctx32768_multiseed_20260428.json`
+- `benchmark_runs/baseline_v1_cayley_multiseed_eval_ctx8192_16384_32768.json`
+- `benchmark_runs/baseline_v1_cayley_eval_table_20260429.md`
 
 Checkpoint-only eval:
 
@@ -981,20 +982,13 @@ Next required rerun:
 
 ## Systems
 
-Operator throughput:
+Core operator timing is preserved as:
 
-```bash
-python3 benchmark_throughput.py \
-  --batch-size 1 \
-  --d-model 768 \
-  --rank 16 \
-  --lengths 8192 16384 32768 \
-  --warmup 3 \
-  --iters 10 \
-  --output-json benchmark_runs/throughput_core_operator_d768_len8192_16384_32768_20260504.json \
-  --output-pdf benchmark_runs/throughput_core_operator_d768_len8192_16384_32768_20260504.pdf
-python3 summarize_throughput_results.py
-```
+- `benchmark_runs/throughput_core_operator_d768_len8192_16384_32768_20260504.json`
+- `benchmark_runs/throughput_core_operator_summary_20260504.md`
+
+The clean handoff keeps the backbone-level timing script as the current systems
+smoke path.
 
 Backbone forward probe:
 

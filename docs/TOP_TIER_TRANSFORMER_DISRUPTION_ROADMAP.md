@@ -139,8 +139,8 @@ Goal: stop the project from splitting into five papers at once.
 Deliverables:
 
 - Keep this roadmap as the authority for next steps.
-- Keep `docs/archive/research.md` and older grand-theory text as archival
-  background, not current paper claims.
+- Remove older grand-theory text from the clean handoff; only paper-relevant
+  claims should remain in the public repo.
 - Keep `docs/claim_ledger.md` as the honesty ledger.
 - Main paper claim becomes: gated matrix-valued affine recurrence for
   long-context state tracking.
@@ -437,7 +437,7 @@ MOGT/
     chunked_lm_loss.py
   baselines/
     model_baseline_transformer.py
-    model_baseline_mamba.py
+    model_baseline_hf_mamba.py
     model_baseline_gru.py
   experiments/
     synthetic/

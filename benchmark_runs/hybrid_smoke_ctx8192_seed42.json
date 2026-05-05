@@ -1,0 +1,145 @@
+{
+  "config": {
+    "model_type": "hybrid_mogt_transformer",
+    "variant": "hybrid_alternating_r16_triton_hybrid_cayley_damp0.999",
+    "run_name": "hybrid_smoke_ctx8192",
+    "context_length": 8192,
+    "d_model": 128,
+    "num_layers": 2,
+    "num_heads": 4,
+    "rank": 16,
+    "hybrid_pattern": "alternating",
+    "mogt_layer_count": 1,
+    "block_types": [
+      "transformer",
+      "mogt"
+    ],
+    "rope_theta": 10000.0,
+    "scan_impl": "triton_hybrid",
+    "connection_impl": "cayley",
+    "connection_damping": 0.999,
+    "scan_block_size": 256,
+    "vocab_size": 50257,
+    "parameter_count": 6957952,
+    "batch_size": 1,
+    "grad_accum_steps": 1,
+    "max_steps": 1,
+    "eval_interval": 1,
+    "eval_max_batches_requested": 1,
+    "seed": 42,
+    "lr": 0.0003,
+    "weight_decay": 0.01,
+    "loss_chunk_size": 4096,
+    "gradient_checkpointing": true,
+    "resume_from": null,
+    "amp_dtype": "bfloat16",
+    "attention": "torch.scaled_dot_product_attention_in_transformer_layers"
+  },
+  "result": {
+    "status": "ok",
+    "elapsed_s": 2.1188700199127197,
+    "peak_memory_mb": 2449.49169921875,
+    "train_loss_final": 10.839073181152344,
+    "best_val": {
+      "loss": 10.846809387207031,
+      "ppl": 51369.98786361895,
+      "num_batches": 1
+    },
+    "checkpoint_dir": "baseline_checkpoints/hybrid_smoke_ctx8192_seed42",
+    "best_checkpoint": "baseline_checkpoints/hybrid_smoke_ctx8192_seed42/best.pt",
+    "latest_checkpoint": null,
+    "last_checkpoint": "baseline_checkpoints/hybrid_smoke_ctx8192_seed42/last.pt"
+  },
+  "validation_trace": [
+    {
+      "step": 1,
+      "loss": 10.846809387207031,
+      "ppl": 51369.98786361895,
+      "num_batches": 1
+    }
+  ],
+  "notes": [
+    "Hybrid MOGT/Transformer trained with the same GPT-2 tokenizer and WikiText-103 data pipeline as scratch baselines.",
+    "Transformer layers provide dense content mixing; MOGT layers test long-context state transport inside a model-level backbone.",
+    "This is a training-budget matched baseline, not a pretrained quality anchor."
+  ],
+  "standard_report": {
+    "schema_version": "mogt-experiment-v1",
+    "run_name": "hybrid_smoke_ctx8192",
+    "task": "language_modeling",
+    "model": "hybrid_mogt_transformer",
+    "variant": "hybrid_alternating_r16_triton_hybrid_cayley_damp0.999",
+    "status": "ok",
+    "failure_reason": null,
+    "command": "train_budget_hybrid.py --smoke --run-name hybrid_smoke_ctx8192 --context-length 8192 --max-steps 1 --num-workers 0 --report-output benchmark_runs/hybrid_smoke_ctx8192_seed42.json --checkpoint-dir baseline_checkpoints/hybrid_smoke_ctx8192_seed42",
+    "git_commit": "9d2f00afad246773f1bff7eaa01ca45b6f33fbd3",
+    "environment": {
+      "device": "cuda",
+      "gpu_name": "NVIDIA L4",
+      "torch_version": "2.9.1+cu129",
+      "cuda_available": true,
+      "amp_dtype": "bfloat16",
+      "peak_memory_mb": 2449.49169921875,
+      "elapsed_seconds": 2.1188700199127197
+    },
+    "data": {
+      "dataset": "wikitext-103-raw-v1",
+      "tokenizer": "gpt2",
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "train_examples": null,
+      "eval_examples": null,
+      "tokens_seen": 8192,
+      "eval_max_batches_requested": 1,
+      "loss_chunk_size": 4096
+    },
+    "model_config": {
+      "num_params": 6957952,
+      "d_model": 128,
+      "num_layers": 2,
+      "rank": 16,
+      "num_heads": 4,
+      "scan_impl": "triton_hybrid",
+      "connection_impl": "cayley",
+      "gate_config": null,
+      "attention": "torch.scaled_dot_product_attention_in_transformer_layers",
+      "gradient_checkpointing": true,
+      "hybrid_pattern": "alternating",
+      "mogt_layer_count": 1,
+      "block_types": [
+        "transformer",
+        "mogt"
+      ]
+    },
+    "training": {
+      "seed": 42,
+      "steps": 1,
+      "batch_size": 1,
+      "grad_accum_steps": 1,
+      "optimizer": "AdamW",
+      "lr": 0.0003,
+      "weight_decay": 0.01,
+      "scheduler": "cosine_with_warmup"
+    },
+    "metrics": {
+      "loss": 10.846809387207031,
+      "ppl": 51369.98786361895,
+      "accuracy_by_context": {},
+      "loss_by_context": {
+        "8192": 10.846809387207031
+      },
+      "validation_trace": [
+        {
+          "step": 1,
+          "loss": 10.846809387207031,
+          "ppl": 51369.98786361895,
+          "num_batches": 1
+        }
+      ],
+      "train_loss_final": 10.839073181152344
+    },
+    "notes": "Hybrid MOGT/Transformer budget-matched language-modeling run."
+  }
+}

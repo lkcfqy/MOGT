@@ -1,3 +1,11 @@
+"""
+Exploratory PPL probe.
+
+This script is useful after a real MOGT checkpoint exists. Without a trained
+checkpoint, the MOGT branch is skipped to avoid mixing random-init numbers into
+language-model comparisons.
+"""
+
 import torch
 import torch.nn as nn
 import numpy as np
@@ -21,11 +29,12 @@ def load_mogt(device, vocab_size, checkpoint_dir="./mogt_checkpoints"):
             print(f"🔄 载入 MOGT 本地训练权重: {latest_ckpt}")
             checkpoint = torch.load(latest_ckpt, map_location=device)
             model.load_state_dict(checkpoint['model_state_dict'])
+            return model.to(device), True
         else:
-             print("⚠️ 未找到 MOGT 权重文件，将使用纯噪声初始化！(仅作全流程架构连通性测试)")
+             print("⚠️ 未找到 MOGT 权重文件；为避免把随机初始化混进 PPL 对比，本轮将跳过 MOGT 分支。")
     else:
-        print("⚠️ 未找到 MOGT 权重工作目录，将使用纯噪声！")
-    return model.to(device)
+        print("⚠️ 未找到 MOGT 权重工作目录；为避免把随机初始化混进 PPL 对比，本轮将跳过 MOGT 分支。")
+    return model.to(device), False
 
 def calculate_ppl(model, val_dl, device, is_huggingface=False, max_batches=20):
     model.eval()
@@ -61,8 +70,9 @@ def calculate_ppl(model, val_dl, device, is_huggingface=False, max_batches=20):
 if __name__ == "__main__":
     device = "cuda" if torch.cuda.is_available() else "cpu"
     print("==================================================")
-    print("📊 MOGT vs Mainstream: WikiText-103 困惑度肉搏战 (Meatgrinder)")
+    print("📊 Exploratory PPL Probe: WikiText-103 Validation")
     print("==================================================")
+    print("注意：该脚本当前用于探索性对比，不应替代严格校准过的主线评测。")
     
     # 限制批次数量以避免单卡评测验证集过长，25 个大 Context Batch 足以得到稳定抽样
     MAX_EVAL_BATCHES = 25 
@@ -94,12 +104,13 @@ if __name__ == "__main__":
         print("Mamba 测试脱机失败:", e)
         
     # ---------------- 3. 主角阵营：MOGT 自研模型 ----------------
-    print("\n➡️ 降临: 本机 MOGT 自研引擎 (130M) ...")
+    print("\n➡️ 检查: 本机 MOGT checkpoint ...")
     try:
-        mogt = load_mogt(device, vocab_size)
-        results['MOGT\n(130M)'] = calculate_ppl(mogt, val_dl, device, is_huggingface=False, max_batches=MAX_EVAL_BATCHES)
-        del mogt
-        torch.cuda.empty_cache()
+        mogt, has_checkpoint = load_mogt(device, vocab_size)
+        if has_checkpoint:
+            results['MOGT\n(130M)'] = calculate_ppl(mogt, val_dl, device, is_huggingface=False, max_batches=MAX_EVAL_BATCHES)
+            del mogt
+            torch.cuda.empty_cache()
     except Exception as e:
         print("MOGT 测试挂载失败:", e)
         
@@ -109,6 +120,9 @@ if __name__ == "__main__":
         print(f" - {name.replace('\n', ' ')}: PPL = {ppl:.2f}")
 
     # ==================== 最终对决渲染图 ====================
+    if not results:
+        raise RuntimeError("没有可用的 PPL 结果；请检查模型下载或 checkpoint 状态。")
+
     plt.figure(figsize=(8, 6))
     
     names = list(results.keys())

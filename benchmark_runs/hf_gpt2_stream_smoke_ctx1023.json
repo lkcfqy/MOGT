@@ -1,0 +1,37 @@
+{
+  "config": {
+    "models": [
+      "gpt2"
+    ],
+    "context_lengths": [
+      1023
+    ],
+    "tokenization_mode": "gpt2_stream",
+    "batch_size": 1,
+    "num_workers": 2,
+    "max_batches": 2,
+    "device": "cuda",
+    "dtype": "bfloat16"
+  },
+  "interpretation": {
+    "gpt2_stream": "Uses this repo's GPT-2 tokenized WikiText-103 chunks and is tokenization-compatible with MOGT.",
+    "native_text": "Uses each HF model's own tokenizer on WikiText-103 raw validation text; useful as a pretrained anchor, not a tokenization-matched comparison."
+  },
+  "results": [
+    {
+      "model": "gpt2",
+      "context_length": 1023,
+      "tokenization_mode": "gpt2_stream",
+      "tokenizer": "gpt2",
+      "model_type": "gpt2",
+      "vocab_size": 50257,
+      "status": "ok",
+      "metrics": {
+        "loss": 3.156941056251526,
+        "ppl": 23.498604966291623,
+        "num_batches": 2,
+        "num_loss_tokens": 2046
+      }
+    }
+  ]
+}

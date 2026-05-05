@@ -1,0 +1,275 @@
+{
+  "created_at": "2026-05-04T03:41:17.988229+00:00",
+  "status": "ok",
+  "task": "tracked_multislot_last_value",
+  "model_type": "mogt",
+  "params": 557984,
+  "config": {
+    "model_type": "mogt",
+    "device": "cuda",
+    "dtype": "bf16",
+    "seed": 123,
+    "vocab_size": 160,
+    "d_model": 128,
+    "num_layers": 2,
+    "rank": 16,
+    "num_heads": 4,
+    "rope_theta": 10000.0,
+    "scan_impl": "triton_hybrid",
+    "connection_impl": "identity",
+    "connection_damping": 1.0,
+    "scan_block_size": 256,
+    "readout_init_std": 0.02,
+    "transport_gate": false,
+    "transport_gate_mode": "multiply",
+    "transport_gate_width": "scalar",
+    "transport_gate_scale": 1.0,
+    "transport_gate_bias": 2.0,
+    "value_gate": true,
+    "value_gate_width": "rank",
+    "value_gate_input": "current_prev_prefix",
+    "value_gate_bias": -2.0,
+    "couple_forget_to_value_gate": true,
+    "prefix_condition_position": 1,
+    "gradient_checkpointing": false,
+    "train_context": 512,
+    "eval_contexts": [
+      512,
+      1024,
+      2048,
+      4096
+    ],
+    "num_slots": 4,
+    "min_train_slots": 0,
+    "slot_curriculum_steps": 0,
+    "num_values": 16,
+    "min_updates": 4,
+    "max_updates": 12,
+    "batch_size": 16,
+    "eval_batch_size": 4,
+    "steps": 3000,
+    "eval_batches": 16,
+    "dense_loss": false,
+    "state_label_mode": "hold",
+    "state_label_mode_after": "",
+    "dense_loss_steps": 0,
+    "lr": 0.001,
+    "weight_decay": 0.1,
+    "grad_clip": 1.0,
+    "log_every": 500,
+    "output": "benchmark_runs/synthetic_multislot4_mogt_slotaddr_coupled_rank_finalonly_stdreport_ctx512_seed123_steps3000.json"
+  },
+  "train_trace": [
+    {
+      "step": 1,
+      "loss": 5.064006328582764,
+      "accuracy": 0.0,
+      "dense_accuracy": null,
+      "grad_norm": 7.518667697906494,
+      "active_num_slots": 4
+    },
+    {
+      "step": 500,
+      "loss": 2.2192845344543457,
+      "accuracy": 0.375,
+      "dense_accuracy": null,
+      "grad_norm": 5.295182704925537,
+      "active_num_slots": 4
+    },
+    {
+      "step": 1000,
+      "loss": 1.951507568359375,
+      "accuracy": 0.1875,
+      "dense_accuracy": null,
+      "grad_norm": 5.240894794464111,
+      "active_num_slots": 4
+    },
+    {
+      "step": 1500,
+      "loss": 2.1714494228363037,
+      "accuracy": 0.375,
+      "dense_accuracy": null,
+      "grad_norm": 4.439172744750977,
+      "active_num_slots": 4
+    },
+    {
+      "step": 2000,
+      "loss": 1.48948335647583,
+      "accuracy": 0.375,
+      "dense_accuracy": null,
+      "grad_norm": 3.1707241535186768,
+      "active_num_slots": 4
+    },
+    {
+      "step": 2500,
+      "loss": 1.0575499534606934,
+      "accuracy": 0.625,
+      "dense_accuracy": null,
+      "grad_norm": 3.370285749435425,
+      "active_num_slots": 4
+    },
+    {
+      "step": 3000,
+      "loss": 1.7166486978530884,
+      "accuracy": 0.3125,
+      "dense_accuracy": null,
+      "grad_norm": 5.116952419281006,
+      "active_num_slots": 4
+    }
+  ],
+  "eval_results": [
+    {
+      "context_length": 512,
+      "loss": 1.415230829268694,
+      "accuracy": 0.484375,
+      "examples": 64,
+      "elapsed_s": 0.14654200899531133
+    },
+    {
+      "context_length": 1024,
+      "loss": 1.1647339686751366,
+      "accuracy": 0.5625,
+      "examples": 64,
+      "elapsed_s": 0.14978507900377735
+    },
+    {
+      "context_length": 2048,
+      "loss": 1.2208754271268845,
+      "accuracy": 0.53125,
+      "examples": 64,
+      "elapsed_s": 0.17242958099814132
+    },
+    {
+      "context_length": 4096,
+      "loss": 1.1878785826265812,
+      "accuracy": 0.5625,
+      "examples": 64,
+      "elapsed_s": 0.21075228600238916
+    }
+  ],
+  "gate_diagnostics": [
+    {
+      "block": 0,
+      "couple_forget_to_value_gate": true,
+      "value_gate_width": "rank",
+      "value_gate_input_mode": "current_prev_prefix",
+      "mean_gate": {
+        "matched_value": 0.3695243299007416,
+        "unmatched_value": 0.34236615896224976,
+        "set": 0.31163114309310913,
+        "query": 0.3130064010620117,
+        "slot": 0.31242042779922485,
+        "filler": 0.31212255358695984
+      }
+    },
+    {
+      "block": 1,
+      "couple_forget_to_value_gate": true,
+      "value_gate_width": "rank",
+      "value_gate_input_mode": "current_prev_prefix",
+      "mean_gate": {
+        "matched_value": 0.04954659938812256,
+        "unmatched_value": 0.05954515188932419,
+        "set": 0.13173764944076538,
+        "query": 0.058506306260824203,
+        "slot": 0.12261421978473663,
+        "filler": 0.1324799358844757
+      }
+    }
+  ],
+  "train_elapsed_s": 89.78857560599863,
+  "peak_memory_mb": 244.4208984375,
+  "standard_report": {
+    "schema_version": "mogt-experiment-v1",
+    "run_name": "benchmark_runs/synthetic_multislot4_mogt_slotaddr_coupled_rank_finalonly_stdreport_ctx512_seed123_steps3000.json",
+    "task": "tracked_multislot_last_value",
+    "model": "mogt",
+    "variant": "mogt_identity_coupled_write_forget_current_prev_prefix_value_bias_m2p0_slots4_final",
+    "status": "ok",
+    "failure_reason": null,
+    "command": "benchmark_synthetic_multislot.py --model-type mogt --seed 123 --vocab-size 160 --d-model 128 --num-layers 2 --rank 16 --scan-impl triton_hybrid --connection-impl identity --connection-damping 1.0 --readout-init-std 0.02 --value-gate --value-gate-width rank --value-gate-input current_prev_prefix --value-gate-bias -2.0 --couple-forget-to-value-gate --prefix-condition-position 1 --train-context 512 --eval-contexts 512 1024 2048 4096 --num-slots 4 --num-values 16 --min-updates 4 --max-updates 12 --batch-size 16 --eval-batch-size 4 --steps 3000 --eval-batches 16 --log-every 500 --output benchmark_runs/synthetic_multislot4_mogt_slotaddr_coupled_rank_finalonly_stdreport_ctx512_seed123_steps3000.json",
+    "git_commit": "9d2f00afad246773f1bff7eaa01ca45b6f33fbd3",
+    "environment": {
+      "device": "cuda",
+      "gpu_name": "NVIDIA L4",
+      "torch_version": "2.9.1+cu129",
+      "cuda_available": true,
+      "amp_dtype": "bf16",
+      "peak_memory_mb": 244.4208984375,
+      "elapsed_seconds": 89.78857560599863
+    },
+    "data": {
+      "dataset": "synthetic",
+      "tokenizer": null,
+      "train_context": 512,
+      "eval_contexts": [
+        512,
+        1024,
+        2048,
+        4096
+      ],
+      "train_examples": null,
+      "eval_examples": 256,
+      "tokens_seen": null,
+      "num_values": 16,
+      "min_updates": 4,
+      "max_updates": 12,
+      "num_slots": 4,
+      "min_train_slots": 0
+    },
+    "model_config": {
+      "num_params": 557984,
+      "d_model": 128,
+      "num_layers": 2,
+      "rank": 16,
+      "num_heads": 4,
+      "scan_impl": "triton_hybrid",
+      "connection_impl": "identity",
+      "gate_config": {
+        "transport_gate": false,
+        "transport_gate_mode": "multiply",
+        "transport_gate_width": "scalar",
+        "transport_gate_scale": 1.0,
+        "transport_gate_bias": 2.0,
+        "value_gate": true,
+        "value_gate_width": "rank",
+        "value_gate_input": "current_prev_prefix",
+        "value_gate_bias": -2.0,
+        "couple_forget_to_value_gate": true,
+        "prefix_condition_position": 1
+      }
+    },
+    "training": {
+      "seed": 123,
+      "steps": 3000,
+      "batch_size": 16,
+      "grad_accum_steps": null,
+      "optimizer": "AdamW",
+      "lr": 0.001,
+      "weight_decay": 0.1,
+      "scheduler": null,
+      "dense_loss": false,
+      "curriculum_steps": null,
+      "slot_curriculum_steps": 0,
+      "state_label_mode": "hold",
+      "dense_loss_steps": 0
+    },
+    "metrics": {
+      "loss": null,
+      "ppl": null,
+      "accuracy_by_context": {
+        "512": 0.484375,
+        "1024": 0.5625,
+        "2048": 0.53125,
+        "4096": 0.5625
+      },
+      "loss_by_context": {
+        "512": 1.415230829268694,
+        "1024": 1.1647339686751366,
+        "2048": 1.2208754271268845,
+        "4096": 1.1878785826265812
+      }
+    },
+    "notes": "Synthetic tracked multi-slot last-value benchmark."
+  }
+}

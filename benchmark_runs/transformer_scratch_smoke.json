@@ -1,0 +1,51 @@
+{
+  "config": {
+    "model_type": "scratch_transformer",
+    "run_name": "transformer_scratch_smoke",
+    "context_length": 8192,
+    "d_model": 128,
+    "num_layers": 2,
+    "num_heads": 4,
+    "rope_theta": 10000.0,
+    "vocab_size": 50257,
+    "parameter_count": 6957824,
+    "batch_size": 1,
+    "grad_accum_steps": 1,
+    "max_steps": 1,
+    "eval_interval": 1,
+    "eval_max_batches_requested": 1,
+    "seed": 42,
+    "loss_chunk_size": 4096,
+    "gradient_checkpointing": true,
+    "resume_from": null,
+    "amp_dtype": "bfloat16",
+    "attention": "torch.scaled_dot_product_attention"
+  },
+  "result": {
+    "status": "ok",
+    "elapsed_s": 1.1990032196044922,
+    "train_loss_final": 10.825520515441895,
+    "best_val": {
+      "loss": 10.851226806640625,
+      "ppl": 51597.41259169521,
+      "num_batches": 1
+    },
+    "checkpoint_dir": "baseline_checkpoints/transformer_scratch_smoke",
+    "best_checkpoint": "baseline_checkpoints/transformer_scratch_smoke/best.pt",
+    "latest_checkpoint": null,
+    "last_checkpoint": "baseline_checkpoints/transformer_scratch_smoke/last.pt"
+  },
+  "validation_trace": [
+    {
+      "step": 1,
+      "loss": 10.851226806640625,
+      "ppl": 51597.41259169521,
+      "num_batches": 1
+    }
+  ],
+  "notes": [
+    "Scratch Transformer baseline trained with the same GPT-2 tokenizer and WikiText-103 data pipeline as MOGT.",
+    "This uses PyTorch scaled_dot_product_attention with a causal mask and RoPE positional encoding.",
+    "This is a training-budget matched baseline, not a pretrained quality anchor."
+  ]
+}

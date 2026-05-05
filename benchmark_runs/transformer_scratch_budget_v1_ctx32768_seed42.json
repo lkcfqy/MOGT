@@ -1,0 +1,70 @@
+{
+  "config": {
+    "model_type": "scratch_transformer",
+    "run_name": "transformer_scratch_budget_v1_ctx32768_seed42",
+    "context_length": 32768,
+    "d_model": 768,
+    "num_layers": 12,
+    "num_heads": 12,
+    "rope_theta": 10000.0,
+    "vocab_size": 50257,
+    "parameter_count": 123551232,
+    "batch_size": 1,
+    "grad_accum_steps": 8,
+    "max_steps": 200,
+    "eval_interval": 50,
+    "eval_max_batches_requested": 10,
+    "seed": 42,
+    "loss_chunk_size": 256,
+    "gradient_checkpointing": true,
+    "resume_from": null,
+    "amp_dtype": "bfloat16",
+    "attention": "torch.scaled_dot_product_attention"
+  },
+  "result": {
+    "status": "ok",
+    "elapsed_s": 5959.121810436249,
+    "peak_memory_mb": 10103.3271484375,
+    "train_loss_final": 6.123480796813965,
+    "best_val": {
+      "loss": 6.100865364074707,
+      "ppl": 446.24376636874695,
+      "num_batches": 5
+    },
+    "checkpoint_dir": "baseline_checkpoints/transformer_scratch_budget_v1_ctx32768_seed42",
+    "best_checkpoint": "baseline_checkpoints/transformer_scratch_budget_v1_ctx32768_seed42/best.pt",
+    "latest_checkpoint": "baseline_checkpoints/transformer_scratch_budget_v1_ctx32768_seed42/latest.pt",
+    "last_checkpoint": "baseline_checkpoints/transformer_scratch_budget_v1_ctx32768_seed42/last.pt"
+  },
+  "validation_trace": [
+    {
+      "step": 50,
+      "loss": 6.9786231994628904,
+      "ppl": 1073.4394371400722,
+      "num_batches": 5
+    },
+    {
+      "step": 100,
+      "loss": 6.444804573059082,
+      "ppl": 629.4236586017136,
+      "num_batches": 5
+    },
+    {
+      "step": 150,
+      "loss": 6.156008720397949,
+      "ppl": 471.5422569334416,
+      "num_batches": 5
+    },
+    {
+      "step": 200,
+      "loss": 6.100865364074707,
+      "ppl": 446.24376636874695,
+      "num_batches": 5
+    }
+  ],
+  "notes": [
+    "Scratch Transformer baseline trained with the same GPT-2 tokenizer and WikiText-103 data pipeline as MOGT.",
+    "This uses PyTorch scaled_dot_product_attention with a causal mask and RoPE positional encoding.",
+    "This is a training-budget matched baseline, not a pretrained quality anchor."
+  ]
+}

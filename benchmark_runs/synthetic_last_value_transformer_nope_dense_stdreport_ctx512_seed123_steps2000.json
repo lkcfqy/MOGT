@@ -1,0 +1,238 @@
+{
+  "created_at": "2026-05-04T03:10:49.209242+00:00",
+  "status": "ok",
+  "task": "last_value_tracking",
+  "model_type": "transformer",
+  "params": 541312,
+  "config": {
+    "model_type": "transformer",
+    "device": "cuda",
+    "dtype": "bf16",
+    "seed": 123,
+    "vocab_size": 128,
+    "d_model": 128,
+    "num_layers": 2,
+    "rank": 16,
+    "num_heads": 4,
+    "rope_theta": 0.0,
+    "scan_impl": "triton_hybrid",
+    "connection_impl": "cayley",
+    "connection_damping": 0.999,
+    "scan_block_size": 256,
+    "readout_init_std": 0.0,
+    "transport_gate": false,
+    "transport_gate_mode": "multiply",
+    "transport_gate_width": "scalar",
+    "transport_gate_scale": 1.0,
+    "transport_gate_bias": 2.0,
+    "value_gate": false,
+    "value_gate_width": "scalar",
+    "value_gate_input": "current",
+    "value_gate_bias": 0.0,
+    "couple_forget_to_value_gate": false,
+    "prefix_condition_position": null,
+    "gradient_checkpointing": false,
+    "train_context": 512,
+    "min_train_context": 0,
+    "curriculum_steps": 0,
+    "eval_contexts": [
+      512,
+      1024,
+      2048,
+      4096,
+      8192
+    ],
+    "num_values": 16,
+    "min_updates": 1,
+    "max_updates": 4,
+    "batch_size": 16,
+    "eval_batch_size": 4,
+    "steps": 2000,
+    "eval_batches": 16,
+    "dense_loss": true,
+    "lr": 0.001,
+    "weight_decay": 0.1,
+    "grad_clip": 1.0,
+    "log_every": 400,
+    "output": "benchmark_runs/synthetic_last_value_transformer_nope_dense_stdreport_ctx512_seed123_steps2000.json"
+  },
+  "train_trace": [
+    {
+      "step": 1,
+      "loss": 4.896204948425293,
+      "accuracy": 0.0,
+      "dense_accuracy": 0.006784969009459019,
+      "context_length": 512,
+      "grad_norm": 4.258951663970947
+    },
+    {
+      "step": 400,
+      "loss": 0.28181684017181396,
+      "accuracy": 0.8125,
+      "dense_accuracy": 0.9281758666038513,
+      "context_length": 512,
+      "grad_norm": 3.5685160160064697
+    },
+    {
+      "step": 800,
+      "loss": 0.002247861586511135,
+      "accuracy": 1.0,
+      "dense_accuracy": 1.0,
+      "context_length": 512,
+      "grad_norm": 0.05212889611721039
+    },
+    {
+      "step": 1200,
+      "loss": 0.0035271495580673218,
+      "accuracy": 1.0,
+      "dense_accuracy": 0.9994735717773438,
+      "context_length": 512,
+      "grad_norm": 0.17024149000644684
+    },
+    {
+      "step": 1600,
+      "loss": 0.0007518675411120057,
+      "accuracy": 1.0,
+      "dense_accuracy": 1.0,
+      "context_length": 512,
+      "grad_norm": 0.021823285147547722
+    },
+    {
+      "step": 2000,
+      "loss": 0.002401054371148348,
+      "accuracy": 1.0,
+      "dense_accuracy": 1.0,
+      "context_length": 512,
+      "grad_norm": 0.2533552944660187
+    }
+  ],
+  "eval_results": [
+    {
+      "context_length": 512,
+      "loss": 0.05758445307765214,
+      "accuracy": 0.96875,
+      "examples": 64,
+      "elapsed_s": 0.046762235986534506
+    },
+    {
+      "context_length": 1024,
+      "loss": 0.16359961150556046,
+      "accuracy": 0.96875,
+      "examples": 64,
+      "elapsed_s": 0.04483839099702891
+    },
+    {
+      "context_length": 2048,
+      "loss": 0.1104371058045217,
+      "accuracy": 0.96875,
+      "examples": 64,
+      "elapsed_s": 0.04445084299368318
+    },
+    {
+      "context_length": 4096,
+      "loss": 0.3426129327745002,
+      "accuracy": 0.90625,
+      "examples": 64,
+      "elapsed_s": 0.05522416999156121
+    },
+    {
+      "context_length": 8192,
+      "loss": 1.1499802348116646,
+      "accuracy": 0.765625,
+      "examples": 64,
+      "elapsed_s": 0.1260657259990694
+    }
+  ],
+  "gate_diagnostics": null,
+  "train_elapsed_s": 30.046990425995318,
+  "peak_memory_mb": 436.90087890625,
+  "standard_report": {
+    "schema_version": "mogt-experiment-v1",
+    "run_name": "benchmark_runs/synthetic_last_value_transformer_nope_dense_stdreport_ctx512_seed123_steps2000.json",
+    "task": "last_value_tracking",
+    "model": "transformer",
+    "variant": "transformer_nope",
+    "status": "ok",
+    "failure_reason": null,
+    "command": "benchmark_synthetic_last_value.py --model-type transformer --rope-theta 0.0 --seed 123 --d-model 128 --num-layers 2 --num-heads 4 --train-context 512 --eval-contexts 512 1024 2048 4096 8192 --batch-size 16 --eval-batch-size 4 --steps 2000 --eval-batches 16 --dense-loss --log-every 400 --output benchmark_runs/synthetic_last_value_transformer_nope_dense_stdreport_ctx512_seed123_steps2000.json",
+    "git_commit": "9d2f00afad246773f1bff7eaa01ca45b6f33fbd3",
+    "environment": {
+      "device": "cuda",
+      "gpu_name": "NVIDIA L4",
+      "torch_version": "2.9.1+cu129",
+      "cuda_available": true,
+      "amp_dtype": "bf16",
+      "peak_memory_mb": 436.90087890625,
+      "elapsed_seconds": 30.046990425995318
+    },
+    "data": {
+      "dataset": "synthetic",
+      "tokenizer": null,
+      "train_context": 512,
+      "eval_contexts": [
+        512,
+        1024,
+        2048,
+        4096,
+        8192
+      ],
+      "train_examples": null,
+      "eval_examples": 320,
+      "tokens_seen": null,
+      "num_values": 16,
+      "min_updates": 1,
+      "max_updates": 4,
+      "num_slots": null
+    },
+    "model_config": {
+      "num_params": 541312,
+      "d_model": 128,
+      "num_layers": 2,
+      "rank": 16,
+      "num_heads": 4,
+      "scan_impl": "triton_hybrid",
+      "connection_impl": "cayley",
+      "gate_config": {
+        "transport_gate": false,
+        "transport_gate_mode": "multiply",
+        "transport_gate_width": "scalar",
+        "value_gate": false,
+        "value_gate_width": "scalar",
+        "value_gate_input": "current",
+        "couple_forget_to_value_gate": false,
+        "prefix_condition_position": null
+      }
+    },
+    "training": {
+      "seed": 123,
+      "steps": 2000,
+      "batch_size": 16,
+      "grad_accum_steps": null,
+      "optimizer": "AdamW",
+      "lr": 0.001,
+      "weight_decay": 0.1,
+      "scheduler": null,
+      "dense_loss": true,
+      "curriculum_steps": 0
+    },
+    "metrics": {
+      "loss": null,
+      "ppl": null,
+      "accuracy_by_context": {
+        "512": 0.96875,
+        "1024": 0.96875,
+        "2048": 0.96875,
+        "4096": 0.90625,
+        "8192": 0.765625
+      },
+      "loss_by_context": {
+        "512": 0.05758445307765214,
+        "1024": 0.16359961150556046,
+        "2048": 0.1104371058045217,
+        "4096": 0.3426129327745002,
+        "8192": 1.1499802348116646
+      }
+    },
+    "notes": "Synthetic last-value tracking benchmark."
+  }
+}

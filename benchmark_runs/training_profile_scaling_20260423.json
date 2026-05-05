@@ -1,0 +1,58 @@
+{
+  "profiles": {
+    "d256_l4": {
+      "sequential_total_wall_ms": 3219.025877000604,
+      "hybrid_total_wall_ms": 93.41244700044626,
+      "hybrid_speedup_vs_sequential": 34.46035277274372,
+      "sequential_forward_ms": 860.4465649987105,
+      "hybrid_forward_ms": 36.345468999570585,
+      "sequential_backward_ms": 2345.2999889996136,
+      "hybrid_backward_ms": 48.11299199900532,
+      "hybrid_backward_recompute_ms": 14.698623,
+      "hybrid_peak_memory_mb": 889.58447265625,
+      "sequential_peak_memory_mb": 888.84521484375,
+      "seq_loss": 1.3211746215820312,
+      "hybrid_loss": 1.3180770874023438
+    },
+    "d384_l4": {
+      "sequential_total_wall_ms": 3205.387869998958,
+      "hybrid_total_wall_ms": 98.92970100008824,
+      "hybrid_speedup_vs_sequential": 32.40066266849527,
+      "sequential_forward_ms": 864.8654400003579,
+      "hybrid_forward_ms": 36.41933499966399,
+      "sequential_backward_ms": 2322.7158800000325,
+      "hybrid_backward_ms": 49.702571999659995,
+      "hybrid_backward_recompute_ms": 14.542240999999972,
+      "hybrid_peak_memory_mb": 1048.99853515625,
+      "sequential_peak_memory_mb": 1047.99658203125,
+      "seq_loss": 1.305877685546875,
+      "hybrid_loss": 1.2995681762695312
+    },
+    "d768_l4": {
+      "sequential_total_wall_ms": 3206.5892399987206,
+      "hybrid_total_wall_ms": 116.81564100035757,
+      "hybrid_speedup_vs_sequential": 27.449999097200564,
+      "sequential_forward_ms": 847.0504799988703,
+      "hybrid_forward_ms": 36.082952001379454,
+      "sequential_backward_ms": 2326.5805060000275,
+      "hybrid_backward_ms": 52.02127700067649,
+      "hybrid_backward_recompute_ms": 13.045571000000004,
+      "hybrid_peak_memory_mb": 1646.14013671875,
+      "sequential_peak_memory_mb": 1642.51953125,
+      "seq_loss": 1.2634658813476562,
+      "hybrid_loss": 1.2518119812011719
+    }
+  },
+  "short_runs": {
+    "d256_hybrid_short": {
+      "elapsed_s": 21.1,
+      "final_loss": 10.5591,
+      "num_steps": 20
+    },
+    "d768_hybrid_short": {
+      "elapsed_s": 24.39,
+      "final_loss": 9.8313,
+      "num_steps": 20
+    }
+  }
+}

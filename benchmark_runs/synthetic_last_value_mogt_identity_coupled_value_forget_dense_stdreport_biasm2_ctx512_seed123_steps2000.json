@@ -1,0 +1,261 @@
+{
+  "created_at": "2026-05-04T03:08:25.672518+00:00",
+  "status": "ok",
+  "task": "last_value_tracking",
+  "model_type": "mogt",
+  "params": 541826,
+  "config": {
+    "model_type": "mogt",
+    "device": "cuda",
+    "dtype": "bf16",
+    "seed": 123,
+    "vocab_size": 128,
+    "d_model": 128,
+    "num_layers": 2,
+    "rank": 16,
+    "num_heads": 4,
+    "rope_theta": 10000.0,
+    "scan_impl": "triton_hybrid",
+    "connection_impl": "identity",
+    "connection_damping": 1.0,
+    "scan_block_size": 256,
+    "readout_init_std": 0.0,
+    "transport_gate": false,
+    "transport_gate_mode": "multiply",
+    "transport_gate_width": "scalar",
+    "transport_gate_scale": 1.0,
+    "transport_gate_bias": 2.0,
+    "value_gate": true,
+    "value_gate_width": "scalar",
+    "value_gate_input": "current",
+    "value_gate_bias": -2.0,
+    "couple_forget_to_value_gate": true,
+    "prefix_condition_position": null,
+    "gradient_checkpointing": false,
+    "train_context": 512,
+    "min_train_context": 0,
+    "curriculum_steps": 0,
+    "eval_contexts": [
+      512,
+      1024,
+      2048,
+      4096,
+      8192
+    ],
+    "num_values": 16,
+    "min_updates": 1,
+    "max_updates": 4,
+    "batch_size": 16,
+    "eval_batch_size": 4,
+    "steps": 2000,
+    "eval_batches": 16,
+    "dense_loss": true,
+    "lr": 0.001,
+    "weight_decay": 0.1,
+    "grad_clip": 1.0,
+    "log_every": 400,
+    "output": "benchmark_runs/synthetic_last_value_mogt_identity_coupled_value_forget_dense_stdreport_biasm2_ctx512_seed123_steps2000.json"
+  },
+  "train_trace": [
+    {
+      "step": 1,
+      "loss": 4.951837539672852,
+      "accuracy": 0.0,
+      "dense_accuracy": 0.006784969009459019,
+      "context_length": 512,
+      "grad_norm": 23.91561508178711
+    },
+    {
+      "step": 400,
+      "loss": 4.18196759710554e-05,
+      "accuracy": 1.0,
+      "dense_accuracy": 1.0,
+      "context_length": 512,
+      "grad_norm": 0.00020621648582164198
+    },
+    {
+      "step": 800,
+      "loss": 4.554005617052326e-09,
+      "accuracy": 1.0,
+      "dense_accuracy": 1.0,
+      "context_length": 512,
+      "grad_norm": 1.4309766527276224e-07
+    },
+    {
+      "step": 1200,
+      "loss": 3.4304825646813697e-09,
+      "accuracy": 1.0,
+      "dense_accuracy": 1.0,
+      "context_length": 512,
+      "grad_norm": 3.382372426585789e-07
+    },
+    {
+      "step": 1600,
+      "loss": 9.324528704723889e-09,
+      "accuracy": 1.0,
+      "dense_accuracy": 1.0,
+      "context_length": 512,
+      "grad_norm": 4.907693096356525e-07
+    },
+    {
+      "step": 2000,
+      "loss": 1.3781687790981323e-08,
+      "accuracy": 1.0,
+      "dense_accuracy": 1.0,
+      "context_length": 512,
+      "grad_norm": 6.744540996805881e-07
+    }
+  ],
+  "eval_results": [
+    {
+      "context_length": 512,
+      "loss": 1.4901160305669237e-08,
+      "accuracy": 1.0,
+      "examples": 64,
+      "elapsed_s": 0.11211590399034321
+    },
+    {
+      "context_length": 1024,
+      "loss": 1.3038515267460582e-08,
+      "accuracy": 1.0,
+      "examples": 64,
+      "elapsed_s": 0.11849092700867914
+    },
+    {
+      "context_length": 2048,
+      "loss": 1.1175870229251927e-08,
+      "accuracy": 1.0,
+      "examples": 64,
+      "elapsed_s": 0.13584577600704506
+    },
+    {
+      "context_length": 4096,
+      "loss": 1.8626450271064243e-08,
+      "accuracy": 1.0,
+      "examples": 64,
+      "elapsed_s": 0.17096172799938358
+    },
+    {
+      "context_length": 8192,
+      "loss": 2.0489095309272898e-08,
+      "accuracy": 1.0,
+      "examples": 64,
+      "elapsed_s": 0.2671411860064836
+    }
+  ],
+  "gate_diagnostics": [
+    {
+      "block": 0,
+      "couple_forget_to_value_gate": true,
+      "value_gate_width": "scalar",
+      "mean_gate": {
+        "set": 5.15582769367029e-06,
+        "query": 7.3648411671456415e-06,
+        "value": 0.8999804854393005,
+        "filler": 7.401473339996301e-06
+      }
+    },
+    {
+      "block": 1,
+      "couple_forget_to_value_gate": true,
+      "value_gate_width": "scalar",
+      "mean_gate": {
+        "set": 0.36580848693847656,
+        "query": 0.3472628593444824,
+        "value": 0.237186461687088,
+        "filler": 0.3617832064628601
+      }
+    }
+  ],
+  "train_elapsed_s": 61.61196162100532,
+  "peak_memory_mb": 597.11572265625,
+  "standard_report": {
+    "schema_version": "mogt-experiment-v1",
+    "run_name": "benchmark_runs/synthetic_last_value_mogt_identity_coupled_value_forget_dense_stdreport_biasm2_ctx512_seed123_steps2000.json",
+    "task": "last_value_tracking",
+    "model": "mogt",
+    "variant": "mogt_identity_coupled_write_forget_dense",
+    "status": "ok",
+    "failure_reason": null,
+    "command": "benchmark_synthetic_last_value.py --model-type mogt --seed 123 --d-model 128 --num-layers 2 --rank 16 --scan-impl triton_hybrid --connection-impl identity --connection-damping 1.0 --value-gate --value-gate-bias -2.0 --couple-forget-to-value-gate --train-context 512 --eval-contexts 512 1024 2048 4096 8192 --batch-size 16 --eval-batch-size 4 --steps 2000 --eval-batches 16 --dense-loss --log-every 400 --output benchmark_runs/synthetic_last_value_mogt_identity_coupled_value_forget_dense_stdreport_biasm2_ctx512_seed123_steps2000.json",
+    "git_commit": "9d2f00afad246773f1bff7eaa01ca45b6f33fbd3",
+    "environment": {
+      "device": "cuda",
+      "gpu_name": "NVIDIA L4",
+      "torch_version": "2.9.1+cu129",
+      "cuda_available": true,
+      "amp_dtype": "bf16",
+      "peak_memory_mb": 597.11572265625,
+      "elapsed_seconds": 61.61196162100532
+    },
+    "data": {
+      "dataset": "synthetic",
+      "tokenizer": null,
+      "train_context": 512,
+      "eval_contexts": [
+        512,
+        1024,
+        2048,
+        4096,
+        8192
+      ],
+      "train_examples": null,
+      "eval_examples": 320,
+      "tokens_seen": null,
+      "num_values": 16,
+      "min_updates": 1,
+      "max_updates": 4,
+      "num_slots": null
+    },
+    "model_config": {
+      "num_params": 541826,
+      "d_model": 128,
+      "num_layers": 2,
+      "rank": 16,
+      "num_heads": 4,
+      "scan_impl": "triton_hybrid",
+      "connection_impl": "identity",
+      "gate_config": {
+        "transport_gate": false,
+        "transport_gate_mode": "multiply",
+        "transport_gate_width": "scalar",
+        "value_gate": true,
+        "value_gate_width": "scalar",
+        "value_gate_input": "current",
+        "couple_forget_to_value_gate": true,
+        "prefix_condition_position": null
+      }
+    },
+    "training": {
+      "seed": 123,
+      "steps": 2000,
+      "batch_size": 16,
+      "grad_accum_steps": null,
+      "optimizer": "AdamW",
+      "lr": 0.001,
+      "weight_decay": 0.1,
+      "scheduler": null,
+      "dense_loss": true,
+      "curriculum_steps": 0
+    },
+    "metrics": {
+      "loss": null,
+      "ppl": null,
+      "accuracy_by_context": {
+        "512": 1.0,
+        "1024": 1.0,
+        "2048": 1.0,
+        "4096": 1.0,
+        "8192": 1.0
+      },
+      "loss_by_context": {
+        "512": 1.4901160305669237e-08,
+        "1024": 1.3038515267460582e-08,
+        "2048": 1.1175870229251927e-08,
+        "4096": 1.8626450271064243e-08,
+        "8192": 2.0489095309272898e-08
+      }
+    },
+    "notes": "Synthetic last-value tracking benchmark."
+  }
+}

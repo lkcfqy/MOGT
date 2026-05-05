@@ -1,0 +1,108 @@
+{
+    "created_at": "2026-05-04T04:33:49.621834+00:00",
+    "task": "core_operator_throughput",
+    "schema_version": "mogt-throughput-v1",
+    "lengths": [
+        8192,
+        16384,
+        32768
+    ],
+    "batch_size": 1,
+    "d_model": 768,
+    "rank": 16,
+    "device": "cuda",
+    "gpu_name": "NVIDIA L4",
+    "torch_version": "2.9.1+cu129",
+    "has_triton_scan": true,
+    "has_flash_attn": true,
+    "warmup": 3,
+    "iters": 10,
+    "results_ms": {
+        "affine_sequential_ms": [
+            [
+                8192,
+                499.61020946502686
+            ],
+            [
+                16384,
+                1006.3418388366698
+            ],
+            [
+                32768,
+                2049.3837118148804
+            ]
+        ],
+        "affine_parallel_ref_ms": [
+            [
+                8192,
+                12.813687324523926
+            ],
+            [
+                16384,
+                34.05036926269531
+            ],
+            [
+                32768,
+                75.87897777557373
+            ]
+        ],
+        "affine_block_ref_ms": [
+            [
+                8192,
+                568.4797048568726
+            ],
+            [
+                16384,
+                1154.4341564178467
+            ],
+            [
+                32768,
+                2295.112991333008
+            ]
+        ],
+        "affine_triton_hybrid_ms": [
+            [
+                8192,
+                3.1217575073242188
+            ],
+            [
+                16384,
+                5.360746383666992
+            ],
+            [
+                32768,
+                5.48253059387207
+            ]
+        ],
+        "transport_only_triton_ms": [
+            [
+                8192,
+                1.1027336120605469
+            ],
+            [
+                16384,
+                4.249835014343262
+            ],
+            [
+                32768,
+                9.027361869812012
+            ]
+        ],
+        "attention_ms": [
+            [
+                8192,
+                1.4782428741455078
+            ],
+            [
+                16384,
+                6.392359733581543
+            ],
+            [
+                32768,
+                27.321171760559082
+            ]
+        ]
+    },
+    "attn_oom_idx": -1,
+    "notes": "Core-operator timing. Affine scan excludes connection/value projection and LM head; attention timing measures FlashAttention/SDPA core only."
+}

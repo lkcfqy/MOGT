@@ -1,0 +1,162 @@
+{
+  "config": {
+    "context_length": 16384,
+    "d_model": 768,
+    "num_layers": 12,
+    "rank": 16,
+    "batch_size": 1,
+    "grad_accum_steps": 8
+  },
+  "hybrid_profile": {
+    "profiled_loss": 1.3359715938568115,
+    "peak_memory_mb": 19715.166015625,
+    "phase_wall_ms": {
+      "forward_wall_ms": 558.0171749970759,
+      "backward_wall_ms": 946.6549450007733,
+      "optimizer_wall_ms": 50.89898199730669,
+      "total_wall_ms": 1558.160060998489
+    },
+    "events": {
+      "train_step.total": {
+        "count": 1,
+        "total_ms": 355.5589339999989,
+        "self_ms": 0.0
+      },
+      "train_step.forward": {
+        "count": 1,
+        "total_ms": 557.5484110000001,
+        "self_ms": 557.5484110000001
+      },
+      "mogt.connection": {
+        "count": 12,
+        "total_ms": 5.703782000000036,
+        "self_ms": 5.703782000000036
+      },
+      "mogt.matrix_exp": {
+        "count": 12,
+        "total_ms": 74.35977600000012,
+        "self_ms": 74.35977600000012
+      },
+      "mogt.value_projection": {
+        "count": 12,
+        "total_ms": 7.59126600000004,
+        "self_ms": 7.59126600000004
+      },
+      "mogt.affine_scan": {
+        "count": 12,
+        "total_ms": 35.14531300000034,
+        "self_ms": 0.0
+      },
+      "triton_hybrid.forward": {
+        "count": 12,
+        "total_ms": 3.359200000000106,
+        "self_ms": 3.359200000000106
+      },
+      "triton_hybrid.local_scan": {
+        "count": 36,
+        "total_ms": 24.297612000000168,
+        "self_ms": 24.297612000000168
+      },
+      "triton_hybrid.carry_scan": {
+        "count": 36,
+        "total_ms": 246.48380899999975,
+        "self_ms": 246.48380899999975
+      },
+      "triton_hybrid.carry_apply": {
+        "count": 36,
+        "total_ms": 48.10782799999954,
+        "self_ms": 48.10782799999954
+      },
+      "mogt.readout": {
+        "count": 12,
+        "total_ms": 25.970344000000047,
+        "self_ms": 25.970344000000047
+      },
+      "mogt.ffn": {
+        "count": 12,
+        "total_ms": 79.06159699999994,
+        "self_ms": 79.06159699999994
+      },
+      "train_step.backward": {
+        "count": 1,
+        "total_ms": 0.12563100000005215,
+        "self_ms": 0.12563100000005215
+      },
+      "triton_hybrid.backward_recompute": {
+        "count": 12,
+        "total_ms": 80.09583999999997,
+        "self_ms": 80.09583999999997
+      },
+      "affine_backward.recompute_prefix_hybrid": {
+        "count": 12,
+        "total_ms": 0.1713610000006156,
+        "self_ms": 0.1713610000006156
+      },
+      "affine_backward.reverse_scan_hybrid": {
+        "count": 12,
+        "total_ms": 40.4824169999999,
+        "self_ms": 40.4824169999999
+      },
+      "affine_backward.grad_u_matmul": {
+        "count": 12,
+        "total_ms": 16.020070999999998,
+        "self_ms": 16.020070999999998
+      },
+      "train_step.optimizer": {
+        "count": 1,
+        "total_ms": 50.60930099999998,
+        "self_ms": 50.60930099999998
+      }
+    },
+    "artifacts": {
+      "trace_json": "profile_runs_ctx16384_d768_l12_hybrid_20260423/train_step_triton_hybrid.trace.json",
+      "table_txt": "profile_runs_ctx16384_d768_l12_hybrid_20260423/train_step_triton_hybrid.table.txt"
+    }
+  },
+  "real_step_wallclock": {
+    "sequential": {
+      "loss": 10.845870971679688,
+      "phase_wall_ms": {
+        "forward_wall_ms": 19054.006484999263,
+        "backward_wall_ms": 210998.1753960019,
+        "optimizer_wall_ms": 204.3617039998935,
+        "total_wall_ms": 230256.54358500105
+      },
+      "peak_memory_mb": 19610.6513671875
+    },
+    "triton_hybrid": {
+      "loss": 10.687742233276367,
+      "phase_wall_ms": {
+        "forward_wall_ms": 431.98101699817926,
+        "backward_wall_ms": 908.833745001175,
+        "optimizer_wall_ms": 44.70478499933961,
+        "total_wall_ms": 1385.5195469986938
+      },
+      "peak_memory_mb": 19717.45166015625
+    }
+  },
+  "real_step_speedup_vs_sequential": 166.18787088481122,
+  "notes": [
+    "ctx=16384 fits on an L4 24GB GPU for both sequential and triton_hybrid, but peak memory is now close to the practical ceiling at roughly 19.6-19.7 GB.",
+    "The sequential baseline remains runnable but is no longer development-friendly at this length, with a single warmed training step taking roughly 230 seconds.",
+    "The first uncached ctx=16384 short run successfully built dataset_cache/wikitext-103-raw-v1_gpt2_ctx16384 but hit CUDA OOM on the first backward despite the compute-side step test fitting; this pointed to allocator fragmentation rather than a hard capacity limit.",
+    "A warm-cache rerun with expandable segments enabled completed successfully for 20 global steps in 241.22 seconds and wrote a checkpoint.",
+    "PyTorch emitted a deprecation warning that future runs should prefer PYTORCH_ALLOC_CONF over PYTORCH_CUDA_ALLOC_CONF."
+  ],
+  "hybrid_short_run_uncached": {
+    "elapsed_s": 255.51,
+    "final_loss": 15.2884,
+    "num_steps": 1,
+    "checkpoint": null,
+    "status": "oom_on_first_backward",
+    "error": "torch.OutOfMemoryError: Tried to allocate 3.07 GiB during backward; allocator fragmentation suspected."
+  },
+  "hybrid_short_run_cached": {
+    "elapsed_s": 241.22,
+    "final_loss": 8.6629,
+    "num_steps": 20,
+    "checkpoint": "mogt_checkpoints/hybrid_ctx16384_d768_l12_short_cached_20260423/mogt_ckpt_e0_s159.pt",
+    "status": "ok",
+    "allocator_env": "PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True"
+  }
+}

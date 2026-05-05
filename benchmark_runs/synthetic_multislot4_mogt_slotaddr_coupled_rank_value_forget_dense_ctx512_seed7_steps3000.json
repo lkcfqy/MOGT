@@ -1,0 +1,170 @@
+{
+  "created_at": "2026-05-03T14:48:33.732611+00:00",
+  "status": "ok",
+  "task": "tracked_multislot_last_value",
+  "model_type": "mogt",
+  "params": 557984,
+  "config": {
+    "model_type": "mogt",
+    "device": "cuda",
+    "dtype": "bf16",
+    "seed": 7,
+    "vocab_size": 160,
+    "d_model": 128,
+    "num_layers": 2,
+    "rank": 16,
+    "num_heads": 4,
+    "rope_theta": 10000.0,
+    "scan_impl": "triton_hybrid",
+    "connection_impl": "identity",
+    "connection_damping": 1.0,
+    "scan_block_size": 256,
+    "readout_init_std": 0.02,
+    "transport_gate": false,
+    "transport_gate_mode": "multiply",
+    "transport_gate_width": "scalar",
+    "transport_gate_scale": 1.0,
+    "transport_gate_bias": 2.0,
+    "value_gate": true,
+    "value_gate_width": "rank",
+    "value_gate_input": "current_prev_prefix",
+    "value_gate_bias": -2.0,
+    "couple_forget_to_value_gate": true,
+    "prefix_condition_position": 1,
+    "gradient_checkpointing": false,
+    "train_context": 512,
+    "eval_contexts": [
+      512,
+      1024,
+      2048,
+      4096
+    ],
+    "num_slots": 4,
+    "num_values": 16,
+    "min_updates": 4,
+    "max_updates": 12,
+    "batch_size": 16,
+    "eval_batch_size": 4,
+    "steps": 3000,
+    "eval_batches": 16,
+    "dense_loss": true,
+    "lr": 0.001,
+    "weight_decay": 0.1,
+    "grad_clip": 1.0,
+    "log_every": 500,
+    "output": "benchmark_runs/synthetic_multislot4_mogt_slotaddr_coupled_rank_value_forget_dense_ctx512_seed7_steps3000.json"
+  },
+  "train_trace": [
+    {
+      "step": 1,
+      "loss": 5.0920186042785645,
+      "accuracy": 0.0,
+      "dense_accuracy": 0.009788768365979195,
+      "grad_norm": 4.136104106903076
+    },
+    {
+      "step": 500,
+      "loss": 1.6480001211166382,
+      "accuracy": 0.375,
+      "dense_accuracy": 0.3586956560611725,
+      "grad_norm": 4.38467264175415
+    },
+    {
+      "step": 1000,
+      "loss": 0.9504947662353516,
+      "accuracy": 0.5,
+      "dense_accuracy": 0.5829585790634155,
+      "grad_norm": 3.70222544670105
+    },
+    {
+      "step": 1500,
+      "loss": 0.6988738775253296,
+      "accuracy": 0.375,
+      "dense_accuracy": 0.6597495079040527,
+      "grad_norm": 3.7502288818359375
+    },
+    {
+      "step": 2000,
+      "loss": 0.004922999534755945,
+      "accuracy": 1.0,
+      "dense_accuracy": 1.0,
+      "grad_norm": 0.057562340050935745
+    },
+    {
+      "step": 2500,
+      "loss": 3.7220017929939786e-06,
+      "accuracy": 1.0,
+      "dense_accuracy": 1.0,
+      "grad_norm": 0.00010426691005704924
+    },
+    {
+      "step": 3000,
+      "loss": 2.2702712954014714e-07,
+      "accuracy": 1.0,
+      "dense_accuracy": 1.0,
+      "grad_norm": 1.7938057226274395e-06
+    }
+  ],
+  "eval_results": [
+    {
+      "context_length": 512,
+      "loss": 3.091990143921919e-07,
+      "accuracy": 1.0,
+      "examples": 64,
+      "elapsed_s": 0.2857326430021203
+    },
+    {
+      "context_length": 1024,
+      "loss": 3.390013234572109e-07,
+      "accuracy": 1.0,
+      "examples": 64,
+      "elapsed_s": 0.3029511659988202
+    },
+    {
+      "context_length": 2048,
+      "loss": 3.3527603182648136e-07,
+      "accuracy": 1.0,
+      "examples": 64,
+      "elapsed_s": 0.32448822199512506
+    },
+    {
+      "context_length": 4096,
+      "loss": 0.0010661002013763188,
+      "accuracy": 1.0,
+      "examples": 64,
+      "elapsed_s": 0.35921751300338656
+    }
+  ],
+  "gate_diagnostics": [
+    {
+      "block": 0,
+      "couple_forget_to_value_gate": true,
+      "value_gate_width": "rank",
+      "value_gate_input_mode": "current_prev_prefix",
+      "mean_gate": {
+        "matched_value": 0.11348949372768402,
+        "unmatched_value": 0.004915175028145313,
+        "set": 4.676858588936739e-05,
+        "query": 2.3739456082694232e-05,
+        "slot": 9.80572440312244e-05,
+        "filler": 0.00011806300608441234
+      }
+    },
+    {
+      "block": 1,
+      "couple_forget_to_value_gate": true,
+      "value_gate_width": "rank",
+      "value_gate_input_mode": "current_prev_prefix",
+      "mean_gate": {
+        "matched_value": 0.007398206274956465,
+        "unmatched_value": 0.01014323253184557,
+        "set": 0.011406666599214077,
+        "query": 0.007601314224302769,
+        "slot": 0.014332618564367294,
+        "filler": 0.013115253299474716
+      }
+    }
+  ],
+  "train_elapsed_s": 218.69855968799675,
+  "peak_memory_mb": 635.46240234375
+}

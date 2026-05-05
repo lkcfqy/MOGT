@@ -1,0 +1,51 @@
+{
+  "d768_l4": {
+    "sequential_total_wall_ms": 3206.5892399987206,
+    "hybrid_total_wall_ms": 116.81564100035757,
+    "hybrid_speedup_vs_sequential": 27.449999097200564,
+    "sequential_forward_ms": 847.0504799988703,
+    "hybrid_forward_ms": 36.082952001379454,
+    "sequential_backward_ms": 2326.5805060000275,
+    "hybrid_backward_ms": 52.02127700067649,
+    "hybrid_backward_recompute_ms": 13.045571000000004,
+    "sequential_peak_memory_mb": 1642.51953125,
+    "hybrid_peak_memory_mb": 1646.14013671875,
+    "seq_loss": 1.2634658813476562,
+    "hybrid_loss": 1.2518119812011719
+  },
+  "d768_l8": {
+    "sequential_total_wall_ms": 6433.472781000091,
+    "hybrid_total_wall_ms": 201.89279400074156,
+    "hybrid_speedup_vs_sequential": 31.86578705219395,
+    "sequential_forward_ms": 1715.0719319997734,
+    "hybrid_forward_ms": 65.47483100075624,
+    "sequential_backward_ms": 4673.416609999549,
+    "hybrid_backward_ms": 96.74155999891809,
+    "hybrid_backward_recompute_ms": 29.124296000000015,
+    "sequential_peak_memory_mb": 2157.66357421875,
+    "hybrid_peak_memory_mb": 2155.2861328125,
+    "seq_loss": 1.2463798522949219,
+    "hybrid_loss": 1.2372055053710938
+  },
+  "d768_l12": {
+    "sequential_total_wall_ms": 9662.140274000194,
+    "hybrid_total_wall_ms": 288.16962400014745,
+    "hybrid_speedup_vs_sequential": 33.52935031762838,
+    "sequential_forward_ms": 2568.790371000432,
+    "hybrid_forward_ms": 95.86955399936414,
+    "sequential_backward_ms": 7034.7026429990365,
+    "hybrid_backward_ms": 141.8606510014797,
+    "hybrid_backward_recompute_ms": 45.39431100000003,
+    "sequential_peak_memory_mb": 2673.4326171875,
+    "hybrid_peak_memory_mb": 2669.0634765625,
+    "seq_loss": 1.2617607116699219,
+    "hybrid_loss": 1.2575263977050781
+  },
+  "short_runs": {
+    "d768_l12_hybrid_short": {
+      "elapsed_s": 39.04,
+      "final_loss": 9.3148,
+      "num_steps": 20
+    }
+  }
+}

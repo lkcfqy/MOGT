@@ -1,0 +1,104 @@
+{
+  "created_at": "2026-05-03T09:55:30.424874+00:00",
+  "status": "ok",
+  "model_type": "mogt",
+  "params": 557952,
+  "config": {
+    "model_type": "mogt",
+    "device": "cuda",
+    "dtype": "bf16",
+    "seed": 42,
+    "vocab_size": 256,
+    "d_model": 128,
+    "num_layers": 2,
+    "rank": 16,
+    "num_heads": 4,
+    "scan_impl": "triton_hybrid",
+    "connection_impl": "cayley",
+    "scan_block_size": 256,
+    "gradient_checkpointing": false,
+    "train_context": 128,
+    "eval_contexts": [
+      128,
+      256
+    ],
+    "eval_depths": [
+      0.5
+    ],
+    "train_min_depth": 0.05,
+    "train_max_depth": 0.95,
+    "num_pairs": 2,
+    "batch_size": 16,
+    "steps": 1000,
+    "eval_batches": 16,
+    "lr": 0.001,
+    "weight_decay": 0.1,
+    "grad_clip": 1.0,
+    "log_every": 200,
+    "output": "benchmark_runs/synthetic_recall_mogt_learnability_ctx128_seed42_steps1000.json"
+  },
+  "train_trace": [
+    {
+      "step": 1,
+      "loss": 5.5974531173706055,
+      "accuracy": 0.0,
+      "depth": 0.6254841186120954,
+      "grad_norm": 48.51019287109375
+    },
+    {
+      "step": 200,
+      "loss": 4.193303108215332,
+      "accuracy": 0.0,
+      "depth": 0.108828678934283,
+      "grad_norm": 2.763354539871216
+    },
+    {
+      "step": 400,
+      "loss": 4.121115684509277,
+      "accuracy": 0.0,
+      "depth": 0.13637841035543974,
+      "grad_norm": 3.1120381355285645
+    },
+    {
+      "step": 600,
+      "loss": 4.156338691711426,
+      "accuracy": 0.0,
+      "depth": 0.7582306531265279,
+      "grad_norm": 2.649108648300171
+    },
+    {
+      "step": 800,
+      "loss": 4.066051483154297,
+      "accuracy": 0.0,
+      "depth": 0.07797904433205517,
+      "grad_norm": 2.3482298851013184
+    },
+    {
+      "step": 1000,
+      "loss": 4.114474773406982,
+      "accuracy": 0.0,
+      "depth": 0.5473551902396717,
+      "grad_norm": 2.2601091861724854
+    }
+  ],
+  "eval_results": [
+    {
+      "context_length": 128,
+      "depth": 0.5,
+      "loss": 4.117942065000534,
+      "accuracy": 0.01171875,
+      "examples": 256,
+      "elapsed_s": 0.18545533799988334
+    },
+    {
+      "context_length": 256,
+      "depth": 0.5,
+      "loss": 4.1295850574970245,
+      "accuracy": 0.0234375,
+      "examples": 256,
+      "elapsed_s": 0.18454703200040967
+    }
+  ],
+  "train_elapsed_s": 24.83490946600068,
+  "peak_memory_mb": 83.09375
+}

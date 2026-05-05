@@ -1,0 +1,179 @@
+{
+  "config": {
+    "model_type": "hybrid_mogt_transformer",
+    "variant": "hybrid_layers3_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+    "run_name": "hybrid_scale_d192_l4_steps500_l3_ctx8192_seed123",
+    "context_length": 8192,
+    "d_model": 192,
+    "num_layers": 4,
+    "num_heads": 6,
+    "rank": 16,
+    "hybrid_pattern": "alternating",
+    "mogt_layer_fraction": null,
+    "mogt_layer_indices_requested": [
+      3
+    ],
+    "mogt_layer_count": 1,
+    "mogt_layer_indices": [
+      3
+    ],
+    "block_types": [
+      "transformer",
+      "transformer",
+      "transformer",
+      "mogt"
+    ],
+    "rope_theta": 10000.0,
+    "scan_impl": "triton_hybrid",
+    "connection_impl": "cayley",
+    "connection_damping": 0.999,
+    "scan_block_size": 256,
+    "zero_init_attention_out": true,
+    "vocab_size": 50257,
+    "parameter_count": 11396160,
+    "batch_size": 1,
+    "grad_accum_steps": 1,
+    "max_steps": 500,
+    "eval_interval": 250,
+    "eval_max_batches_requested": 8,
+    "seed": 123,
+    "lr": 0.0003,
+    "weight_decay": 0.01,
+    "loss_chunk_size": 4096,
+    "gradient_checkpointing": true,
+    "save_best": false,
+    "save_last": false,
+    "resume_from": null,
+    "amp_dtype": "bfloat16",
+    "attention": "torch.scaled_dot_product_attention_in_transformer_layers"
+  },
+  "result": {
+    "status": "ok",
+    "elapsed_s": 82.31164312362671,
+    "peak_memory_mb": 2589.64599609375,
+    "train_loss_final": 6.651484489440918,
+    "best_val": {
+      "loss": 6.447934865951538,
+      "ppl": 631.3970260041802,
+      "num_batches": 8
+    },
+    "checkpoint_dir": "baseline_checkpoints/hybrid_scale_d192_l4_steps500_l3_ctx8192_seed123",
+    "best_checkpoint": null,
+    "latest_checkpoint": null,
+    "last_checkpoint": null
+  },
+  "validation_trace": [
+    {
+      "step": 250,
+      "loss": 6.586511671543121,
+      "ppl": 725.2465540129879,
+      "num_batches": 8
+    },
+    {
+      "step": 500,
+      "loss": 6.447934865951538,
+      "ppl": 631.3970260041802,
+      "num_batches": 8
+    }
+  ],
+  "notes": [
+    "Hybrid MOGT/Transformer trained with the same GPT-2 tokenizer and WikiText-103 data pipeline as scratch baselines.",
+    "Transformer layers provide dense content mixing; MOGT layers test long-context state transport inside a model-level backbone.",
+    "This is a training-budget matched baseline, not a pretrained quality anchor."
+  ],
+  "standard_report": {
+    "schema_version": "mogt-experiment-v1",
+    "run_name": "hybrid_scale_d192_l4_steps500_l3_ctx8192_seed123",
+    "task": "language_modeling",
+    "model": "hybrid_mogt_transformer",
+    "variant": "hybrid_layers3_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+    "status": "ok",
+    "failure_reason": null,
+    "command": "train_budget_hybrid.py --run-name hybrid_scale_d192_l4_steps500_l3_ctx8192_seed123 --context-length 8192 --d-model 192 --num-layers 4 --num-heads 6 --rank 16 --seed 123 --mogt-layer-indices 3 --batch-size 1 --grad-accum-steps 1 --max-steps 500 --eval-interval 250 --eval-max-batches 8 --num-workers 0 --latest-checkpoint-interval 0 --zero-init-attention-out --no-save-best --no-save-last --report-output benchmark_runs/hybrid_scale_d192_l4_steps500_l3_ctx8192_seed123.json --checkpoint-dir baseline_checkpoints/hybrid_scale_d192_l4_steps500_l3_ctx8192_seed123",
+    "git_commit": "9d2f00afad246773f1bff7eaa01ca45b6f33fbd3",
+    "environment": {
+      "device": "cuda",
+      "gpu_name": "NVIDIA L4",
+      "torch_version": "2.9.1+cu129",
+      "cuda_available": true,
+      "amp_dtype": "bfloat16",
+      "peak_memory_mb": 2589.64599609375,
+      "elapsed_seconds": 82.31164312362671
+    },
+    "data": {
+      "dataset": "wikitext-103-raw-v1",
+      "tokenizer": "gpt2",
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "train_examples": null,
+      "eval_examples": null,
+      "tokens_seen": 4096000,
+      "eval_max_batches_requested": 8,
+      "loss_chunk_size": 4096
+    },
+    "model_config": {
+      "num_params": 11396160,
+      "d_model": 192,
+      "num_layers": 4,
+      "rank": 16,
+      "num_heads": 6,
+      "scan_impl": "triton_hybrid",
+      "connection_impl": "cayley",
+      "gate_config": null,
+      "attention": "torch.scaled_dot_product_attention_in_transformer_layers",
+      "gradient_checkpointing": true,
+      "hybrid_pattern": "alternating",
+      "mogt_layer_fraction": null,
+      "mogt_layer_count": 1,
+      "mogt_layer_indices_requested": [
+        3
+      ],
+      "mogt_layer_indices": [
+        3
+      ],
+      "block_types": [
+        "transformer",
+        "transformer",
+        "transformer",
+        "mogt"
+      ],
+      "zero_init_attention_out": true
+    },
+    "training": {
+      "seed": 123,
+      "steps": 500,
+      "batch_size": 1,
+      "grad_accum_steps": 1,
+      "optimizer": "AdamW",
+      "lr": 0.0003,
+      "weight_decay": 0.01,
+      "scheduler": "cosine_with_warmup"
+    },
+    "metrics": {
+      "loss": 6.447934865951538,
+      "ppl": 631.3970260041802,
+      "accuracy_by_context": {},
+      "loss_by_context": {
+        "8192": 6.447934865951538
+      },
+      "validation_trace": [
+        {
+          "step": 250,
+          "loss": 6.586511671543121,
+          "ppl": 725.2465540129879,
+          "num_batches": 8
+        },
+        {
+          "step": 500,
+          "loss": 6.447934865951538,
+          "ppl": 631.3970260041802,
+          "num_batches": 8
+        }
+      ],
+      "train_loss_final": 6.651484489440918
+    },
+    "notes": "Hybrid MOGT/Transformer budget-matched language-modeling run."
+  }
+}

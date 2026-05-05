@@ -1,0 +1,40 @@
+{
+  "config": {
+    "model_type": "scratch_transformer",
+    "run_name": "transformer_scratch_probe_ctx32768_seed42",
+    "context_length": 32768,
+    "d_model": 768,
+    "num_layers": 12,
+    "num_heads": 12,
+    "rope_theta": 10000.0,
+    "vocab_size": 50257,
+    "parameter_count": 123551232,
+    "batch_size": 1,
+    "grad_accum_steps": 1,
+    "max_steps": 1,
+    "eval_interval": 50,
+    "eval_max_batches_requested": 0,
+    "seed": 42,
+    "loss_chunk_size": 256,
+    "gradient_checkpointing": true,
+    "resume_from": null,
+    "amp_dtype": "bfloat16",
+    "attention": "torch.scaled_dot_product_attention"
+  },
+  "result": {
+    "status": "ok",
+    "elapsed_s": 5.612486124038696,
+    "train_loss_final": 11.031435012817383,
+    "best_val": null,
+    "checkpoint_dir": "baseline_checkpoints/transformer_scratch_probe_ctx32768_seed42",
+    "best_checkpoint": null,
+    "latest_checkpoint": null,
+    "last_checkpoint": "baseline_checkpoints/transformer_scratch_probe_ctx32768_seed42/last.pt"
+  },
+  "validation_trace": [],
+  "notes": [
+    "Scratch Transformer baseline trained with the same GPT-2 tokenizer and WikiText-103 data pipeline as MOGT.",
+    "This uses PyTorch scaled_dot_product_attention with a causal mask and RoPE positional encoding.",
+    "This is a training-budget matched baseline, not a pretrained quality anchor."
+  ]
+}

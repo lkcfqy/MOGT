@@ -1,0 +1,673 @@
+{
+  "created_at": "2026-05-04T20:17:23.218225+00:00",
+  "main": [
+    {
+      "model": "Gated MOGT",
+      "context_length": 128,
+      "mean_accuracy": 1.0,
+      "std_accuracy": 0.0,
+      "seeds": 3
+    },
+    {
+      "model": "Transformer RoPE",
+      "context_length": 128,
+      "mean_accuracy": 0.9947916666666666,
+      "std_accuracy": 0.002505664765354924,
+      "seeds": 3
+    },
+    {
+      "model": "Gated MOGT",
+      "context_length": 256,
+      "mean_accuracy": 0.9825846354166666,
+      "std_accuracy": 0.030164296290668923,
+      "seeds": 3
+    },
+    {
+      "model": "Transformer RoPE",
+      "context_length": 256,
+      "mean_accuracy": 0.7024739583333334,
+      "std_accuracy": 0.1367591434934457,
+      "seeds": 3
+    },
+    {
+      "model": "Gated MOGT",
+      "context_length": 512,
+      "mean_accuracy": 0.8948567708333334,
+      "std_accuracy": 0.15113415571969757,
+      "seeds": 3
+    },
+    {
+      "model": "Transformer RoPE",
+      "context_length": 512,
+      "mean_accuracy": 0.22884114583333334,
+      "std_accuracy": 0.08346086915369952,
+      "seeds": 3
+    },
+    {
+      "model": "Gated MOGT",
+      "context_length": 1024,
+      "mean_accuracy": 0.6971028645833334,
+      "std_accuracy": 0.18686717583683002,
+      "seeds": 3
+    },
+    {
+      "model": "Transformer RoPE",
+      "context_length": 1024,
+      "mean_accuracy": 0.10514322916666667,
+      "std_accuracy": 0.012394395418942659,
+      "seeds": 3
+    }
+  ],
+  "individual_1024": [
+    {
+      "model": "Gated MOGT",
+      "seed": 7,
+      "accuracy_1024": 0.4912109375,
+      "loss_1024": 3.738573171198368,
+      "path": "benchmark_runs/synthetic_last_value_mogt_gated_ctx128_seed7_steps2000.json"
+    },
+    {
+      "model": "Gated MOGT",
+      "seed": 42,
+      "accuracy_1024": 0.85595703125,
+      "loss_1024": 1.356888729147613,
+      "path": "benchmark_runs/synthetic_last_value_mogt_gated_ctx128_seed42_steps2000.json"
+    },
+    {
+      "model": "Gated MOGT",
+      "seed": 123,
+      "accuracy_1024": 0.744140625,
+      "loss_1024": 3.0351185761392117,
+      "path": "benchmark_runs/synthetic_last_value_mogt_gated_ctx128_seed123_steps2000.json"
+    },
+    {
+      "model": "Transformer RoPE",
+      "seed": 7,
+      "accuracy_1024": 0.115234375,
+      "loss_1024": 7.7954921424388885,
+      "path": "benchmark_runs/synthetic_last_value_transformer_ctx128_seed7_steps2000.json"
+    },
+    {
+      "model": "Transformer RoPE",
+      "seed": 42,
+      "accuracy_1024": 0.10888671875,
+      "loss_1024": 4.1543134823441505,
+      "path": "benchmark_runs/synthetic_last_value_transformer_ctx128_seed42_steps2000.json"
+    },
+    {
+      "model": "Transformer RoPE",
+      "seed": 123,
+      "accuracy_1024": 0.09130859375,
+      "loss_1024": 5.34612862765789,
+      "path": "benchmark_runs/synthetic_last_value_transformer_ctx128_seed123_steps2000.json"
+    }
+  ],
+  "nope": [
+    {
+      "context_length": 128,
+      "mean_accuracy": 0.9765625,
+      "std_accuracy": 0.0,
+      "seeds": 3
+    },
+    {
+      "context_length": 256,
+      "mean_accuracy": 0.9817708333333334,
+      "std_accuracy": 0.011933790872280834,
+      "seeds": 3
+    },
+    {
+      "context_length": 512,
+      "mean_accuracy": 0.9270833333333334,
+      "std_accuracy": 0.0797997575314821,
+      "seeds": 3
+    },
+    {
+      "context_length": 1024,
+      "mean_accuracy": 0.6536458333333334,
+      "std_accuracy": 0.12410158914004016,
+      "seeds": 3
+    },
+    {
+      "context_length": 2048,
+      "mean_accuracy": 0.3723958333333333,
+      "std_accuracy": 0.14433756729740643,
+      "seeds": 3
+    },
+    {
+      "context_length": 4096,
+      "mean_accuracy": 0.12239583333333333,
+      "std_accuracy": 0.11112806402787431,
+      "seeds": 3
+    }
+  ],
+  "matched_nope": [
+    {
+      "context_length": 128,
+      "mean_accuracy": 0.99072265625,
+      "std_accuracy": 0.003201874279444336,
+      "seeds": 3,
+      "examples_per_seed": [
+        2048,
+        2048,
+        2048
+      ]
+    },
+    {
+      "context_length": 256,
+      "mean_accuracy": 0.98095703125,
+      "std_accuracy": 0.00845727933383241,
+      "seeds": 3,
+      "examples_per_seed": [
+        2048,
+        2048,
+        2048
+      ]
+    },
+    {
+      "context_length": 512,
+      "mean_accuracy": 0.9147135416666666,
+      "std_accuracy": 0.05797470295270539,
+      "seeds": 3,
+      "examples_per_seed": [
+        2048,
+        2048,
+        2048
+      ]
+    },
+    {
+      "context_length": 1024,
+      "mean_accuracy": 0.6863606770833334,
+      "std_accuracy": 0.1551169960893692,
+      "seeds": 3,
+      "examples_per_seed": [
+        2048,
+        2048,
+        2048
+      ]
+    }
+  ],
+  "extended_seed42": [
+    {
+      "model": "Gated MOGT",
+      "path": "benchmark_runs/synthetic_last_value_mogt_gated_ctx128_seed42_steps2000_eval8192.json",
+      "examples": {
+        "128": 64,
+        "1024": 64,
+        "2048": 64,
+        "4096": 64,
+        "8192": 64
+      },
+      "accuracy": {
+        "128": 1.0,
+        "1024": 0.828125,
+        "2048": 0.671875,
+        "4096": 0.34375,
+        "8192": 0.21875
+      }
+    },
+    {
+      "model": "Transformer RoPE",
+      "path": "benchmark_runs/synthetic_last_value_transformer_ctx128_seed42_steps2000_eval8192.json",
+      "examples": {
+        "128": 64,
+        "1024": 64,
+        "2048": 64,
+        "4096": 64,
+        "8192": 64
+      },
+      "accuracy": {
+        "128": 1.0,
+        "1024": 0.03125,
+        "2048": 0.09375,
+        "4096": 0.046875,
+        "8192": 0.046875
+      }
+    },
+    {
+      "model": "Transformer RoPE theta=1e6",
+      "path": "benchmark_runs/synthetic_last_value_transformer_rope1e6_ctx128_seed42_steps2000.json",
+      "examples": {
+        "128": 128,
+        "256": 128,
+        "512": 128,
+        "1024": 128,
+        "2048": 128,
+        "4096": 128
+      },
+      "accuracy": {
+        "128": 0.9921875,
+        "256": 0.6171875,
+        "512": 0.2890625,
+        "1024": 0.0859375,
+        "2048": 0.0859375,
+        "4096": 0.0390625
+      }
+    },
+    {
+      "model": "Transformer NoPE",
+      "path": "benchmark_runs/synthetic_last_value_transformer_nope_ctx128_seed42_steps2000.json",
+      "examples": {
+        "128": 128,
+        "256": 128,
+        "512": 128,
+        "1024": 128,
+        "2048": 128,
+        "4096": 128
+      },
+      "accuracy": {
+        "128": 0.9765625,
+        "256": 0.984375,
+        "512": 0.9609375,
+        "1024": 0.578125,
+        "2048": 0.2890625,
+        "4096": 0.0703125
+      }
+    }
+  ],
+  "ablations": [
+    {
+      "variant": "MOGT, hybrid, 500 steps",
+      "params": 541568,
+      "train_elapsed_s": 16.82946393700331,
+      "peak_memory_mb": 542.92529296875,
+      "acc_128": 0.0654296875,
+      "acc_256": 0.0556640625,
+      "acc_512": 0.06884765625,
+      "acc_1024": 0.06640625,
+      "path": "benchmark_runs/synthetic_last_value_mogt_ctx128_seed42_steps500.json"
+    },
+    {
+      "variant": "MOGT, sequential, 500 steps",
+      "params": 541568,
+      "train_elapsed_s": 51.52649309999833,
+      "peak_memory_mb": 250.65478515625,
+      "acc_128": 0.05859375,
+      "acc_256": 0.056640625,
+      "acc_512": null,
+      "acc_1024": null,
+      "path": "benchmark_runs/synthetic_last_value_mogt_sequential_ctx128_seed42_steps500.json"
+    },
+    {
+      "variant": "Gated MOGT, 500 steps",
+      "params": 541826,
+      "train_elapsed_s": 17.597441890000482,
+      "peak_memory_mb": 542.93408203125,
+      "acc_128": 0.1318359375,
+      "acc_256": 0.10791015625,
+      "acc_512": 0.09033203125,
+      "acc_1024": 0.08740234375,
+      "path": "benchmark_runs/synthetic_last_value_mogt_gated_ctx128_seed42_steps500.json"
+    },
+    {
+      "variant": "Gated MOGT, 2000 steps",
+      "params": 541826,
+      "train_elapsed_s": 63.891821323999466,
+      "peak_memory_mb": 542.93408203125,
+      "acc_128": 1.0,
+      "acc_256": 1.0,
+      "acc_512": 0.99658203125,
+      "acc_1024": 0.85595703125,
+      "path": "benchmark_runs/synthetic_last_value_mogt_gated_ctx128_seed42_steps2000.json"
+    },
+    {
+      "variant": "Transformer RoPE, 2000 steps",
+      "params": 541312,
+      "train_elapsed_s": 42.876520704998256,
+      "peak_memory_mb": 313.98193359375,
+      "acc_128": 0.99755859375,
+      "acc_256": 0.79052734375,
+      "acc_512": 0.32470703125,
+      "acc_1024": 0.10888671875,
+      "path": "benchmark_runs/synthetic_last_value_transformer_ctx128_seed42_steps2000.json"
+    },
+    {
+      "variant": "Transformer NoPE, 2000 steps",
+      "params": 541312,
+      "train_elapsed_s": 38.99118880599781,
+      "peak_memory_mb": 175.9970703125,
+      "acc_128": 0.9765625,
+      "acc_256": 0.984375,
+      "acc_512": 0.9609375,
+      "acc_1024": 0.578125,
+      "path": "benchmark_runs/synthetic_last_value_transformer_nope_ctx128_seed42_steps2000.json"
+    }
+  ],
+  "scale512": [
+    {
+      "variant": "Gated MOGT direct train512",
+      "path": "benchmark_runs/synthetic_last_value_mogt_gated_ctx512_seed42_steps2000.json",
+      "train_elapsed_s": 61.529005521002546,
+      "peak_memory_mb": 522.2177734375,
+      "accuracy": {
+        "512": 0.125,
+        "1024": 0.078125,
+        "2048": 0.03125,
+        "4096": 0.109375,
+        "8192": 0.0625
+      }
+    },
+    {
+      "variant": "Gated MOGT curriculum to 512",
+      "path": "benchmark_runs/synthetic_last_value_mogt_gated_curriculum_ctx512_seed42_steps3000.json",
+      "train_elapsed_s": 81.42416672900072,
+      "peak_memory_mb": 522.2177734375,
+      "accuracy": {
+        "128": 0.515625,
+        "512": 0.390625,
+        "1024": 0.34375,
+        "2048": 0.0625,
+        "4096": 0.171875,
+        "8192": 0.0625
+      }
+    },
+    {
+      "variant": "MOGT Cayley dual-gate dense train512",
+      "path": "benchmark_runs/synthetic_last_value_mogt_dualgate_dense_ctx512_seed42_steps2000.json",
+      "train_elapsed_s": 69.50998562899986,
+      "peak_memory_mb": 762.78564453125,
+      "accuracy": {
+        "512": 1.0,
+        "1024": 1.0,
+        "2048": 0.796875,
+        "4096": 0.609375,
+        "8192": 0.40625
+      }
+    },
+    {
+      "variant": "MOGT identity dual-gate dense train512, 400 steps",
+      "path": "benchmark_runs/synthetic_last_value_mogt_identity_dualgate_dense_ctx512_seed42_steps400.json",
+      "train_elapsed_s": 15.08956721800132,
+      "peak_memory_mb": 604.7216796875,
+      "accuracy": {
+        "512": 1.0,
+        "1024": 0.828125,
+        "2048": 0.5625,
+        "4096": 0.3125,
+        "8192": 0.21875
+      }
+    },
+    {
+      "variant": "MOGT identity dual-gate dense train512, 2000 steps",
+      "path": "benchmark_runs/synthetic_last_value_mogt_identity_dualgate_dense_ctx512_seed42_steps2000.json",
+      "train_elapsed_s": 62.4311879779998,
+      "peak_memory_mb": 605.9326171875,
+      "accuracy": {
+        "512": 1.0,
+        "1024": 1.0,
+        "2048": 1.0,
+        "4096": 0.78125,
+        "8192": 0.546875
+      }
+    },
+    {
+      "variant": "MOGT identity dual-gate keep12 dense train512",
+      "path": "benchmark_runs/synthetic_last_value_mogt_identity_dualgate_keep12_dense_ctx512_seed42_steps1000.json",
+      "train_elapsed_s": 32.23011880500053,
+      "peak_memory_mb": 605.92626953125,
+      "accuracy": {
+        "512": 1.0,
+        "1024": 0.96875,
+        "2048": 0.875,
+        "4096": 0.46875,
+        "8192": 0.375
+      }
+    },
+    {
+      "variant": "MOGT identity dual-gate damp1.0002 dense train512",
+      "path": "benchmark_runs/synthetic_last_value_mogt_identity_dualgate_damp10002_dense_ctx512_seed42_steps1000.json",
+      "train_elapsed_s": 32.330818077,
+      "peak_memory_mb": 605.92626953125,
+      "accuracy": {
+        "512": 1.0,
+        "1024": 0.890625,
+        "2048": 0.703125,
+        "4096": 0.359375,
+        "8192": 0.3125
+      }
+    },
+    {
+      "variant": "MOGT identity value-gate-only dense train512",
+      "path": "benchmark_runs/synthetic_last_value_mogt_identity_valuegate_only_dense_ctx512_seed42_steps2000.json",
+      "train_elapsed_s": 55.76118531400061,
+      "peak_memory_mb": 545.44189453125,
+      "accuracy": {
+        "512": 0.875,
+        "1024": 0.921875,
+        "2048": 0.640625,
+        "4096": 0.484375,
+        "8192": 0.25
+      }
+    },
+    {
+      "variant": "MOGT identity coupled write-forget dense train512",
+      "path": "benchmark_runs/synthetic_last_value_mogt_identity_coupled_value_forget_dense_ctx512_seed42_steps2000.json",
+      "train_elapsed_s": 60.488635993999196,
+      "peak_memory_mb": 593.52392578125,
+      "accuracy": {
+        "512": 1.0,
+        "1024": 1.0,
+        "2048": 1.0,
+        "4096": 1.0,
+        "8192": 1.0
+      }
+    },
+    {
+      "variant": "MOGT identity forget-ReLU dual-gate dense train512",
+      "path": "benchmark_runs/synthetic_last_value_mogt_identity_forgetrelu_dualgate_dense_ctx512_seed42_steps1000.json",
+      "train_elapsed_s": 32.79974527499871,
+      "peak_memory_mb": 606.17626953125,
+      "accuracy": {
+        "512": 0.875,
+        "1024": 0.859375,
+        "2048": 0.6875,
+        "4096": 0.34375,
+        "8192": 0.046875
+      }
+    },
+    {
+      "variant": "MOGT identity residual transport-gate dense train512",
+      "path": "benchmark_runs/synthetic_last_value_mogt_identity_resgate_dualgate_dense_ctx512_seed42_steps1000.json",
+      "train_elapsed_s": 32.40621284700319,
+      "peak_memory_mb": 605.98876953125,
+      "accuracy": {
+        "512": 0.0,
+        "1024": 0.0,
+        "2048": 0.0,
+        "4096": 0.0,
+        "8192": 0.0
+      }
+    },
+    {
+      "variant": "Transformer NoPE dense train512, 400 steps",
+      "path": "benchmark_runs/synthetic_last_value_transformer_nope_dense_ctx512_seed42_steps400.json",
+      "train_elapsed_s": 8.153428436999093,
+      "peak_memory_mb": 438.5732421875,
+      "accuracy": {
+        "512": 0.890625,
+        "1024": 0.765625,
+        "2048": 0.765625,
+        "4096": 0.765625,
+        "8192": 0.484375
+      }
+    },
+    {
+      "variant": "Transformer NoPE dense train512, 2000 steps",
+      "path": "benchmark_runs/synthetic_last_value_transformer_nope_dense_ctx512_seed42_steps2000.json",
+      "train_elapsed_s": 29.477562149000732,
+      "peak_memory_mb": 438.68603515625,
+      "accuracy": {
+        "512": 0.984375,
+        "1024": 1.0,
+        "2048": 0.96875,
+        "4096": 0.890625,
+        "8192": 0.828125
+      }
+    },
+    {
+      "variant": "Transformer NoPE direct train512",
+      "path": "benchmark_runs/synthetic_last_value_transformer_nope_ctx512_seed42_steps2000.json",
+      "train_elapsed_s": 27.494062623998616,
+      "peak_memory_mb": 328.4580078125,
+      "accuracy": {
+        "512": 1.0,
+        "1024": 0.96875,
+        "2048": 0.90625,
+        "4096": 0.59375,
+        "8192": 0.328125
+      }
+    }
+  ],
+  "coupled_long_probe": {
+    "path": "benchmark_runs/synthetic_last_value_mogt_identity_coupled_value_forget_dense_ctx512_seed42_steps2000_eval65536.json",
+    "examples": {
+      "512": 16,
+      "8192": 16,
+      "16384": 16,
+      "32768": 16,
+      "65536": 16
+    },
+    "accuracy": {
+      "512": 1.0,
+      "8192": 1.0,
+      "16384": 1.0,
+      "32768": 1.0,
+      "65536": 1.0
+    },
+    "peak_memory_mb": 1234.35986328125,
+    "train_elapsed_s": 60.426601480998215
+  },
+  "gate_diagnostics": {
+    "path": "benchmark_runs/synthetic_last_value_mogt_identity_coupled_value_forget_dense_ctx512_seed42_steps2000.json",
+    "diagnostics": [
+      {
+        "block": 0,
+        "couple_forget_to_value_gate": true,
+        "value_gate_width": "scalar",
+        "mean_gate": {
+          "set": 1.0065940614367719e-06,
+          "query": 8.768408861214994e-07,
+          "value": 0.8883420825004578,
+          "filler": 1.3201912452132092e-06
+        }
+      },
+      {
+        "block": 1,
+        "couple_forget_to_value_gate": true,
+        "value_gate_width": "scalar",
+        "mean_gate": {
+          "set": 0.42149239778518677,
+          "query": 0.3755888342857361,
+          "value": 0.26965799927711487,
+          "filler": 0.3926078677177429
+        }
+      }
+    ]
+  },
+  "train512_dense": [
+    {
+      "model": "MOGT coupled write-forget dense",
+      "context_length": 512,
+      "mean_accuracy": 1.0,
+      "std_accuracy": 0.0,
+      "seeds": 3
+    },
+    {
+      "model": "MOGT identity dual-gate dense",
+      "context_length": 512,
+      "mean_accuracy": 1.0,
+      "std_accuracy": 0.0,
+      "seeds": 3
+    },
+    {
+      "model": "Transformer NoPE dense",
+      "context_length": 512,
+      "mean_accuracy": 0.9739583333333334,
+      "std_accuracy": 0.009021097956087904,
+      "seeds": 3
+    },
+    {
+      "model": "MOGT coupled write-forget dense",
+      "context_length": 1024,
+      "mean_accuracy": 1.0,
+      "std_accuracy": 0.0,
+      "seeds": 3
+    },
+    {
+      "model": "MOGT identity dual-gate dense",
+      "context_length": 1024,
+      "mean_accuracy": 1.0,
+      "std_accuracy": 0.0,
+      "seeds": 3
+    },
+    {
+      "model": "Transformer NoPE dense",
+      "context_length": 1024,
+      "mean_accuracy": 0.984375,
+      "std_accuracy": 0.015625,
+      "seeds": 3
+    },
+    {
+      "model": "MOGT coupled write-forget dense",
+      "context_length": 2048,
+      "mean_accuracy": 1.0,
+      "std_accuracy": 0.0,
+      "seeds": 3
+    },
+    {
+      "model": "MOGT identity dual-gate dense",
+      "context_length": 2048,
+      "mean_accuracy": 0.9427083333333334,
+      "std_accuracy": 0.08605578980134534,
+      "seeds": 3
+    },
+    {
+      "model": "Transformer NoPE dense",
+      "context_length": 2048,
+      "mean_accuracy": 0.953125,
+      "std_accuracy": 0.027063293868263706,
+      "seeds": 3
+    },
+    {
+      "model": "MOGT coupled write-forget dense",
+      "context_length": 4096,
+      "mean_accuracy": 1.0,
+      "std_accuracy": 0.0,
+      "seeds": 3
+    },
+    {
+      "model": "MOGT identity dual-gate dense",
+      "context_length": 4096,
+      "mean_accuracy": 0.7083333333333334,
+      "std_accuracy": 0.07045702738785772,
+      "seeds": 3
+    },
+    {
+      "model": "Transformer NoPE dense",
+      "context_length": 4096,
+      "mean_accuracy": 0.9010416666666666,
+      "std_accuracy": 0.05487319662944135,
+      "seeds": 3
+    },
+    {
+      "model": "MOGT coupled write-forget dense",
+      "context_length": 8192,
+      "mean_accuracy": 1.0,
+      "std_accuracy": 0.0,
+      "seeds": 3
+    },
+    {
+      "model": "MOGT identity dual-gate dense",
+      "context_length": 8192,
+      "mean_accuracy": 0.4739583333333333,
+      "std_accuracy": 0.08884751098558323,
+      "seeds": 3
+    },
+    {
+      "model": "Transformer NoPE dense",
+      "context_length": 8192,
+      "mean_accuracy": 0.7864583333333334,
+      "std_accuracy": 0.12629537138523064,
+      "seeds": 3
+    }
+  ]
+}

@@ -1,0 +1,170 @@
+{
+  "created_at": "2026-05-03T15:10:01.393061+00:00",
+  "status": "ok",
+  "task": "tracked_multislot_last_value",
+  "model_type": "mogt",
+  "params": 557984,
+  "config": {
+    "model_type": "mogt",
+    "device": "cuda",
+    "dtype": "bf16",
+    "seed": 42,
+    "vocab_size": 160,
+    "d_model": 128,
+    "num_layers": 2,
+    "rank": 16,
+    "num_heads": 4,
+    "rope_theta": 10000.0,
+    "scan_impl": "triton_hybrid",
+    "connection_impl": "identity",
+    "connection_damping": 1.0,
+    "scan_block_size": 256,
+    "readout_init_std": 0.02,
+    "transport_gate": false,
+    "transport_gate_mode": "multiply",
+    "transport_gate_width": "scalar",
+    "transport_gate_scale": 1.0,
+    "transport_gate_bias": 2.0,
+    "value_gate": true,
+    "value_gate_width": "rank",
+    "value_gate_input": "current_prev_prefix",
+    "value_gate_bias": -2.0,
+    "couple_forget_to_value_gate": true,
+    "prefix_condition_position": 1,
+    "gradient_checkpointing": false,
+    "train_context": 512,
+    "eval_contexts": [
+      512,
+      1024,
+      2048,
+      4096
+    ],
+    "num_slots": 4,
+    "num_values": 16,
+    "min_updates": 4,
+    "max_updates": 12,
+    "batch_size": 16,
+    "eval_batch_size": 4,
+    "steps": 3000,
+    "eval_batches": 16,
+    "dense_loss": false,
+    "lr": 0.001,
+    "weight_decay": 0.1,
+    "grad_clip": 1.0,
+    "log_every": 500,
+    "output": "benchmark_runs/synthetic_multislot4_mogt_slotaddr_coupled_rank_finalonly_ctx512_seed42_steps3000.json"
+  },
+  "train_trace": [
+    {
+      "step": 1,
+      "loss": 5.036011695861816,
+      "accuracy": 0.0,
+      "dense_accuracy": null,
+      "grad_norm": 6.68718957901001
+    },
+    {
+      "step": 500,
+      "loss": 2.839965581893921,
+      "accuracy": 0.0625,
+      "dense_accuracy": null,
+      "grad_norm": 3.042360782623291
+    },
+    {
+      "step": 1000,
+      "loss": 2.4941463470458984,
+      "accuracy": 0.375,
+      "dense_accuracy": null,
+      "grad_norm": 4.166815757751465
+    },
+    {
+      "step": 1500,
+      "loss": 2.4138615131378174,
+      "accuracy": 0.125,
+      "dense_accuracy": null,
+      "grad_norm": 3.9401657581329346
+    },
+    {
+      "step": 2000,
+      "loss": 1.921461820602417,
+      "accuracy": 0.25,
+      "dense_accuracy": null,
+      "grad_norm": 4.354039192199707
+    },
+    {
+      "step": 2500,
+      "loss": 1.439148187637329,
+      "accuracy": 0.4375,
+      "dense_accuracy": null,
+      "grad_norm": 5.245790004730225
+    },
+    {
+      "step": 3000,
+      "loss": 1.4735357761383057,
+      "accuracy": 0.375,
+      "dense_accuracy": null,
+      "grad_norm": 3.601767063140869
+    }
+  ],
+  "eval_results": [
+    {
+      "context_length": 512,
+      "loss": 1.258072467520833,
+      "accuracy": 0.5625,
+      "examples": 64,
+      "elapsed_s": 0.142912431001605
+    },
+    {
+      "context_length": 1024,
+      "loss": 1.3660327636171132,
+      "accuracy": 0.453125,
+      "examples": 64,
+      "elapsed_s": 0.14817547999700764
+    },
+    {
+      "context_length": 2048,
+      "loss": 1.2405563443899155,
+      "accuracy": 0.5625,
+      "examples": 64,
+      "elapsed_s": 0.17256853800063254
+    },
+    {
+      "context_length": 4096,
+      "loss": 1.2634727079421282,
+      "accuracy": 0.53125,
+      "examples": 64,
+      "elapsed_s": 0.2086954250044073
+    }
+  ],
+  "gate_diagnostics": [
+    {
+      "block": 0,
+      "couple_forget_to_value_gate": true,
+      "value_gate_width": "rank",
+      "value_gate_input_mode": "current_prev_prefix",
+      "mean_gate": {
+        "matched_value": 0.14938142895698547,
+        "unmatched_value": 0.1154603660106659,
+        "set": 0.06948697566986084,
+        "query": 0.10260455310344696,
+        "slot": 0.08501560986042023,
+        "filler": 0.06923902779817581
+      }
+    },
+    {
+      "block": 1,
+      "couple_forget_to_value_gate": true,
+      "value_gate_width": "rank",
+      "value_gate_input_mode": "current_prev_prefix",
+      "mean_gate": {
+        "matched_value": 0.00419209199026227,
+        "unmatched_value": 0.004315078258514404,
+        "set": 0.004402336198836565,
+        "query": 0.00253086956217885,
+        "slot": 0.003827896201983094,
+        "filler": 0.00474614929407835
+      }
+    }
+  ],
+  "train_elapsed_s": 173.35874039900227,
+  "peak_memory_mb": 244.4208984375
+}

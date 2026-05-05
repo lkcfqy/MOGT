@@ -1,0 +1,175 @@
+{
+  "model": "Scratch Mamba SSM",
+  "protocol": {
+    "dataset": "WikiText-103 raw v1",
+    "tokenizer": "GPT-2 stream",
+    "context_length": 32768,
+    "batch_size": 1,
+    "grad_accum_steps": 8,
+    "max_steps": 200,
+    "eval_interval": 50,
+    "eval_max_batches_requested": 10,
+    "eval_batches_available": 5,
+    "d_model": 768,
+    "num_layers": 24,
+    "parameter_count": 129123072
+  },
+  "per_seed": [
+    {
+      "seed": 42,
+      "source": "benchmark_runs/mamba_scratch_budget_v1_ctx32768_seed42.json",
+      "parameter_count": 129123072,
+      "context_length": 32768,
+      "max_steps": 200,
+      "best_val_loss": 9.52012367248535,
+      "best_val_ppl": 13631.296926141602,
+      "best_val_batches": 5,
+      "final_val_loss": 9.524034118652343,
+      "final_val_ppl": 13684.705737038716,
+      "final_val_batches": 5,
+      "final_train_loss": 9.515275001525879,
+      "validation_trace": [
+        {
+          "step": 100,
+          "loss": 9.524004364013672,
+          "ppl": 13684.298559621928,
+          "num_batches": 5
+        },
+        {
+          "step": 150,
+          "loss": 9.524198532104492,
+          "ppl": 13686.95587172172,
+          "num_batches": 5
+        },
+        {
+          "step": 200,
+          "loss": 9.524034118652343,
+          "ppl": 13684.705737038716,
+          "num_batches": 5
+        }
+      ]
+    },
+    {
+      "seed": 7,
+      "source": "benchmark_runs/mamba_scratch_budget_v1_ctx32768_seed7.json",
+      "parameter_count": 129123072,
+      "context_length": 32768,
+      "max_steps": 200,
+      "best_val_loss": 9.709749603271485,
+      "best_val_ppl": 16477.47545422159,
+      "best_val_batches": 5,
+      "final_val_loss": 9.71602840423584,
+      "final_val_ppl": 16581.259722415296,
+      "final_val_batches": 5,
+      "final_train_loss": 9.639923095703125,
+      "validation_trace": [
+        {
+          "step": 50,
+          "loss": 9.709749603271485,
+          "ppl": 16477.47545422159,
+          "num_batches": 5
+        },
+        {
+          "step": 100,
+          "loss": 9.71594409942627,
+          "ppl": 16579.86190139433,
+          "num_batches": 5
+        },
+        {
+          "step": 150,
+          "loss": 9.715864562988282,
+          "ppl": 16578.543250677434,
+          "num_batches": 5
+        },
+        {
+          "step": 200,
+          "loss": 9.71602840423584,
+          "ppl": 16581.259722415296,
+          "num_batches": 5
+        }
+      ]
+    },
+    {
+      "seed": 123,
+      "source": "benchmark_runs/mamba_scratch_budget_v1_ctx32768_seed123.json",
+      "parameter_count": 129123072,
+      "context_length": 32768,
+      "max_steps": 200,
+      "best_val_loss": 9.62038059234619,
+      "best_val_ppl": 15068.783911004948,
+      "best_val_batches": 5,
+      "final_val_loss": 9.626582908630372,
+      "final_val_ppl": 15162.535713461988,
+      "final_val_batches": 5,
+      "final_train_loss": 9.626873016357422,
+      "validation_trace": [
+        {
+          "step": 50,
+          "loss": 9.62038059234619,
+          "ppl": 15068.783911004948,
+          "num_batches": 5
+        },
+        {
+          "step": 100,
+          "loss": 9.626370048522949,
+          "ppl": 15159.308557959735,
+          "num_batches": 5
+        },
+        {
+          "step": 150,
+          "loss": 9.626655197143554,
+          "ppl": 15163.63183024264,
+          "num_batches": 5
+        },
+        {
+          "step": 200,
+          "loss": 9.626582908630372,
+          "ppl": 15162.535713461988,
+          "num_batches": 5
+        }
+      ]
+    }
+  ],
+  "aggregates": {
+    "best_val_loss": {
+      "mean": 9.616751289367675,
+      "std": 0.09486504776106584,
+      "values": [
+        9.52012367248535,
+        9.709749603271485,
+        9.62038059234619
+      ]
+    },
+    "best_val_ppl": {
+      "mean": 15059.185430456046,
+      "std": 1423.1135413407906,
+      "values": [
+        13631.296926141602,
+        16477.47545422159,
+        15068.783911004948
+      ]
+    },
+    "final_val_loss": {
+      "mean": 9.622215143839519,
+      "std": 0.0960716370794752,
+      "values": [
+        9.524034118652343,
+        9.71602840423584,
+        9.626582908630372
+      ]
+    },
+    "final_val_ppl": {
+      "mean": 15142.833724305334,
+      "std": 1448.3774970057993,
+      "values": [
+        13684.705737038716,
+        16581.259722415296,
+        15162.535713461988
+      ]
+    }
+  },
+  "notes": [
+    "Training-budget-matched scratch baseline for MOGT baseline_v1.",
+    "Seed 42 final report resumed from the step-50 best checkpoint after the first run was interrupted near step 190."
+  ]
+}

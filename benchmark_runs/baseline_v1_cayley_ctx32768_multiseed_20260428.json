@@ -1,0 +1,107 @@
+{
+  "config": {
+    "run_preset": "baseline_v1",
+    "context_length": 32768,
+    "d_model": 768,
+    "num_layers": 12,
+    "rank": 16,
+    "batch_size": 1,
+    "grad_accum_steps": 8,
+    "max_global_steps": 200,
+    "eval_interval": 50,
+    "eval_max_batches_requested": 10,
+    "eval_batches_actual": 5,
+    "scan_impl": "triton_hybrid",
+    "carry_scan": "doubling",
+    "connection_impl": "cayley",
+    "connection_damping": 0.999,
+    "num_seeds": 3,
+    "seeds": [42, 7, 123]
+  },
+  "aggregate": {
+    "best_val_loss_mean": 6.406648069763183,
+    "best_val_loss_sample_std": 0.08778598475267047,
+    "best_val_loss_min": 6.340744209289551,
+    "best_val_loss_max": 6.5063,
+    "best_val_ppl_mean": 607.4494278200347,
+    "best_val_ppl_sample_std": 54.41259741440568,
+    "best_val_ppl_min": 567.218283460104,
+    "best_val_ppl_max": 669.36,
+    "train_loss_step200_mean": 6.4513069391886395,
+    "train_loss_step200_sample_std": 0.09489863451644706
+  },
+  "runs": [
+    {
+      "seed": 42,
+      "run_date": "2026-04-28",
+      "train_loss_step200": 6.381220817565918,
+      "best_val_step": 200,
+      "best_val_loss": 6.340744209289551,
+      "best_val_ppl": 567.218283460104,
+      "best_val_batches": 5,
+      "elapsed_s": 3961.47,
+      "best_checkpoint": "mogt_checkpoints/baseline_v1_cayley_ctx32768_seed42/mogt_best.pt",
+      "last_checkpoint": "mogt_checkpoints/baseline_v1_cayley_ctx32768_seed42/mogt_ckpt_e0_s1599.pt",
+      "log": "train_baseline_v1_cayley_ctx32768_seed42_20260428.log",
+      "source": "benchmark_runs/baseline_v1_cayley_ctx32768_seed42_20260428.json"
+    },
+    {
+      "seed": 7,
+      "run_date": "2026-04-28",
+      "train_loss_step200": 6.4134,
+      "best_val_step": 200,
+      "best_val_loss": 6.3729,
+      "best_val_ppl": 585.77,
+      "best_val_batches": 5,
+      "elapsed_s": null,
+      "best_checkpoint": "mogt_checkpoints/baseline_v1_cayley_ctx32768_seed7/mogt_best.pt",
+      "last_checkpoint": "mogt_checkpoints/baseline_v1_cayley_ctx32768_seed7/mogt_ckpt_e0_s1599.pt",
+      "log": "train_baseline_v1_cayley_ctx32768_seed7_20260428.log",
+      "source": "log"
+    },
+    {
+      "seed": 123,
+      "run_date": "2026-04-28",
+      "train_loss_step200": 6.5593,
+      "best_val_step": 200,
+      "best_val_loss": 6.5063,
+      "best_val_ppl": 669.36,
+      "best_val_batches": 5,
+      "elapsed_s": null,
+      "best_checkpoint": "mogt_checkpoints/baseline_v1_cayley_ctx32768_seed123/mogt_best.pt",
+      "last_checkpoint": "mogt_checkpoints/baseline_v1_cayley_ctx32768_seed123/mogt_ckpt_e0_s1599.pt",
+      "log": "train_baseline_v1_cayley_ctx32768_seed123_20260428.log",
+      "source": "log"
+    }
+  ],
+  "validation_traces": {
+    "42": [
+      {"step": 50, "val_loss": 7.3687, "val_ppl": 1585.51, "batches": 5},
+      {"step": 100, "val_loss": 6.9336, "val_ppl": 1026.16, "batches": 5},
+      {"step": 150, "val_loss": 6.5821, "val_ppl": 722.07, "batches": 5},
+      {"step": 200, "val_loss": 6.3407, "val_ppl": 567.22, "batches": 5}
+    ],
+    "7": [
+      {"step": 50, "val_loss": 7.2553, "val_ppl": 1415.54, "batches": 5},
+      {"step": 100, "val_loss": 6.8759, "val_ppl": 968.62, "batches": 5},
+      {"step": 150, "val_loss": 6.5941, "val_ppl": 730.74, "batches": 5},
+      {"step": 200, "val_loss": 6.3729, "val_ppl": 585.77, "batches": 5}
+    ],
+    "123": [
+      {"step": 50, "val_loss": 7.5407, "val_ppl": 1883.07, "batches": 5},
+      {"step": 100, "val_loss": 6.9866, "val_ppl": 1082.07, "batches": 5},
+      {"step": 150, "val_loss": 6.7164, "val_ppl": 825.85, "batches": 5},
+      {"step": 200, "val_loss": 6.5063, "val_ppl": 669.36, "batches": 5}
+    ]
+  },
+  "interpretation": {
+    "status": "initial_multiseed_signal",
+    "summary": "All three baseline_v1 Cayley runs reached 200 global optimizer steps and improved validation loss monotonically at every 50-step evaluation point.",
+    "main_limitation": "At ctx=32768, the current WikiText-103 validation split exposes only 5 batches, so this is a stability and early-quality signal rather than a final language-modeling result."
+  },
+  "next_actions": [
+    "Evaluate these checkpoints at shorter context lengths such as 8192 or 16384 to obtain more validation batches.",
+    "Add a checkpoint-only evaluation script that writes the same JSON schema for future seeds and context lengths.",
+    "Keep connection_impl=cayley opt-in until the wider validation protocol confirms that the approximation does not regress quality."
+  ]
+}

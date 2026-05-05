@@ -1,0 +1,138 @@
+{
+  "created_at": "2026-05-03T12:03:00.941816+00:00",
+  "status": "ok",
+  "task": "tracked_multislot_last_value",
+  "model_type": "mogt",
+  "params": 545922,
+  "config": {
+    "model_type": "mogt",
+    "device": "cuda",
+    "dtype": "bf16",
+    "seed": 42,
+    "vocab_size": 160,
+    "d_model": 128,
+    "num_layers": 2,
+    "rank": 16,
+    "num_heads": 4,
+    "rope_theta": 10000.0,
+    "scan_impl": "triton_hybrid",
+    "connection_impl": "identity",
+    "connection_damping": 1.0,
+    "scan_block_size": 256,
+    "readout_init_std": 0.02,
+    "transport_gate": false,
+    "transport_gate_mode": "multiply",
+    "transport_gate_width": "scalar",
+    "transport_gate_scale": 1.0,
+    "transport_gate_bias": 2.0,
+    "value_gate": true,
+    "value_gate_width": "scalar",
+    "value_gate_bias": -2.0,
+    "couple_forget_to_value_gate": true,
+    "gradient_checkpointing": false,
+    "train_context": 512,
+    "eval_contexts": [
+      512,
+      1024,
+      2048,
+      4096
+    ],
+    "num_slots": 2,
+    "num_values": 16,
+    "min_updates": 2,
+    "max_updates": 6,
+    "batch_size": 16,
+    "eval_batch_size": 4,
+    "steps": 3000,
+    "eval_batches": 16,
+    "dense_loss": true,
+    "lr": 0.001,
+    "weight_decay": 0.1,
+    "grad_clip": 1.0,
+    "log_every": 500,
+    "output": "benchmark_runs/synthetic_multislot2_mogt_identity_coupled_scalar_value_forget_dense_ctx512_seed42_steps3000.json"
+  },
+  "train_trace": [
+    {
+      "step": 1,
+      "loss": 5.115803241729736,
+      "accuracy": 0.0,
+      "dense_accuracy": 0.005710075609385967,
+      "grad_norm": 3.7123565673828125
+    },
+    {
+      "step": 500,
+      "loss": 0.9504322409629822,
+      "accuracy": 0.625,
+      "dense_accuracy": 0.6465159058570862,
+      "grad_norm": 5.89118766784668
+    },
+    {
+      "step": 1000,
+      "loss": 0.8641536831855774,
+      "accuracy": 0.8125,
+      "dense_accuracy": 0.6282551288604736,
+      "grad_norm": 5.0747246742248535
+    },
+    {
+      "step": 1500,
+      "loss": 0.8976554870605469,
+      "accuracy": 0.4375,
+      "dense_accuracy": 0.6017066836357117,
+      "grad_norm": 4.535834312438965
+    },
+    {
+      "step": 2000,
+      "loss": 0.7371503114700317,
+      "accuracy": 0.5625,
+      "dense_accuracy": 0.6864535808563232,
+      "grad_norm": 4.399569034576416
+    },
+    {
+      "step": 2500,
+      "loss": 0.8151323199272156,
+      "accuracy": 0.3125,
+      "dense_accuracy": 0.5950590372085571,
+      "grad_norm": 3.346856117248535
+    },
+    {
+      "step": 3000,
+      "loss": 0.6067036986351013,
+      "accuracy": 0.6875,
+      "dense_accuracy": 0.7547577023506165,
+      "grad_norm": 3.3033688068389893
+    }
+  ],
+  "eval_results": [
+    {
+      "context_length": 512,
+      "loss": 0.9917620494961739,
+      "accuracy": 0.5625,
+      "examples": 64,
+      "elapsed_s": 0.20163430300090113
+    },
+    {
+      "context_length": 1024,
+      "loss": 1.190786050632596,
+      "accuracy": 0.546875,
+      "examples": 64,
+      "elapsed_s": 0.2153420120012015
+    },
+    {
+      "context_length": 2048,
+      "loss": 1.406701486557722,
+      "accuracy": 0.484375,
+      "examples": 64,
+      "elapsed_s": 0.24344611400010763
+    },
+    {
+      "context_length": 4096,
+      "loss": 1.4328623488545418,
+      "accuracy": 0.59375,
+      "examples": 64,
+      "elapsed_s": 0.18979174800188048
+    }
+  ],
+  "train_elapsed_s": 156.85896096999932,
+  "peak_memory_mb": 594.18505859375
+}

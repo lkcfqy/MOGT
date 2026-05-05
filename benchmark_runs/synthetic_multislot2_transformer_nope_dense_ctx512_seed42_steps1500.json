@@ -1,0 +1,128 @@
+{
+  "created_at": "2026-05-03T11:02:23.927310+00:00",
+  "status": "ok",
+  "task": "tracked_multislot_last_value",
+  "model_type": "transformer",
+  "params": 541312,
+  "config": {
+    "model_type": "transformer",
+    "device": "cuda",
+    "dtype": "bf16",
+    "seed": 42,
+    "vocab_size": 128,
+    "d_model": 128,
+    "num_layers": 2,
+    "rank": 16,
+    "num_heads": 4,
+    "rope_theta": 0.0,
+    "scan_impl": "triton_hybrid",
+    "connection_impl": "cayley",
+    "connection_damping": 0.999,
+    "scan_block_size": 256,
+    "readout_init_std": 0.0,
+    "transport_gate": false,
+    "transport_gate_mode": "multiply",
+    "transport_gate_scale": 1.0,
+    "transport_gate_bias": 2.0,
+    "value_gate": false,
+    "value_gate_bias": 0.0,
+    "gradient_checkpointing": false,
+    "train_context": 512,
+    "eval_contexts": [
+      512,
+      1024,
+      2048,
+      4096
+    ],
+    "num_slots": 2,
+    "num_values": 16,
+    "min_updates": 2,
+    "max_updates": 6,
+    "batch_size": 16,
+    "eval_batch_size": 4,
+    "steps": 1500,
+    "eval_batches": 16,
+    "dense_loss": true,
+    "lr": 0.001,
+    "weight_decay": 0.1,
+    "grad_clip": 1.0,
+    "log_every": 300,
+    "output": "benchmark_runs/synthetic_multislot2_transformer_nope_dense_ctx512_seed42_steps1500.json"
+  },
+  "train_trace": [
+    {
+      "step": 1,
+      "loss": 4.828203201293945,
+      "accuracy": 0.0,
+      "dense_accuracy": 0.005894271656870842,
+      "grad_norm": 4.2416815757751465
+    },
+    {
+      "step": 300,
+      "loss": 1.3211098909378052,
+      "accuracy": 0.25,
+      "dense_accuracy": 0.40802887082099915,
+      "grad_norm": 5.614296913146973
+    },
+    {
+      "step": 600,
+      "loss": 1.421204924583435,
+      "accuracy": 0.1875,
+      "dense_accuracy": 0.41163885593414307,
+      "grad_norm": 5.948232650756836
+    },
+    {
+      "step": 900,
+      "loss": 1.1815662384033203,
+      "accuracy": 0.375,
+      "dense_accuracy": 0.434235155582428,
+      "grad_norm": 4.76962947845459
+    },
+    {
+      "step": 1200,
+      "loss": 1.1140539646148682,
+      "accuracy": 0.3125,
+      "dense_accuracy": 0.4419878423213959,
+      "grad_norm": 3.7080254554748535
+    },
+    {
+      "step": 1500,
+      "loss": 1.1993906497955322,
+      "accuracy": 0.3125,
+      "dense_accuracy": 0.4864158630371094,
+      "grad_norm": 4.112778663635254
+    }
+  ],
+  "eval_results": [
+    {
+      "context_length": 512,
+      "loss": 1.5862099453806877,
+      "accuracy": 0.3125,
+      "examples": 64,
+      "elapsed_s": 0.147757583999919
+    },
+    {
+      "context_length": 1024,
+      "loss": 1.522207073867321,
+      "accuracy": 0.34375,
+      "examples": 64,
+      "elapsed_s": 0.1387347649979347
+    },
+    {
+      "context_length": 2048,
+      "loss": 1.6730973236262798,
+      "accuracy": 0.34375,
+      "examples": 64,
+      "elapsed_s": 0.15070565399946645
+    },
+    {
+      "context_length": 4096,
+      "loss": 1.6226941272616386,
+      "accuracy": 0.328125,
+      "examples": 64,
+      "elapsed_s": 0.16922740199879627
+    }
+  ],
+  "train_elapsed_s": 55.58132986099736,
+  "peak_memory_mb": 436.91650390625
+}

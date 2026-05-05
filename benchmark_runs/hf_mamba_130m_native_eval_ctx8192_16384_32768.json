@@ -1,0 +1,69 @@
+{
+  "config": {
+    "models": [
+      "state-spaces/mamba-130m-hf"
+    ],
+    "context_lengths": [
+      8192,
+      16384,
+      32768
+    ],
+    "tokenization_mode": "native_text",
+    "batch_size": 1,
+    "num_workers": 2,
+    "max_batches": 20,
+    "device": "cuda",
+    "dtype": "bfloat16"
+  },
+  "interpretation": {
+    "gpt2_stream": "Uses this repo's GPT-2 tokenized WikiText-103 chunks and is tokenization-compatible with MOGT.",
+    "native_text": "Uses each HF model's own tokenizer on WikiText-103 raw validation text; useful as a pretrained anchor, not a tokenization-matched comparison."
+  },
+  "results": [
+    {
+      "model": "state-spaces/mamba-130m-hf",
+      "context_length": 8192,
+      "tokenization_mode": "native_text",
+      "tokenizer": "state-spaces/mamba-130m-hf",
+      "model_type": "mamba",
+      "vocab_size": 50280,
+      "status": "ok",
+      "metrics": {
+        "loss": 2.998443055152893,
+        "ppl": 20.054289181790953,
+        "num_batches": 20,
+        "num_loss_tokens": 163840
+      }
+    },
+    {
+      "model": "state-spaces/mamba-130m-hf",
+      "context_length": 16384,
+      "tokenization_mode": "native_text",
+      "tokenizer": "state-spaces/mamba-130m-hf",
+      "model_type": "mamba",
+      "vocab_size": 50280,
+      "status": "ok",
+      "metrics": {
+        "loss": 3.202829631169637,
+        "ppl": 24.602046515612294,
+        "num_batches": 15,
+        "num_loss_tokens": 245760
+      }
+    },
+    {
+      "model": "state-spaces/mamba-130m-hf",
+      "context_length": 32768,
+      "tokenization_mode": "native_text",
+      "tokenizer": "state-spaces/mamba-130m-hf",
+      "model_type": "mamba",
+      "vocab_size": 50280,
+      "status": "ok",
+      "metrics": {
+        "loss": 4.078692368098667,
+        "ppl": 59.0681798911083,
+        "num_batches": 7,
+        "num_loss_tokens": 229376
+      }
+    }
+  ]
+}

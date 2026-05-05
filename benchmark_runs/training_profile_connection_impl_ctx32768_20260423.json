@@ -1,0 +1,86 @@
+{
+  "config": {
+    "context_length": 32768,
+    "d_model": 768,
+    "num_layers": 12,
+    "rank": 16,
+    "batch_size": 1,
+    "grad_accum_steps": 8,
+    "scan_impl": "triton_hybrid",
+    "carry_scan": "doubling",
+    "loss_chunk_size": 256,
+    "gradient_checkpointing": true
+  },
+  "small_signal_comparison": {
+    "transport_max_diff": 0.0022849440574645996,
+    "transport_mean_diff": 0.00028156954795122147,
+    "note": "Difference measured on small random skew-symmetric inputs at initialization-scale weights."
+  },
+  "matrix_exp_profile": {
+    "connection_impl": "matrix_exp",
+    "profiled_loss": 1.3526945114135742,
+    "peak_memory_mb": 12560.96875,
+    "phase_wall_ms": {
+      "forward_wall_ms": 672.4863490017015,
+      "backward_wall_ms": 2611.616148002213,
+      "optimizer_wall_ms": 50.53174899876467,
+      "total_wall_ms": 3337.2376800034544
+    },
+    "events": {
+      "mogt.matrix_exp": 314.8383739999996,
+      "triton_hybrid.carry_apply": 133.03876700000046,
+      "mogt.lm_head_loss": 145.765424,
+      "mogt.ffn": 271.6745229999998
+    },
+    "artifacts": {
+      "trace_json": "profile_runs_ctx32768_d768_l12_hybrid_doubling_20260423/train_step_triton_hybrid.trace.json",
+      "table_txt": "profile_runs_ctx32768_d768_l12_hybrid_doubling_20260423/train_step_triton_hybrid.table.txt"
+    }
+  },
+  "cayley_profile": {
+    "connection_impl": "cayley",
+    "profiled_loss": 1.3526935577392578,
+    "peak_memory_mb": 12568.20361328125,
+    "phase_wall_ms": {
+      "forward_wall_ms": 551.6643470000417,
+      "backward_wall_ms": 1874.7873669999535,
+      "optimizer_wall_ms": 50.037245000567054,
+      "total_wall_ms": 2479.112103999796
+    },
+    "events": {
+      "mogt.cayley_solve": 67.73652599999986,
+      "triton_hybrid.carry_apply": 133.25756699999866,
+      "mogt.lm_head_loss": 144.1093659999999,
+      "mogt.ffn": 270.83515699999987
+    },
+    "artifacts": {
+      "trace_json": "profile_runs_ctx32768_d768_l12_hybrid_cayley_20260423/train_step_triton_hybrid.trace.json",
+      "table_txt": "profile_runs_ctx32768_d768_l12_hybrid_cayley_20260423/train_step_triton_hybrid.table.txt"
+    }
+  },
+  "speedup": {
+    "forward_vs_matrix_exp": 1.219019860357882,
+    "backward_vs_matrix_exp": 1.3922705625498398,
+    "total_vs_matrix_exp": 1.3461343683719732
+  },
+  "short_run_smoke": {
+    "matrix_exp": {
+      "steps": 5,
+      "losses": [15.268, 15.2666, 9.8319, 9.6535, 10.0396],
+      "checkpoint": "mogt_checkpoints/hybrid_ctx32768_d768_l12_doubling_short_20260423/mogt_ckpt_e0_s39.pt"
+    },
+    "cayley": {
+      "steps": 5,
+      "losses": [15.268, 15.2666, 9.8319, 9.6535, 10.0428],
+      "checkpoint": "mogt_checkpoints/hybrid_ctx32768_d768_l12_cayley_short_20260423/mogt_ckpt_e0_s39.pt"
+    },
+    "max_loss_diff": 0.0031999999999996476,
+    "mean_loss_diff": 0.0006399999999999295
+  },
+  "notes": [
+    "At ctx=32768 on a single L4, replacing matrix_exp with a Cayley connection map reduced profiled total step wall-clock from about 3337.2 ms to 2479.1 ms without increasing peak memory in a meaningful way.",
+    "The main win came from the connection-map path itself: matrix_exp took about 314.8 ms across the profiled step, while cayley_solve took about 67.7 ms.",
+    "A 5-step training smoke run remained stable and tracked the matrix_exp loss curve closely, but this is still an initialization-scale signal rather than a long-horizon quality guarantee.",
+    "Because Cayley is an approximation rather than the exact exponential map, it should remain opt-in until longer training and validation runs confirm that language-model quality does not regress."
+  ]
+}

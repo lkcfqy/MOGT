@@ -1,0 +1,215 @@
+{
+  "created_at": "2026-05-04T20:17:23.174935+00:00",
+  "groups": [
+    {
+      "model": "mamba",
+      "variant": "mamba_d192_slots4_final_curriculum",
+      "steps": 3000,
+      "train_context": 512,
+      "num_slots": 4,
+      "min_train_slots": 2,
+      "slot_curriculum_steps": 1500,
+      "dense_loss": false,
+      "seeds": [
+        7,
+        42,
+        123
+      ],
+      "artifacts": [
+        "benchmark_runs/synthetic_multislot4_mamba_d192_slotcurr_finalonly_stdreport_ctx512_seed123_steps3000.json",
+        "benchmark_runs/synthetic_multislot4_mamba_d192_slotcurr_finalonly_stdreport_ctx512_seed42_steps3000.json",
+        "benchmark_runs/synthetic_multislot4_mamba_d192_slotcurr_finalonly_stdreport_ctx512_seed7_steps3000.json"
+      ],
+      "accuracy_by_context": {
+        "512": {
+          "mean": 0.17708333333333334,
+          "std": 0.1097463932588827,
+          "n": 3
+        },
+        "1024": {
+          "mean": 0.20833333333333334,
+          "std": 0.09923207751696692,
+          "n": 3
+        },
+        "2048": {
+          "mean": 0.15625,
+          "std": 0.05633673867912483,
+          "n": 3
+        },
+        "4096": {
+          "mean": 0.19791666666666666,
+          "std": 0.1097463932588827,
+          "n": 3
+        }
+      }
+    },
+    {
+      "model": "mogt",
+      "variant": "mogt_identity_coupled_write_forget_current_prev_prefix_value_bias_m2p0_slots4_final",
+      "steps": 3000,
+      "train_context": 512,
+      "num_slots": 4,
+      "min_train_slots": 0,
+      "slot_curriculum_steps": 0,
+      "dense_loss": false,
+      "seeds": [
+        7,
+        42,
+        123
+      ],
+      "artifacts": [
+        "benchmark_runs/synthetic_multislot4_mogt_slotaddr_coupled_rank_finalonly_stdreport_ctx512_seed123_steps3000.json",
+        "benchmark_runs/synthetic_multislot4_mogt_slotaddr_coupled_rank_finalonly_stdreport_ctx512_seed42_steps3000.json",
+        "benchmark_runs/synthetic_multislot4_mogt_slotaddr_coupled_rank_finalonly_stdreport_ctx512_seed7_steps3000.json"
+      ],
+      "accuracy_by_context": {
+        "512": {
+          "mean": 0.4427083333333333,
+          "std": 0.1451808319246495,
+          "n": 3
+        },
+        "1024": {
+          "mean": 0.3854166666666667,
+          "std": 0.2189359328852469,
+          "n": 3
+        },
+        "2048": {
+          "mean": 0.4166666666666667,
+          "std": 0.22606806681469485,
+          "n": 3
+        },
+        "4096": {
+          "mean": 0.4479166666666667,
+          "std": 0.1721115796026907,
+          "n": 3
+        }
+      }
+    },
+    {
+      "model": "mogt",
+      "variant": "mogt_identity_coupled_write_forget_current_prev_prefix_value_bias_m2p0_slots4_final_curriculum",
+      "steps": 3000,
+      "train_context": 512,
+      "num_slots": 4,
+      "min_train_slots": 2,
+      "slot_curriculum_steps": 1500,
+      "dense_loss": false,
+      "seeds": [
+        7,
+        42,
+        123
+      ],
+      "artifacts": [
+        "benchmark_runs/synthetic_multislot4_mogt_slotaddr_coupled_rank_slotcurr_finalonly_stdreport_ctx512_seed123_steps3000.json",
+        "benchmark_runs/synthetic_multislot4_mogt_slotaddr_coupled_rank_slotcurr_finalonly_stdreport_ctx512_seed42_steps3000.json",
+        "benchmark_runs/synthetic_multislot4_mogt_slotaddr_coupled_rank_slotcurr_finalonly_stdreport_ctx512_seed7_steps3000.json"
+      ],
+      "accuracy_by_context": {
+        "512": {
+          "mean": 1.0,
+          "std": 0.0,
+          "n": 3
+        },
+        "1024": {
+          "mean": 1.0,
+          "std": 0.0,
+          "n": 3
+        },
+        "2048": {
+          "mean": 0.9947916666666666,
+          "std": 0.009021097956087904,
+          "n": 3
+        },
+        "4096": {
+          "mean": 0.9427083333333334,
+          "std": 0.023867581744561665,
+          "n": 3
+        }
+      }
+    },
+    {
+      "model": "transformer",
+      "variant": "transformer_nope_slots4_final",
+      "steps": 3000,
+      "train_context": 512,
+      "num_slots": 4,
+      "min_train_slots": 0,
+      "slot_curriculum_steps": 0,
+      "dense_loss": false,
+      "seeds": [
+        7,
+        42,
+        123
+      ],
+      "artifacts": [
+        "benchmark_runs/synthetic_multislot4_transformer_nope_finalonly_stdreport_ctx512_seed123_steps3000.json",
+        "benchmark_runs/synthetic_multislot4_transformer_nope_finalonly_stdreport_ctx512_seed42_steps3000.json",
+        "benchmark_runs/synthetic_multislot4_transformer_nope_finalonly_stdreport_ctx512_seed7_steps3000.json"
+      ],
+      "accuracy_by_context": {
+        "512": {
+          "mean": 0.265625,
+          "std": 0.027063293868263706,
+          "n": 3
+        },
+        "1024": {
+          "mean": 0.24479166666666666,
+          "std": 0.039322054350368486,
+          "n": 3
+        },
+        "2048": {
+          "mean": 0.21354166666666666,
+          "std": 0.03252603124165832,
+          "n": 3
+        },
+        "4096": {
+          "mean": 0.25,
+          "std": 0.05633673867912483,
+          "n": 3
+        }
+      }
+    },
+    {
+      "model": "transformer",
+      "variant": "transformer_nope_slots4_final_curriculum",
+      "steps": 3000,
+      "train_context": 512,
+      "num_slots": 4,
+      "min_train_slots": 2,
+      "slot_curriculum_steps": 1500,
+      "dense_loss": false,
+      "seeds": [
+        7,
+        42,
+        123
+      ],
+      "artifacts": [
+        "benchmark_runs/synthetic_multislot4_nope_slotcurr_finalonly_stdreport_ctx512_seed123_steps3000.json",
+        "benchmark_runs/synthetic_multislot4_nope_slotcurr_finalonly_stdreport_ctx512_seed42_steps3000.json",
+        "benchmark_runs/synthetic_multislot4_nope_slotcurr_finalonly_stdreport_ctx512_seed7_steps3000.json"
+      ],
+      "accuracy_by_context": {
+        "512": {
+          "mean": 0.3125,
+          "std": 0.05412658773652741,
+          "n": 3
+        },
+        "1024": {
+          "mean": 0.296875,
+          "std": 0.05633673867912483,
+          "n": 3
+        },
+        "2048": {
+          "mean": 0.234375,
+          "std": 0.05633673867912483,
+          "n": 3
+        },
+        "4096": {
+          "mean": 0.21354166666666666,
+          "std": 0.06314768569261532,
+          "n": 3
+        }
+      }
+    }
+  ]
+}

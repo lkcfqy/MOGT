@@ -1,0 +1,2117 @@
+{
+  "summary": {
+    "num_standard_reports": 118,
+    "num_skipped_legacy_reports": 153,
+    "num_invalid_reports": 0,
+    "by_task": {
+      "language_modeling": 94,
+      "last_value_tracking": 9,
+      "tracked_multislot_last_value": 15
+    },
+    "by_status": {
+      "ok": 118
+    },
+    "by_task_model": {
+      "language_modeling": {
+        "hybrid_mogt_transformer": 93,
+        "scratch_transformer": 1
+      },
+      "last_value_tracking": {
+        "mogt": 3,
+        "transformer": 6
+      },
+      "tracked_multislot_last_value": {
+        "mamba": 3,
+        "mogt": 6,
+        "transformer": 6
+      }
+    }
+  },
+  "records": [
+    {
+      "path": "benchmark_runs/hybrid_alt_ctx8192_d128_l2_steps10_seed42.json",
+      "run_name": "hybrid_alt_ctx8192_d128_l2_steps10_seed42",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_alternating_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 42,
+      "steps": 10,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 6957952,
+      "peak_memory_mb": 2502.57666015625,
+      "elapsed_seconds": 3.682520866394043
+    },
+    {
+      "path": "benchmark_runs/hybrid_late_l3_steps1000_attn_ctx8192_d128_l4_seed123.json",
+      "run_name": "hybrid_late_l3_steps1000_attn_ctx8192_d128_l4_seed123",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_ratio0_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 123,
+      "steps": 1000,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 7482624,
+      "peak_memory_mb": 2516.580078125,
+      "elapsed_seconds": 115.13060641288757
+    },
+    {
+      "path": "benchmark_runs/hybrid_late_l3_steps1000_attn_ctx8192_d128_l4_seed42.json",
+      "run_name": "hybrid_late_l3_steps1000_attn_ctx8192_d128_l4_seed42",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_ratio0_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 42,
+      "steps": 1000,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 7482624,
+      "peak_memory_mb": 2516.580078125,
+      "elapsed_seconds": 114.87624526023865
+    },
+    {
+      "path": "benchmark_runs/hybrid_late_l3_steps1000_attn_ctx8192_d128_l4_seed7.json",
+      "run_name": "hybrid_late_l3_steps1000_attn_ctx8192_d128_l4_seed7",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_ratio0_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 7,
+      "steps": 1000,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 7482624,
+      "peak_memory_mb": 2516.580078125,
+      "elapsed_seconds": 113.88319873809814
+    },
+    {
+      "path": "benchmark_runs/hybrid_late_l3_steps1000_l3_ctx8192_d128_l4_seed123.json",
+      "run_name": "hybrid_late_l3_steps1000_l3_ctx8192_d128_l4_seed123",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_layers3_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 123,
+      "steps": 1000,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 7482752,
+      "peak_memory_mb": 2516.58251953125,
+      "elapsed_seconds": 136.35987949371338
+    },
+    {
+      "path": "benchmark_runs/hybrid_late_l3_steps1000_l3_ctx8192_d128_l4_seed42.json",
+      "run_name": "hybrid_late_l3_steps1000_l3_ctx8192_d128_l4_seed42",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_layers3_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 42,
+      "steps": 1000,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 7482752,
+      "peak_memory_mb": 2516.58251953125,
+      "elapsed_seconds": 135.2832281589508
+    },
+    {
+      "path": "benchmark_runs/hybrid_late_l3_steps1000_l3_ctx8192_d128_l4_seed7.json",
+      "run_name": "hybrid_late_l3_steps1000_l3_ctx8192_d128_l4_seed7",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_layers3_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 7,
+      "steps": 1000,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 7482752,
+      "peak_memory_mb": 2516.58251953125,
+      "elapsed_seconds": 135.66325426101685
+    },
+    {
+      "path": "benchmark_runs/hybrid_late_l3_steps500_attn_ctx8192_d128_l4_seed123.json",
+      "run_name": "hybrid_late_l3_steps500_attn_ctx8192_d128_l4_seed123",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_ratio0_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 123,
+      "steps": 500,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 7482624,
+      "peak_memory_mb": 2516.580078125,
+      "elapsed_seconds": 58.163398027420044
+    },
+    {
+      "path": "benchmark_runs/hybrid_late_l3_steps500_attn_ctx8192_d128_l4_seed42.json",
+      "run_name": "hybrid_late_l3_steps500_attn_ctx8192_d128_l4_seed42",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_ratio0_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 42,
+      "steps": 500,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 7482624,
+      "peak_memory_mb": 2516.580078125,
+      "elapsed_seconds": 58.80206632614136
+    },
+    {
+      "path": "benchmark_runs/hybrid_late_l3_steps500_attn_ctx8192_d128_l4_seed7.json",
+      "run_name": "hybrid_late_l3_steps500_attn_ctx8192_d128_l4_seed7",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_ratio0_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 7,
+      "steps": 500,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 7482624,
+      "peak_memory_mb": 2516.580078125,
+      "elapsed_seconds": 56.73349905014038
+    },
+    {
+      "path": "benchmark_runs/hybrid_late_l3_steps500_l3_ctx8192_d128_l4_seed123.json",
+      "run_name": "hybrid_late_l3_steps500_l3_ctx8192_d128_l4_seed123",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_layers3_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 123,
+      "steps": 500,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 7482752,
+      "peak_memory_mb": 2516.58251953125,
+      "elapsed_seconds": 68.73517608642578
+    },
+    {
+      "path": "benchmark_runs/hybrid_late_l3_steps500_l3_ctx8192_d128_l4_seed42.json",
+      "run_name": "hybrid_late_l3_steps500_l3_ctx8192_d128_l4_seed42",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_layers3_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 42,
+      "steps": 500,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 7482752,
+      "peak_memory_mb": 2516.58251953125,
+      "elapsed_seconds": 69.08443403244019
+    },
+    {
+      "path": "benchmark_runs/hybrid_late_l3_steps500_l3_ctx8192_d128_l4_seed7.json",
+      "run_name": "hybrid_late_l3_steps500_l3_ctx8192_d128_l4_seed7",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_layers3_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 7,
+      "steps": 500,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 7482752,
+      "peak_memory_mb": 2516.58251953125,
+      "elapsed_seconds": 68.92741560935974
+    },
+    {
+      "path": "benchmark_runs/hybrid_layeridx_sanity_l3_ctx8192_d128_l4_seed42.json",
+      "run_name": "hybrid_layeridx_sanity_l3_ctx8192_d128_l4_seed42",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_layers3_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 42,
+      "steps": 1,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 7482752,
+      "peak_memory_mb": 2459.49365234375,
+      "elapsed_seconds": 1.951261043548584
+    },
+    {
+      "path": "benchmark_runs/hybrid_layeridx_smoke_l1_seed42.json",
+      "run_name": "hybrid_layeridx_smoke_l1",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_layers1_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 42,
+      "steps": 1,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 6957952,
+      "peak_memory_mb": 2449.49169921875,
+      "elapsed_seconds": 1.919579267501831
+    },
+    {
+      "path": "benchmark_runs/hybrid_layeridx_steps200_l0_ctx8192_d128_l4_seed42.json",
+      "run_name": "hybrid_layeridx_steps200_l0_ctx8192_d128_l4_seed42",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_layers0_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 42,
+      "steps": 200,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 7482752,
+      "peak_memory_mb": 2516.58251953125,
+      "elapsed_seconds": 27.516741275787354
+    },
+    {
+      "path": "benchmark_runs/hybrid_layeridx_steps200_l2_ctx8192_d128_l4_seed123.json",
+      "run_name": "hybrid_layeridx_steps200_l2_ctx8192_d128_l4_seed123",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_layers2_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 123,
+      "steps": 200,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 7482752,
+      "peak_memory_mb": 2516.58251953125,
+      "elapsed_seconds": 28.11134386062622
+    },
+    {
+      "path": "benchmark_runs/hybrid_layeridx_steps200_l2_ctx8192_d128_l4_seed42.json",
+      "run_name": "hybrid_layeridx_steps200_l2_ctx8192_d128_l4_seed42",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_layers2_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 42,
+      "steps": 200,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 7482752,
+      "peak_memory_mb": 2516.58251953125,
+      "elapsed_seconds": 28.086366891860962
+    },
+    {
+      "path": "benchmark_runs/hybrid_layeridx_steps200_l2_ctx8192_d128_l4_seed7.json",
+      "run_name": "hybrid_layeridx_steps200_l2_ctx8192_d128_l4_seed7",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_layers2_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 7,
+      "steps": 200,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 7482752,
+      "peak_memory_mb": 2516.58251953125,
+      "elapsed_seconds": 30.20663285255432
+    },
+    {
+      "path": "benchmark_runs/hybrid_layeridx_steps200_l3_ctx8192_d128_l4_seed123.json",
+      "run_name": "hybrid_layeridx_steps200_l3_ctx8192_d128_l4_seed123",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_layers3_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 123,
+      "steps": 200,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 7482752,
+      "peak_memory_mb": 2516.58251953125,
+      "elapsed_seconds": 28.5289044380188
+    },
+    {
+      "path": "benchmark_runs/hybrid_layeridx_steps200_l3_ctx8192_d128_l4_seed42.json",
+      "run_name": "hybrid_layeridx_steps200_l3_ctx8192_d128_l4_seed42",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_layers3_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 42,
+      "steps": 200,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 7482752,
+      "peak_memory_mb": 2516.58251953125,
+      "elapsed_seconds": 28.425111055374146
+    },
+    {
+      "path": "benchmark_runs/hybrid_layeridx_steps200_l3_ctx8192_d128_l4_seed7.json",
+      "run_name": "hybrid_layeridx_steps200_l3_ctx8192_d128_l4_seed7",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_layers3_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 7,
+      "steps": 200,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 7482752,
+      "peak_memory_mb": 2516.58251953125,
+      "elapsed_seconds": 28.216644525527954
+    },
+    {
+      "path": "benchmark_runs/hybrid_mogt_lr_mult_smoke.json",
+      "run_name": "hybrid_mogt_lr_mult_smoke",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_layers1_zeroattn_mogtscale0p5_mogtlr0p5_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 42,
+      "steps": 2,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 6957952,
+      "peak_memory_mb": 2502.57666015625,
+      "elapsed_seconds": 2.1392815113067627
+    },
+    {
+      "path": "benchmark_runs/hybrid_ratio_sweep_pilot_frac0_ctx8192_d128_l4_seed42_steps5.json",
+      "run_name": "hybrid_ratio_sweep_pilot_frac0_ctx8192_d128_l4_seed42_steps5",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_ratio0_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 42,
+      "steps": 5,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 7482624,
+      "peak_memory_mb": 2516.580078125,
+      "elapsed_seconds": 1.1417796611785889
+    },
+    {
+      "path": "benchmark_runs/hybrid_ratio_sweep_pilot_frac0p25_ctx8192_d128_l4_seed42_steps5.json",
+      "run_name": "hybrid_ratio_sweep_pilot_frac0p25_ctx8192_d128_l4_seed42_steps5",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_ratio0p25_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 42,
+      "steps": 5,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 7482752,
+      "peak_memory_mb": 2516.58251953125,
+      "elapsed_seconds": 2.463196039199829
+    },
+    {
+      "path": "benchmark_runs/hybrid_ratio_sweep_pilot_frac0p5_ctx8192_d128_l4_seed42_steps5.json",
+      "run_name": "hybrid_ratio_sweep_pilot_frac0p5_ctx8192_d128_l4_seed42_steps5",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_ratio0p5_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 42,
+      "steps": 5,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 7482880,
+      "peak_memory_mb": 2516.5849609375,
+      "elapsed_seconds": 2.5857009887695312
+    },
+    {
+      "path": "benchmark_runs/hybrid_ratio_sweep_pilot_frac0p75_ctx8192_d128_l4_seed42_steps5.json",
+      "run_name": "hybrid_ratio_sweep_pilot_frac0p75_ctx8192_d128_l4_seed42_steps5",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_ratio0p75_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 42,
+      "steps": 5,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 7483008,
+      "peak_memory_mb": 2516.58740234375,
+      "elapsed_seconds": 2.6814661026000977
+    },
+    {
+      "path": "benchmark_runs/hybrid_ratio_sweep_pilot_frac1_ctx8192_d128_l4_seed42_steps5.json",
+      "run_name": "hybrid_ratio_sweep_pilot_frac1_ctx8192_d128_l4_seed42_steps5",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_ratio1_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 42,
+      "steps": 5,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 7483136,
+      "peak_memory_mb": 2516.58984375,
+      "elapsed_seconds": 2.763744592666626
+    },
+    {
+      "path": "benchmark_runs/hybrid_ratio_sweep_zeroattn_pilot_frac0_ctx8192_d128_l4_seed42_steps5.json",
+      "run_name": "hybrid_ratio_sweep_zeroattn_pilot_frac0_ctx8192_d128_l4_seed42_steps5",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_ratio0_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 42,
+      "steps": 5,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 7482624,
+      "peak_memory_mb": 2516.580078125,
+      "elapsed_seconds": 1.1138944625854492
+    },
+    {
+      "path": "benchmark_runs/hybrid_ratio_sweep_zeroattn_pilot_frac0p25_ctx8192_d128_l4_seed42_steps5.json",
+      "run_name": "hybrid_ratio_sweep_zeroattn_pilot_frac0p25_ctx8192_d128_l4_seed42_steps5",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_ratio0p25_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 42,
+      "steps": 5,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 7482752,
+      "peak_memory_mb": 2516.58251953125,
+      "elapsed_seconds": 2.4509570598602295
+    },
+    {
+      "path": "benchmark_runs/hybrid_ratio_sweep_zeroattn_pilot_frac0p5_ctx8192_d128_l4_seed42_steps5.json",
+      "run_name": "hybrid_ratio_sweep_zeroattn_pilot_frac0p5_ctx8192_d128_l4_seed42_steps5",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_ratio0p5_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 42,
+      "steps": 5,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 7482880,
+      "peak_memory_mb": 2516.5849609375,
+      "elapsed_seconds": 2.5546882152557373
+    },
+    {
+      "path": "benchmark_runs/hybrid_ratio_sweep_zeroattn_pilot_frac0p75_ctx8192_d128_l4_seed42_steps5.json",
+      "run_name": "hybrid_ratio_sweep_zeroattn_pilot_frac0p75_ctx8192_d128_l4_seed42_steps5",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_ratio0p75_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 42,
+      "steps": 5,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 7483008,
+      "peak_memory_mb": 2516.58740234375,
+      "elapsed_seconds": 2.6639368534088135
+    },
+    {
+      "path": "benchmark_runs/hybrid_ratio_sweep_zeroattn_pilot_frac1_ctx8192_d128_l4_seed42_steps5.json",
+      "run_name": "hybrid_ratio_sweep_zeroattn_pilot_frac1_ctx8192_d128_l4_seed42_steps5",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_ratio1_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 42,
+      "steps": 5,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 7483136,
+      "peak_memory_mb": 2516.58984375,
+      "elapsed_seconds": 2.7767863273620605
+    },
+    {
+      "path": "benchmark_runs/hybrid_ratio_sweep_zeroattn_steps200_frac0_ctx8192_d128_l4_seed123_steps200.json",
+      "run_name": "hybrid_ratio_sweep_zeroattn_steps200_frac0_ctx8192_d128_l4_seed123_steps200",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_ratio0_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 123,
+      "steps": 200,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 7482624,
+      "peak_memory_mb": 2516.580078125,
+      "elapsed_seconds": 22.82822012901306
+    },
+    {
+      "path": "benchmark_runs/hybrid_ratio_sweep_zeroattn_steps200_frac0_ctx8192_d128_l4_seed42_steps200.json",
+      "run_name": "hybrid_ratio_sweep_zeroattn_steps200_frac0_ctx8192_d128_l4_seed42_steps200",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_ratio0_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 42,
+      "steps": 200,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 7482624,
+      "peak_memory_mb": 2516.580078125,
+      "elapsed_seconds": 22.791313409805298
+    },
+    {
+      "path": "benchmark_runs/hybrid_ratio_sweep_zeroattn_steps200_frac0_ctx8192_d128_l4_seed7_steps200.json",
+      "run_name": "hybrid_ratio_sweep_zeroattn_steps200_frac0_ctx8192_d128_l4_seed7_steps200",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_ratio0_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 7,
+      "steps": 200,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 7482624,
+      "peak_memory_mb": 2516.580078125,
+      "elapsed_seconds": 22.40272283554077
+    },
+    {
+      "path": "benchmark_runs/hybrid_ratio_sweep_zeroattn_steps200_frac0p25_ctx8192_d128_l4_seed123_steps200.json",
+      "run_name": "hybrid_ratio_sweep_zeroattn_steps200_frac0p25_ctx8192_d128_l4_seed123_steps200",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_ratio0p25_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 123,
+      "steps": 200,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 7482752,
+      "peak_memory_mb": 2516.58251953125,
+      "elapsed_seconds": 28.02634572982788
+    },
+    {
+      "path": "benchmark_runs/hybrid_ratio_sweep_zeroattn_steps200_frac0p25_ctx8192_d128_l4_seed42_steps200.json",
+      "run_name": "hybrid_ratio_sweep_zeroattn_steps200_frac0p25_ctx8192_d128_l4_seed42_steps200",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_ratio0p25_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 42,
+      "steps": 200,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 7482752,
+      "peak_memory_mb": 2516.58251953125,
+      "elapsed_seconds": 28.028279304504395
+    },
+    {
+      "path": "benchmark_runs/hybrid_ratio_sweep_zeroattn_steps200_frac0p25_ctx8192_d128_l4_seed7_steps200.json",
+      "run_name": "hybrid_ratio_sweep_zeroattn_steps200_frac0p25_ctx8192_d128_l4_seed7_steps200",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_ratio0p25_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 7,
+      "steps": 200,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 7482752,
+      "peak_memory_mb": 2516.58251953125,
+      "elapsed_seconds": 27.542649507522583
+    },
+    {
+      "path": "benchmark_runs/hybrid_ratio_sweep_zeroattn_steps50_3seed_frac0_ctx8192_d128_l4_seed123_steps50.json",
+      "run_name": "hybrid_ratio_sweep_zeroattn_steps50_3seed_frac0_ctx8192_d128_l4_seed123_steps50",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_ratio0_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 123,
+      "steps": 50,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 7482624,
+      "peak_memory_mb": 2516.580078125,
+      "elapsed_seconds": 6.234047174453735
+    },
+    {
+      "path": "benchmark_runs/hybrid_ratio_sweep_zeroattn_steps50_3seed_frac0_ctx8192_d128_l4_seed42_steps50.json",
+      "run_name": "hybrid_ratio_sweep_zeroattn_steps50_3seed_frac0_ctx8192_d128_l4_seed42_steps50",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_ratio0_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 42,
+      "steps": 50,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 7482624,
+      "peak_memory_mb": 2516.580078125,
+      "elapsed_seconds": 6.085694074630737
+    },
+    {
+      "path": "benchmark_runs/hybrid_ratio_sweep_zeroattn_steps50_3seed_frac0_ctx8192_d128_l4_seed7_steps50.json",
+      "run_name": "hybrid_ratio_sweep_zeroattn_steps50_3seed_frac0_ctx8192_d128_l4_seed7_steps50",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_ratio0_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 7,
+      "steps": 50,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 7482624,
+      "peak_memory_mb": 2516.580078125,
+      "elapsed_seconds": 6.113608121871948
+    },
+    {
+      "path": "benchmark_runs/hybrid_ratio_sweep_zeroattn_steps50_3seed_frac0p25_ctx8192_d128_l4_seed123_steps50.json",
+      "run_name": "hybrid_ratio_sweep_zeroattn_steps50_3seed_frac0p25_ctx8192_d128_l4_seed123_steps50",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_ratio0p25_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 123,
+      "steps": 50,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 7482752,
+      "peak_memory_mb": 2516.58251953125,
+      "elapsed_seconds": 8.377711057662964
+    },
+    {
+      "path": "benchmark_runs/hybrid_ratio_sweep_zeroattn_steps50_3seed_frac0p25_ctx8192_d128_l4_seed42_steps50.json",
+      "run_name": "hybrid_ratio_sweep_zeroattn_steps50_3seed_frac0p25_ctx8192_d128_l4_seed42_steps50",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_ratio0p25_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 42,
+      "steps": 50,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 7482752,
+      "peak_memory_mb": 2516.58251953125,
+      "elapsed_seconds": 8.33279037475586
+    },
+    {
+      "path": "benchmark_runs/hybrid_ratio_sweep_zeroattn_steps50_3seed_frac0p25_ctx8192_d128_l4_seed7_steps50.json",
+      "run_name": "hybrid_ratio_sweep_zeroattn_steps50_3seed_frac0p25_ctx8192_d128_l4_seed7_steps50",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_ratio0p25_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 7,
+      "steps": 50,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 7482752,
+      "peak_memory_mb": 2516.58251953125,
+      "elapsed_seconds": 8.305054664611816
+    },
+    {
+      "path": "benchmark_runs/hybrid_ratio_sweep_zeroattn_steps50_3seed_frac0p5_ctx8192_d128_l4_seed123_steps50.json",
+      "run_name": "hybrid_ratio_sweep_zeroattn_steps50_3seed_frac0p5_ctx8192_d128_l4_seed123_steps50",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_ratio0p5_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 123,
+      "steps": 50,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 7482880,
+      "peak_memory_mb": 2516.5849609375,
+      "elapsed_seconds": 9.440027236938477
+    },
+    {
+      "path": "benchmark_runs/hybrid_ratio_sweep_zeroattn_steps50_3seed_frac0p5_ctx8192_d128_l4_seed42_steps50.json",
+      "run_name": "hybrid_ratio_sweep_zeroattn_steps50_3seed_frac0p5_ctx8192_d128_l4_seed42_steps50",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_ratio0p5_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 42,
+      "steps": 50,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 7482880,
+      "peak_memory_mb": 2516.5849609375,
+      "elapsed_seconds": 9.338216543197632
+    },
+    {
+      "path": "benchmark_runs/hybrid_ratio_sweep_zeroattn_steps50_3seed_frac0p5_ctx8192_d128_l4_seed7_steps50.json",
+      "run_name": "hybrid_ratio_sweep_zeroattn_steps50_3seed_frac0p5_ctx8192_d128_l4_seed7_steps50",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_ratio0p5_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 7,
+      "steps": 50,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 7482880,
+      "peak_memory_mb": 2516.5849609375,
+      "elapsed_seconds": 9.292994976043701
+    },
+    {
+      "path": "benchmark_runs/hybrid_ratio_sweep_zeroattn_steps50_frac0_ctx8192_d128_l4_seed42_steps50.json",
+      "run_name": "hybrid_ratio_sweep_zeroattn_steps50_frac0_ctx8192_d128_l4_seed42_steps50",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_ratio0_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 42,
+      "steps": 50,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 7482624,
+      "peak_memory_mb": 2516.580078125,
+      "elapsed_seconds": 6.085776090621948
+    },
+    {
+      "path": "benchmark_runs/hybrid_ratio_sweep_zeroattn_steps50_frac0p25_ctx8192_d128_l4_seed42_steps50.json",
+      "run_name": "hybrid_ratio_sweep_zeroattn_steps50_frac0p25_ctx8192_d128_l4_seed42_steps50",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_ratio0p25_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 42,
+      "steps": 50,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 7482752,
+      "peak_memory_mb": 2516.58251953125,
+      "elapsed_seconds": 8.275597333908081
+    },
+    {
+      "path": "benchmark_runs/hybrid_ratio_sweep_zeroattn_steps50_frac1_ctx8192_d128_l4_seed42_steps50.json",
+      "run_name": "hybrid_ratio_sweep_zeroattn_steps50_frac1_ctx8192_d128_l4_seed42_steps50",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_ratio1_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 42,
+      "steps": 50,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 7483136,
+      "peak_memory_mb": 2516.58984375,
+      "elapsed_seconds": 11.221817255020142
+    },
+    {
+      "path": "benchmark_runs/hybrid_residual_gate_smoke.json",
+      "run_name": "hybrid_residual_gate_smoke",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_layers1_zeroattn_mogtgate0p5_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 42,
+      "steps": 1,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 6957953,
+      "peak_memory_mb": 2449.4921875,
+      "elapsed_seconds": 2.01263689994812
+    },
+    {
+      "path": "benchmark_runs/hybrid_residual_scale_schedule_smoke.json",
+      "run_name": "hybrid_residual_scale_schedule_smoke",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_layers1_zeroattn_mogtscale0p5_mogtsched0to0p5s2_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 42,
+      "steps": 2,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 6957952,
+      "peak_memory_mb": 2502.57666015625,
+      "elapsed_seconds": 2.097979784011841
+    },
+    {
+      "path": "benchmark_runs/hybrid_residual_scale_smoke.json",
+      "run_name": "hybrid_residual_scale_smoke",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_layers1_zeroattn_mogtscale0p5_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 42,
+      "steps": 1,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 6957952,
+      "peak_memory_mb": 2449.49169921875,
+      "elapsed_seconds": 1.9512567520141602
+    },
+    {
+      "path": "benchmark_runs/hybrid_scale_d192_l4_steps1000_attn_ctx8192_seed123.json",
+      "run_name": "hybrid_scale_d192_l4_steps1000_attn_ctx8192_seed123",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_ratio0_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 123,
+      "steps": 1000,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 11420544,
+      "peak_memory_mb": 2589.92333984375,
+      "elapsed_seconds": 148.08813333511353
+    },
+    {
+      "path": "benchmark_runs/hybrid_scale_d192_l4_steps1000_attn_ctx8192_seed42.json",
+      "run_name": "hybrid_scale_d192_l4_steps1000_attn_ctx8192_seed42",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_ratio0_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 42,
+      "steps": 1000,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 11420544,
+      "peak_memory_mb": 2589.92333984375,
+      "elapsed_seconds": 148.04758071899414
+    },
+    {
+      "path": "benchmark_runs/hybrid_scale_d192_l4_steps1000_attn_ctx8192_seed7.json",
+      "run_name": "hybrid_scale_d192_l4_steps1000_attn_ctx8192_seed7",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_ratio0_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 7,
+      "steps": 1000,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 11420544,
+      "peak_memory_mb": 2589.92333984375,
+      "elapsed_seconds": 146.76791262626648
+    },
+    {
+      "path": "benchmark_runs/hybrid_scale_d192_l4_steps1000_attn_lr5e4_ctx8192_seed123.json",
+      "run_name": "hybrid_scale_d192_l4_steps1000_attn_lr5e4_ctx8192_seed123",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_ratio0_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 123,
+      "steps": 1000,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 11420544,
+      "peak_memory_mb": 2589.92333984375,
+      "elapsed_seconds": 147.93168759346008
+    },
+    {
+      "path": "benchmark_runs/hybrid_scale_d192_l4_steps1000_attn_lr5e4_ctx8192_seed42.json",
+      "run_name": "hybrid_scale_d192_l4_steps1000_attn_lr5e4_ctx8192_seed42",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_ratio0_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 42,
+      "steps": 1000,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 11420544,
+      "peak_memory_mb": 2589.92333984375,
+      "elapsed_seconds": 148.04134345054626
+    },
+    {
+      "path": "benchmark_runs/hybrid_scale_d192_l4_steps1000_attn_lr5e4_ctx8192_seed7.json",
+      "run_name": "hybrid_scale_d192_l4_steps1000_attn_lr5e4_ctx8192_seed7",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_ratio0_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 7,
+      "steps": 1000,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 11420544,
+      "peak_memory_mb": 2589.92333984375,
+      "elapsed_seconds": 148.04666686058044
+    },
+    {
+      "path": "benchmark_runs/hybrid_scale_d192_l4_steps1000_l12_ctx8192_seed123.json",
+      "run_name": "hybrid_scale_d192_l4_steps1000_l12_ctx8192_seed123",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_layers1-2_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 123,
+      "steps": 1000,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 11371776,
+      "peak_memory_mb": 2589.36865234375,
+      "elapsed_seconds": 181.7265989780426
+    },
+    {
+      "path": "benchmark_runs/hybrid_scale_d192_l4_steps1000_l12_ctx8192_seed42.json",
+      "run_name": "hybrid_scale_d192_l4_steps1000_l12_ctx8192_seed42",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_layers1-2_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 42,
+      "steps": 1000,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 11371776,
+      "peak_memory_mb": 2589.36865234375,
+      "elapsed_seconds": 182.18437147140503
+    },
+    {
+      "path": "benchmark_runs/hybrid_scale_d192_l4_steps1000_l12_ctx8192_seed7.json",
+      "run_name": "hybrid_scale_d192_l4_steps1000_l12_ctx8192_seed7",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_layers1-2_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 7,
+      "steps": 1000,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 11371776,
+      "peak_memory_mb": 2589.36865234375,
+      "elapsed_seconds": 181.674081325531
+    },
+    {
+      "path": "benchmark_runs/hybrid_scale_d192_l4_steps1000_l2_ctx8192_seed123.json",
+      "run_name": "hybrid_scale_d192_l4_steps1000_l2_ctx8192_seed123",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_layers2_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 123,
+      "steps": 1000,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 11396160,
+      "peak_memory_mb": 2589.64599609375,
+      "elapsed_seconds": 162.9123237133026
+    },
+    {
+      "path": "benchmark_runs/hybrid_scale_d192_l4_steps1000_l2_ctx8192_seed42.json",
+      "run_name": "hybrid_scale_d192_l4_steps1000_l2_ctx8192_seed42",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_layers2_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 42,
+      "steps": 1000,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 11396160,
+      "peak_memory_mb": 2589.64599609375,
+      "elapsed_seconds": 162.68565392494202
+    },
+    {
+      "path": "benchmark_runs/hybrid_scale_d192_l4_steps1000_l2_ctx8192_seed7.json",
+      "run_name": "hybrid_scale_d192_l4_steps1000_l2_ctx8192_seed7",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_layers2_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 7,
+      "steps": 1000,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 11396160,
+      "peak_memory_mb": 2589.64599609375,
+      "elapsed_seconds": 162.17111539840698
+    },
+    {
+      "path": "benchmark_runs/hybrid_scale_d192_l4_steps1000_l2_lr1e4_ctx8192_seed42.json",
+      "run_name": "hybrid_scale_d192_l4_steps1000_l2_lr1e4_ctx8192_seed42",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_layers2_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 42,
+      "steps": 1000,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 11396160,
+      "peak_memory_mb": 2589.64599609375,
+      "elapsed_seconds": 161.94669127464294
+    },
+    {
+      "path": "benchmark_runs/hybrid_scale_d192_l4_steps1000_l2_lr2e4_ctx8192_seed42.json",
+      "run_name": "hybrid_scale_d192_l4_steps1000_l2_lr2e4_ctx8192_seed42",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_layers2_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 42,
+      "steps": 1000,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 11396160,
+      "peak_memory_mb": 2589.64599609375,
+      "elapsed_seconds": 162.53120064735413
+    },
+    {
+      "path": "benchmark_runs/hybrid_scale_d192_l4_steps1000_l2_lr5e4_ctx8192_seed123.json",
+      "run_name": "hybrid_scale_d192_l4_steps1000_l2_lr5e4_ctx8192_seed123",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_layers2_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 123,
+      "steps": 1000,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 11396160,
+      "peak_memory_mb": 2589.64599609375,
+      "elapsed_seconds": 162.9273645877838
+    },
+    {
+      "path": "benchmark_runs/hybrid_scale_d192_l4_steps1000_l2_lr5e4_ctx8192_seed42.json",
+      "run_name": "hybrid_scale_d192_l4_steps1000_l2_lr5e4_ctx8192_seed42",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_layers2_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 42,
+      "steps": 1000,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 11396160,
+      "peak_memory_mb": 2589.64599609375,
+      "elapsed_seconds": 163.20235919952393
+    },
+    {
+      "path": "benchmark_runs/hybrid_scale_d192_l4_steps1000_l2_lr5e4_ctx8192_seed7.json",
+      "run_name": "hybrid_scale_d192_l4_steps1000_l2_lr5e4_ctx8192_seed7",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_layers2_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 7,
+      "steps": 1000,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 11396160,
+      "peak_memory_mb": 2589.64599609375,
+      "elapsed_seconds": 163.2509572505951
+    },
+    {
+      "path": "benchmark_runs/hybrid_scale_d192_l4_steps1000_l2_lr5e4_mogtgate0p5_ctx8192_seed42.json",
+      "run_name": "hybrid_scale_d192_l4_steps1000_l2_lr5e4_mogtgate0p5_ctx8192_seed42",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_layers2_zeroattn_mogtgate0p5_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 42,
+      "steps": 1000,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 11396161,
+      "peak_memory_mb": 2589.6474609375,
+      "elapsed_seconds": 161.8821976184845
+    },
+    {
+      "path": "benchmark_runs/hybrid_scale_d192_l4_steps1000_l2_lr5e4_mogtscale0p25_ctx8192_seed42.json",
+      "run_name": "hybrid_scale_d192_l4_steps1000_l2_lr5e4_mogtscale0p25_ctx8192_seed42",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_layers2_zeroattn_mogtscale0p25_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 42,
+      "steps": 1000,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 11396160,
+      "peak_memory_mb": 2589.64599609375,
+      "elapsed_seconds": 162.8410382270813
+    },
+    {
+      "path": "benchmark_runs/hybrid_scale_d192_l4_steps1000_l2_lr5e4_mogtscale0p5_ctx8192_seed123.json",
+      "run_name": "hybrid_scale_d192_l4_steps1000_l2_lr5e4_mogtscale0p5_ctx8192_seed123",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_layers2_zeroattn_mogtscale0p5_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 123,
+      "steps": 1000,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 11396160,
+      "peak_memory_mb": 2589.64599609375,
+      "elapsed_seconds": 162.77215957641602
+    },
+    {
+      "path": "benchmark_runs/hybrid_scale_d192_l4_steps1000_l2_lr5e4_mogtscale0p5_ctx8192_seed42.json",
+      "run_name": "hybrid_scale_d192_l4_steps1000_l2_lr5e4_mogtscale0p5_ctx8192_seed42",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_layers2_zeroattn_mogtscale0p5_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 42,
+      "steps": 1000,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 11396160,
+      "peak_memory_mb": 2589.64599609375,
+      "elapsed_seconds": 161.06423997879028
+    },
+    {
+      "path": "benchmark_runs/hybrid_scale_d192_l4_steps1000_l2_lr5e4_mogtscale0p5_ctx8192_seed7.json",
+      "run_name": "hybrid_scale_d192_l4_steps1000_l2_lr5e4_mogtscale0p5_ctx8192_seed7",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_layers2_zeroattn_mogtscale0p5_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 7,
+      "steps": 1000,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 11396160,
+      "peak_memory_mb": 2589.64599609375,
+      "elapsed_seconds": 161.3122260570526
+    },
+    {
+      "path": "benchmark_runs/hybrid_scale_d192_l4_steps1000_l2_lr5e4_mogtscale0p5_mogtlr0p5_ctx8192_seed123.json",
+      "run_name": "hybrid_scale_d192_l4_steps1000_l2_lr5e4_mogtscale0p5_mogtlr0p5_ctx8192_seed123",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_layers2_zeroattn_mogtscale0p5_mogtlr0p5_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 123,
+      "steps": 1000,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 11396160,
+      "peak_memory_mb": 2589.64599609375,
+      "elapsed_seconds": 163.05509519577026
+    },
+    {
+      "path": "benchmark_runs/hybrid_scale_d192_l4_steps1000_l2_lr5e4_mogtscale0p5_mogtlr0p5_ctx8192_seed42.json",
+      "run_name": "hybrid_scale_d192_l4_steps1000_l2_lr5e4_mogtscale0p5_mogtlr0p5_ctx8192_seed42",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_layers2_zeroattn_mogtscale0p5_mogtlr0p5_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 42,
+      "steps": 1000,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 11396160,
+      "peak_memory_mb": 2589.64599609375,
+      "elapsed_seconds": 161.40732598304749
+    },
+    {
+      "path": "benchmark_runs/hybrid_scale_d192_l4_steps1000_l2_lr5e4_mogtscale0p5_mogtlr0p5_ctx8192_seed7.json",
+      "run_name": "hybrid_scale_d192_l4_steps1000_l2_lr5e4_mogtscale0p5_mogtlr0p5_ctx8192_seed7",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_layers2_zeroattn_mogtscale0p5_mogtlr0p5_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 7,
+      "steps": 1000,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 11396160,
+      "peak_memory_mb": 2589.64599609375,
+      "elapsed_seconds": 161.86557340621948
+    },
+    {
+      "path": "benchmark_runs/hybrid_scale_d192_l4_steps1000_l2_lr5e4_mogtscale0p75_ctx8192_seed42.json",
+      "run_name": "hybrid_scale_d192_l4_steps1000_l2_lr5e4_mogtscale0p75_ctx8192_seed42",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_layers2_zeroattn_mogtscale0p75_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 42,
+      "steps": 1000,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 11396160,
+      "peak_memory_mb": 2589.64599609375,
+      "elapsed_seconds": 161.36847043037415
+    },
+    {
+      "path": "benchmark_runs/hybrid_scale_d192_l4_steps1000_l2_lr5e4_mogtsched0p25to0p5s250_ctx8192_seed42.json",
+      "run_name": "hybrid_scale_d192_l4_steps1000_l2_lr5e4_mogtsched0p25to0p5s250_ctx8192_seed42",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_layers2_zeroattn_mogtscale0p5_mogtsched0p25to0p5s250_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 42,
+      "steps": 1000,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 11396160,
+      "peak_memory_mb": 2589.64599609375,
+      "elapsed_seconds": 161.30735564231873
+    },
+    {
+      "path": "benchmark_runs/hybrid_scale_d192_l4_steps1000_l3_ctx8192_seed123.json",
+      "run_name": "hybrid_scale_d192_l4_steps1000_l3_ctx8192_seed123",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_layers3_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 123,
+      "steps": 1000,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 11396160,
+      "peak_memory_mb": 2589.64599609375,
+      "elapsed_seconds": 162.32577967643738
+    },
+    {
+      "path": "benchmark_runs/hybrid_scale_d192_l4_steps1000_l3_ctx8192_seed42.json",
+      "run_name": "hybrid_scale_d192_l4_steps1000_l3_ctx8192_seed42",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_layers3_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 42,
+      "steps": 1000,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 11396160,
+      "peak_memory_mb": 2589.64599609375,
+      "elapsed_seconds": 162.3252658843994
+    },
+    {
+      "path": "benchmark_runs/hybrid_scale_d192_l4_steps1000_l3_ctx8192_seed7.json",
+      "run_name": "hybrid_scale_d192_l4_steps1000_l3_ctx8192_seed7",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_layers3_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 7,
+      "steps": 1000,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 11396160,
+      "peak_memory_mb": 2589.64599609375,
+      "elapsed_seconds": 162.60668110847473
+    },
+    {
+      "path": "benchmark_runs/hybrid_scale_d192_l4_steps500_attn_ctx8192_seed123.json",
+      "run_name": "hybrid_scale_d192_l4_steps500_attn_ctx8192_seed123",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_ratio0_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 123,
+      "steps": 500,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 11420544,
+      "peak_memory_mb": 2589.92333984375,
+      "elapsed_seconds": 74.27621459960938
+    },
+    {
+      "path": "benchmark_runs/hybrid_scale_d192_l4_steps500_attn_ctx8192_seed42.json",
+      "run_name": "hybrid_scale_d192_l4_steps500_attn_ctx8192_seed42",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_ratio0_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 42,
+      "steps": 500,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 11420544,
+      "peak_memory_mb": 2589.92333984375,
+      "elapsed_seconds": 74.1352150440216
+    },
+    {
+      "path": "benchmark_runs/hybrid_scale_d192_l4_steps500_attn_ctx8192_seed7.json",
+      "run_name": "hybrid_scale_d192_l4_steps500_attn_ctx8192_seed7",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_ratio0_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 7,
+      "steps": 500,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 11420544,
+      "peak_memory_mb": 2589.92333984375,
+      "elapsed_seconds": 72.98227548599243
+    },
+    {
+      "path": "benchmark_runs/hybrid_scale_d192_l4_steps500_l3_ctx8192_seed123.json",
+      "run_name": "hybrid_scale_d192_l4_steps500_l3_ctx8192_seed123",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_layers3_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 123,
+      "steps": 500,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 11396160,
+      "peak_memory_mb": 2589.64599609375,
+      "elapsed_seconds": 82.31164312362671
+    },
+    {
+      "path": "benchmark_runs/hybrid_scale_d192_l4_steps500_l3_ctx8192_seed42.json",
+      "run_name": "hybrid_scale_d192_l4_steps500_l3_ctx8192_seed42",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_layers3_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 42,
+      "steps": 500,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 11396160,
+      "peak_memory_mb": 2589.64599609375,
+      "elapsed_seconds": 82.35448384284973
+    },
+    {
+      "path": "benchmark_runs/hybrid_scale_d192_l4_steps500_l3_ctx8192_seed7.json",
+      "run_name": "hybrid_scale_d192_l4_steps500_l3_ctx8192_seed7",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_layers3_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 7,
+      "steps": 500,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 11396160,
+      "peak_memory_mb": 2589.64599609375,
+      "elapsed_seconds": 82.15038347244263
+    },
+    {
+      "path": "benchmark_runs/hybrid_scale_d256_l4_steps1000_attn_lr5e4_ctx8192_seed42.json",
+      "run_name": "hybrid_scale_d256_l4_steps1000_attn_lr5e4_ctx8192_seed42",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_all_transformer_zeroattn_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 42,
+      "steps": 1000,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 16275968,
+      "peak_memory_mb": 2674.67236328125,
+      "elapsed_seconds": 163.3535943031311
+    },
+    {
+      "path": "benchmark_runs/hybrid_scale_d256_l4_steps1000_l2_lr5e4_mogtscale0p5_mogtlr0p5_ctx8192_seed42.json",
+      "run_name": "hybrid_scale_d256_l4_steps1000_l2_lr5e4_mogtscale0p5_mogtlr0p5_ctx8192_seed42",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_layers2_zeroattn_mogtscale0p5_mogtlr0p5_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 42,
+      "steps": 1000,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 16210688,
+      "peak_memory_mb": 2673.92626953125,
+      "elapsed_seconds": 178.95898962020874
+    },
+    {
+      "path": "benchmark_runs/hybrid_smoke_ctx8192_seed42.json",
+      "run_name": "hybrid_smoke_ctx8192",
+      "task": "language_modeling",
+      "model": "hybrid_mogt_transformer",
+      "variant": "hybrid_alternating_r16_triton_hybrid_cayley_damp0.999",
+      "status": "ok",
+      "seed": 42,
+      "steps": 1,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 6957952,
+      "peak_memory_mb": 2449.49169921875,
+      "elapsed_seconds": 2.1188700199127197
+    },
+    {
+      "path": "benchmark_runs/synthetic_last_value_mogt_identity_coupled_value_forget_dense_stdreport_biasm2_ctx512_seed123_steps2000.json",
+      "run_name": "benchmark_runs/synthetic_last_value_mogt_identity_coupled_value_forget_dense_stdreport_biasm2_ctx512_seed123_steps2000.json",
+      "task": "last_value_tracking",
+      "model": "mogt",
+      "variant": "mogt_identity_coupled_write_forget_dense",
+      "status": "ok",
+      "seed": 123,
+      "steps": 2000,
+      "train_context": 512,
+      "eval_contexts": [
+        512,
+        1024,
+        2048,
+        4096,
+        8192
+      ],
+      "num_params": 541826,
+      "peak_memory_mb": 597.11572265625,
+      "elapsed_seconds": 61.61196162100532
+    },
+    {
+      "path": "benchmark_runs/synthetic_last_value_mogt_identity_coupled_value_forget_dense_stdreport_biasm2_ctx512_seed42_steps2000.json",
+      "run_name": "benchmark_runs/synthetic_last_value_mogt_identity_coupled_value_forget_dense_stdreport_biasm2_ctx512_seed42_steps2000.json",
+      "task": "last_value_tracking",
+      "model": "mogt",
+      "variant": "mogt_identity_coupled_write_forget_dense",
+      "status": "ok",
+      "seed": 42,
+      "steps": 2000,
+      "train_context": 512,
+      "eval_contexts": [
+        512,
+        1024,
+        2048,
+        4096,
+        8192
+      ],
+      "num_params": 541826,
+      "peak_memory_mb": 596.84814453125,
+      "elapsed_seconds": 62.06194509701163
+    },
+    {
+      "path": "benchmark_runs/synthetic_last_value_mogt_identity_coupled_value_forget_dense_stdreport_biasm2_ctx512_seed7_steps2000.json",
+      "run_name": "benchmark_runs/synthetic_last_value_mogt_identity_coupled_value_forget_dense_stdreport_biasm2_ctx512_seed7_steps2000.json",
+      "task": "last_value_tracking",
+      "model": "mogt",
+      "variant": "mogt_identity_coupled_write_forget_dense",
+      "status": "ok",
+      "seed": 7,
+      "steps": 2000,
+      "train_context": 512,
+      "eval_contexts": [
+        512,
+        1024,
+        2048,
+        4096,
+        8192
+      ],
+      "num_params": 541826,
+      "peak_memory_mb": 596.72216796875,
+      "elapsed_seconds": 61.95130661899748
+    },
+    {
+      "path": "benchmark_runs/synthetic_last_value_transformer_nope_dense_stdreport_ctx512_seed123_steps2000.json",
+      "run_name": "benchmark_runs/synthetic_last_value_transformer_nope_dense_stdreport_ctx512_seed123_steps2000.json",
+      "task": "last_value_tracking",
+      "model": "transformer",
+      "variant": "transformer_nope",
+      "status": "ok",
+      "seed": 123,
+      "steps": 2000,
+      "train_context": 512,
+      "eval_contexts": [
+        512,
+        1024,
+        2048,
+        4096,
+        8192
+      ],
+      "num_params": 541312,
+      "peak_memory_mb": 436.90087890625,
+      "elapsed_seconds": 30.046990425995318
+    },
+    {
+      "path": "benchmark_runs/synthetic_last_value_transformer_nope_dense_stdreport_ctx512_seed42_steps2000.json",
+      "run_name": "benchmark_runs/synthetic_last_value_transformer_nope_dense_stdreport_ctx512_seed42_steps2000.json",
+      "task": "last_value_tracking",
+      "model": "transformer",
+      "variant": "transformer_nope",
+      "status": "ok",
+      "seed": 42,
+      "steps": 2000,
+      "train_context": 512,
+      "eval_contexts": [
+        512,
+        1024,
+        2048,
+        4096,
+        8192
+      ],
+      "num_params": 541312,
+      "peak_memory_mb": 438.68603515625,
+      "elapsed_seconds": 30.43257891299436
+    },
+    {
+      "path": "benchmark_runs/synthetic_last_value_transformer_nope_dense_stdreport_ctx512_seed7_steps2000.json",
+      "run_name": "benchmark_runs/synthetic_last_value_transformer_nope_dense_stdreport_ctx512_seed7_steps2000.json",
+      "task": "last_value_tracking",
+      "model": "transformer",
+      "variant": "transformer_nope",
+      "status": "ok",
+      "seed": 7,
+      "steps": 2000,
+      "train_context": 512,
+      "eval_contexts": [
+        512,
+        1024,
+        2048,
+        4096,
+        8192
+      ],
+      "num_params": 541312,
+      "peak_memory_mb": 436.4814453125,
+      "elapsed_seconds": 30.47323601800599
+    },
+    {
+      "path": "benchmark_runs/synthetic_last_value_transformer_nope_matchedeval_ctx128_seed123_steps2000.json",
+      "run_name": "benchmark_runs/synthetic_last_value_transformer_nope_matchedeval_ctx128_seed123_steps2000.json",
+      "task": "last_value_tracking",
+      "model": "transformer",
+      "variant": "transformer_nope",
+      "status": "ok",
+      "seed": 123,
+      "steps": 2000,
+      "train_context": 128,
+      "eval_contexts": [
+        128,
+        256,
+        512,
+        1024
+      ],
+      "num_params": 541312,
+      "peak_memory_mb": 313.98193359375,
+      "elapsed_seconds": 39.79752114501025
+    },
+    {
+      "path": "benchmark_runs/synthetic_last_value_transformer_nope_matchedeval_ctx128_seed42_steps2000.json",
+      "run_name": "benchmark_runs/synthetic_last_value_transformer_nope_matchedeval_ctx128_seed42_steps2000.json",
+      "task": "last_value_tracking",
+      "model": "transformer",
+      "variant": "transformer_nope",
+      "status": "ok",
+      "seed": 42,
+      "steps": 2000,
+      "train_context": 128,
+      "eval_contexts": [
+        128,
+        256,
+        512,
+        1024
+      ],
+      "num_params": 541312,
+      "peak_memory_mb": 313.98193359375,
+      "elapsed_seconds": 39.91678521598806
+    },
+    {
+      "path": "benchmark_runs/synthetic_last_value_transformer_nope_matchedeval_ctx128_seed7_steps2000.json",
+      "run_name": "benchmark_runs/synthetic_last_value_transformer_nope_matchedeval_ctx128_seed7_steps2000.json",
+      "task": "last_value_tracking",
+      "model": "transformer",
+      "variant": "transformer_nope",
+      "status": "ok",
+      "seed": 7,
+      "steps": 2000,
+      "train_context": 128,
+      "eval_contexts": [
+        128,
+        256,
+        512,
+        1024
+      ],
+      "num_params": 541312,
+      "peak_memory_mb": 313.98193359375,
+      "elapsed_seconds": 39.98212066999986
+    },
+    {
+      "path": "benchmark_runs/synthetic_multislot4_mamba_d192_slotcurr_finalonly_stdreport_ctx512_seed123_steps3000.json",
+      "run_name": "benchmark_runs/synthetic_multislot4_mamba_d192_slotcurr_finalonly_stdreport_ctx512_seed123_steps3000.json",
+      "task": "tracked_multislot_last_value",
+      "model": "mamba",
+      "variant": "mamba_d192_slots4_final_curriculum",
+      "status": "ok",
+      "seed": 123,
+      "steps": 3000,
+      "train_context": 512,
+      "eval_contexts": [
+        512,
+        1024,
+        2048,
+        4096
+      ],
+      "num_params": 534336,
+      "peak_memory_mb": 160.1611328125,
+      "elapsed_seconds": 59.03262322800583
+    },
+    {
+      "path": "benchmark_runs/synthetic_multislot4_mamba_d192_slotcurr_finalonly_stdreport_ctx512_seed42_steps3000.json",
+      "run_name": "benchmark_runs/synthetic_multislot4_mamba_d192_slotcurr_finalonly_stdreport_ctx512_seed42_steps3000.json",
+      "task": "tracked_multislot_last_value",
+      "model": "mamba",
+      "variant": "mamba_d192_slots4_final_curriculum",
+      "status": "ok",
+      "seed": 42,
+      "steps": 3000,
+      "train_context": 512,
+      "eval_contexts": [
+        512,
+        1024,
+        2048,
+        4096
+      ],
+      "num_params": 534336,
+      "peak_memory_mb": 160.1611328125,
+      "elapsed_seconds": 59.212574178003706
+    },
+    {
+      "path": "benchmark_runs/synthetic_multislot4_mamba_d192_slotcurr_finalonly_stdreport_ctx512_seed7_steps3000.json",
+      "run_name": "benchmark_runs/synthetic_multislot4_mamba_d192_slotcurr_finalonly_stdreport_ctx512_seed7_steps3000.json",
+      "task": "tracked_multislot_last_value",
+      "model": "mamba",
+      "variant": "mamba_d192_slots4_final_curriculum",
+      "status": "ok",
+      "seed": 7,
+      "steps": 3000,
+      "train_context": 512,
+      "eval_contexts": [
+        512,
+        1024,
+        2048,
+        4096
+      ],
+      "num_params": 534336,
+      "peak_memory_mb": 160.1611328125,
+      "elapsed_seconds": 59.41097653401084
+    },
+    {
+      "path": "benchmark_runs/synthetic_multislot4_mogt_slotaddr_coupled_rank_finalonly_stdreport_ctx512_seed123_steps3000.json",
+      "run_name": "benchmark_runs/synthetic_multislot4_mogt_slotaddr_coupled_rank_finalonly_stdreport_ctx512_seed123_steps3000.json",
+      "task": "tracked_multislot_last_value",
+      "model": "mogt",
+      "variant": "mogt_identity_coupled_write_forget_current_prev_prefix_value_bias_m2p0_slots4_final",
+      "status": "ok",
+      "seed": 123,
+      "steps": 3000,
+      "train_context": 512,
+      "eval_contexts": [
+        512,
+        1024,
+        2048,
+        4096
+      ],
+      "num_params": 557984,
+      "peak_memory_mb": 244.4208984375,
+      "elapsed_seconds": 89.78857560599863
+    },
+    {
+      "path": "benchmark_runs/synthetic_multislot4_mogt_slotaddr_coupled_rank_finalonly_stdreport_ctx512_seed42_steps3000.json",
+      "run_name": "benchmark_runs/synthetic_multislot4_mogt_slotaddr_coupled_rank_finalonly_stdreport_ctx512_seed42_steps3000.json",
+      "task": "tracked_multislot_last_value",
+      "model": "mogt",
+      "variant": "mogt_identity_coupled_write_forget_current_prev_prefix_value_bias_m2p0_slots4_final",
+      "status": "ok",
+      "seed": 42,
+      "steps": 3000,
+      "train_context": 512,
+      "eval_contexts": [
+        512,
+        1024,
+        2048,
+        4096
+      ],
+      "num_params": 557984,
+      "peak_memory_mb": 244.4208984375,
+      "elapsed_seconds": 90.86896655800228
+    },
+    {
+      "path": "benchmark_runs/synthetic_multislot4_mogt_slotaddr_coupled_rank_finalonly_stdreport_ctx512_seed7_steps3000.json",
+      "run_name": "benchmark_runs/synthetic_multislot4_mogt_slotaddr_coupled_rank_finalonly_stdreport_ctx512_seed7_steps3000.json",
+      "task": "tracked_multislot_last_value",
+      "model": "mogt",
+      "variant": "mogt_identity_coupled_write_forget_current_prev_prefix_value_bias_m2p0_slots4_final",
+      "status": "ok",
+      "seed": 7,
+      "steps": 3000,
+      "train_context": 512,
+      "eval_contexts": [
+        512,
+        1024,
+        2048,
+        4096
+      ],
+      "num_params": 557984,
+      "peak_memory_mb": 244.4208984375,
+      "elapsed_seconds": 90.49896191598964
+    },
+    {
+      "path": "benchmark_runs/synthetic_multislot4_mogt_slotaddr_coupled_rank_slotcurr_finalonly_stdreport_ctx512_seed123_steps3000.json",
+      "run_name": "benchmark_runs/synthetic_multislot4_mogt_slotaddr_coupled_rank_slotcurr_finalonly_stdreport_ctx512_seed123_steps3000.json",
+      "task": "tracked_multislot_last_value",
+      "model": "mogt",
+      "variant": "mogt_identity_coupled_write_forget_current_prev_prefix_value_bias_m2p0_slots4_final_curriculum",
+      "status": "ok",
+      "seed": 123,
+      "steps": 3000,
+      "train_context": 512,
+      "eval_contexts": [
+        512,
+        1024,
+        2048,
+        4096
+      ],
+      "num_params": 557984,
+      "peak_memory_mb": 244.4208984375,
+      "elapsed_seconds": 89.87048746499931
+    },
+    {
+      "path": "benchmark_runs/synthetic_multislot4_mogt_slotaddr_coupled_rank_slotcurr_finalonly_stdreport_ctx512_seed42_steps3000.json",
+      "run_name": "benchmark_runs/synthetic_multislot4_mogt_slotaddr_coupled_rank_slotcurr_finalonly_stdreport_ctx512_seed42_steps3000.json",
+      "task": "tracked_multislot_last_value",
+      "model": "mogt",
+      "variant": "mogt_identity_coupled_write_forget_current_prev_prefix_value_bias_m2p0_slots4_final_curriculum",
+      "status": "ok",
+      "seed": 42,
+      "steps": 3000,
+      "train_context": 512,
+      "eval_contexts": [
+        512,
+        1024,
+        2048,
+        4096
+      ],
+      "num_params": 557984,
+      "peak_memory_mb": 244.4208984375,
+      "elapsed_seconds": 89.49143368500518
+    },
+    {
+      "path": "benchmark_runs/synthetic_multislot4_mogt_slotaddr_coupled_rank_slotcurr_finalonly_stdreport_ctx512_seed7_steps3000.json",
+      "run_name": "benchmark_runs/synthetic_multislot4_mogt_slotaddr_coupled_rank_slotcurr_finalonly_stdreport_ctx512_seed7_steps3000.json",
+      "task": "tracked_multislot_last_value",
+      "model": "mogt",
+      "variant": "mogt_identity_coupled_write_forget_current_prev_prefix_value_bias_m2p0_slots4_final_curriculum",
+      "status": "ok",
+      "seed": 7,
+      "steps": 3000,
+      "train_context": 512,
+      "eval_contexts": [
+        512,
+        1024,
+        2048,
+        4096
+      ],
+      "num_params": 557984,
+      "peak_memory_mb": 244.4208984375,
+      "elapsed_seconds": 90.37730493099662
+    },
+    {
+      "path": "benchmark_runs/synthetic_multislot4_nope_slotcurr_finalonly_stdreport_ctx512_seed123_steps3000.json",
+      "run_name": "benchmark_runs/synthetic_multislot4_nope_slotcurr_finalonly_stdreport_ctx512_seed123_steps3000.json",
+      "task": "tracked_multislot_last_value",
+      "model": "transformer",
+      "variant": "transformer_nope_slots4_final_curriculum",
+      "status": "ok",
+      "seed": 123,
+      "steps": 3000,
+      "train_context": 512,
+      "eval_contexts": [
+        512,
+        1024,
+        2048,
+        4096
+      ],
+      "num_params": 545408,
+      "peak_memory_mb": 176.04833984375,
+      "elapsed_seconds": 53.84074230599799
+    },
+    {
+      "path": "benchmark_runs/synthetic_multislot4_nope_slotcurr_finalonly_stdreport_ctx512_seed42_steps3000.json",
+      "run_name": "benchmark_runs/synthetic_multislot4_nope_slotcurr_finalonly_stdreport_ctx512_seed42_steps3000.json",
+      "task": "tracked_multislot_last_value",
+      "model": "transformer",
+      "variant": "transformer_nope_slots4_final_curriculum",
+      "status": "ok",
+      "seed": 42,
+      "steps": 3000,
+      "train_context": 512,
+      "eval_contexts": [
+        512,
+        1024,
+        2048,
+        4096
+      ],
+      "num_params": 545408,
+      "peak_memory_mb": 176.04833984375,
+      "elapsed_seconds": 54.00063520099502
+    },
+    {
+      "path": "benchmark_runs/synthetic_multislot4_nope_slotcurr_finalonly_stdreport_ctx512_seed7_steps3000.json",
+      "run_name": "benchmark_runs/synthetic_multislot4_nope_slotcurr_finalonly_stdreport_ctx512_seed7_steps3000.json",
+      "task": "tracked_multislot_last_value",
+      "model": "transformer",
+      "variant": "transformer_nope_slots4_final_curriculum",
+      "status": "ok",
+      "seed": 7,
+      "steps": 3000,
+      "train_context": 512,
+      "eval_contexts": [
+        512,
+        1024,
+        2048,
+        4096
+      ],
+      "num_params": 545408,
+      "peak_memory_mb": 176.04833984375,
+      "elapsed_seconds": 54.042098496007384
+    },
+    {
+      "path": "benchmark_runs/synthetic_multislot4_transformer_nope_finalonly_stdreport_ctx512_seed123_steps3000.json",
+      "run_name": "benchmark_runs/synthetic_multislot4_transformer_nope_finalonly_stdreport_ctx512_seed123_steps3000.json",
+      "task": "tracked_multislot_last_value",
+      "model": "transformer",
+      "variant": "transformer_nope_slots4_final",
+      "status": "ok",
+      "seed": 123,
+      "steps": 3000,
+      "train_context": 512,
+      "eval_contexts": [
+        512,
+        1024,
+        2048,
+        4096
+      ],
+      "num_params": 545408,
+      "peak_memory_mb": 176.04833984375,
+      "elapsed_seconds": 54.63810982200084
+    },
+    {
+      "path": "benchmark_runs/synthetic_multislot4_transformer_nope_finalonly_stdreport_ctx512_seed42_steps3000.json",
+      "run_name": "benchmark_runs/synthetic_multislot4_transformer_nope_finalonly_stdreport_ctx512_seed42_steps3000.json",
+      "task": "tracked_multislot_last_value",
+      "model": "transformer",
+      "variant": "transformer_nope_slots4_final",
+      "status": "ok",
+      "seed": 42,
+      "steps": 3000,
+      "train_context": 512,
+      "eval_contexts": [
+        512,
+        1024,
+        2048,
+        4096
+      ],
+      "num_params": 545408,
+      "peak_memory_mb": 176.04833984375,
+      "elapsed_seconds": 54.03072083099687
+    },
+    {
+      "path": "benchmark_runs/synthetic_multislot4_transformer_nope_finalonly_stdreport_ctx512_seed7_steps3000.json",
+      "run_name": "benchmark_runs/synthetic_multislot4_transformer_nope_finalonly_stdreport_ctx512_seed7_steps3000.json",
+      "task": "tracked_multislot_last_value",
+      "model": "transformer",
+      "variant": "transformer_nope_slots4_final",
+      "status": "ok",
+      "seed": 7,
+      "steps": 3000,
+      "train_context": 512,
+      "eval_contexts": [
+        512,
+        1024,
+        2048,
+        4096
+      ],
+      "num_params": 545408,
+      "peak_memory_mb": 176.04833984375,
+      "elapsed_seconds": 53.64672741299728
+    },
+    {
+      "path": "benchmark_runs/transformer_ctx8192_d128_l2_steps10_seed42.json",
+      "run_name": "transformer_ctx8192_d128_l2_steps10_seed42",
+      "task": "language_modeling",
+      "model": "scratch_transformer",
+      "variant": "scratch_transformer",
+      "status": "ok",
+      "seed": 42,
+      "steps": 10,
+      "train_context": 8192,
+      "eval_contexts": [
+        8192
+      ],
+      "num_params": 6957824,
+      "peak_memory_mb": 2502.57421875,
+      "elapsed_seconds": 2.1548378467559814
+    }
+  ],
+  "invalid": []
+}

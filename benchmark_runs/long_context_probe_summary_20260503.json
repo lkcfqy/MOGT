@@ -1,0 +1,103 @@
+{
+  "date": "2026-05-03",
+  "device": "NVIDIA L4 24GB",
+  "protocol": {
+    "dataset": "WikiText-103 raw v1",
+    "tokenizer": "GPT-2 stream",
+    "context_length": 65536,
+    "batch_size": 1,
+    "grad_accum_steps": 1,
+    "max_steps": 1,
+    "d_model": 768,
+    "num_layers": 12
+  },
+  "results": [
+    {
+      "model": "MOGT baseline_v1 shape",
+      "config": "12L d768 r16, triton_hybrid, cayley",
+      "status": "oom",
+      "loss_chunk_size": 256,
+      "failed_phase": "lm_head_loss_forward",
+      "error_summary": "CUDA OOM while allocating 50 MiB in cross_entropy after MOGT forward; process reported about 22.00 GiB in use.",
+      "log": "train_mogt_probe_ctx65536_seed42_20260503.log"
+    },
+    {
+      "model": "MOGT baseline_v1 shape",
+      "config": "12L d768 r16, triton_hybrid, cayley",
+      "status": "oom",
+      "loss_chunk_size": 64,
+      "failed_phase": "lm_head_forward",
+      "error_summary": "CUDA OOM while allocating 20 MiB in lm_head after MOGT forward; process reported about 22.02 GiB in use.",
+      "log": "train_mogt_probe_ctx65536_losschunk64_seed42_20260503.log"
+    },
+    {
+      "model": "MOGT baseline_v1 shape",
+      "config": "12L d768 r16, triton_hybrid, cayley",
+      "status": "oom",
+      "loss_chunk_size": 16,
+      "failed_phase": "lm_head_loss_forward",
+      "error_summary": "CUDA OOM while allocating 20 MiB in cross_entropy after MOGT forward; process reported about 22.02 GiB in use.",
+      "log": "train_mogt_probe_ctx65536_losschunk16_seed42_20260503.log"
+    },
+    {
+      "model": "MOGT baseline_v1 shape",
+      "config": "12L d768 r16, triton_hybrid, cayley",
+      "status": "oom",
+      "loss_chunk_size": 1,
+      "failed_phase": "lm_head_loss_forward",
+      "error_summary": "CUDA OOM while allocating 2 MiB in cross_entropy after MOGT forward; process reported about 22.02 GiB in use.",
+      "log": "train_mogt_probe_ctx65536_losschunk1_seed42_20260503.log"
+    },
+    {
+      "model": "Scratch Transformer",
+      "config": "12L d768 h12, RoPE, torch.scaled_dot_product_attention",
+      "status": "ok",
+      "loss_chunk_size": 256,
+      "train_loss": 11.038182258605957,
+      "peak_memory_mb": 6146.98681640625,
+      "elapsed_s": 20.725065231323242,
+      "report": "benchmark_runs/transformer_scratch_probe_ctx65536_seed42.json",
+      "log": "train_transformer_scratch_probe_ctx65536_seed42_20260503.log"
+    },
+    {
+      "model": "MOGT baseline_v1 shape + memory-efficient LM loss",
+      "config": "12L d768 r16, triton_hybrid, cayley",
+      "status": "ok",
+      "loss_chunk_size": 256,
+      "train_loss": 15.2754,
+      "log": "train_mogt_probe_ctx65536_memloss_seed42_20260503.log"
+    },
+    {
+      "model": "MOGT baseline_v1 shape + memory-efficient LM loss",
+      "config": "12L d768 r16, triton_hybrid, cayley",
+      "status": "ok",
+      "loss_chunk_size": 256,
+      "train_loss": 15.344216346740723,
+      "peak_memory_mb": 6561.236328125,
+      "elapsed_s": 8.111915842000599,
+      "notes": "No-checkpoint random-token one-step measurement."
+    },
+    {
+      "model": "Scratch Transformer + memory-efficient LM loss",
+      "config": "12L d768 h12, RoPE, torch.scaled_dot_product_attention",
+      "status": "ok",
+      "loss_chunk_size": 256,
+      "train_loss": 10.97663402557373,
+      "peak_memory_mb": 6146.986328125,
+      "elapsed_s": 12.193798783999227,
+      "notes": "No-checkpoint random-token one-step measurement."
+    }
+  ],
+  "interpretation": [
+    "This is a one-step systems probe, not a modeling-quality benchmark.",
+    "Before the memory-efficient LM loss, the MOGT 130M training path did not fit ctx=65536 on L4 24GB, even with loss_chunk_size reduced to 1.",
+    "After replacing the retained-logits chunked loss with a recompute-in-backward linear CE, MOGT fits one ctx=65536 training step.",
+    "With the same memory-efficient loss, the scratch Transformer baseline also fits ctx=65536.",
+    "The current evidence supports an LM-head memory fix and a possible step-time advantage for MOGT in a one-step systems probe; it does not prove modeling-quality superiority over Transformer."
+  ],
+  "next_actions": [
+    "Rerun comparable 32k/64k step-time and peak-memory probes with the new LM loss for both MOGT and Transformer.",
+    "Run synthetic long-context tasks now that MOGT has a reliable 64k training/eval path.",
+    "Do not claim Transformer quality superiority until MOGT beats the scratch Transformer budget baseline or wins on a clearly scoped long-context task."
+  ]
+}

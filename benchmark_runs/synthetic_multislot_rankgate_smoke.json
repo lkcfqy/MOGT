@@ -1,0 +1,78 @@
+{
+  "created_at": "2026-05-03T11:11:46.772805+00:00",
+  "status": "ok",
+  "task": "tracked_multislot_last_value",
+  "model_type": "mogt",
+  "params": 549824,
+  "config": {
+    "model_type": "mogt",
+    "device": "cuda",
+    "dtype": "bf16",
+    "seed": 42,
+    "vocab_size": 128,
+    "d_model": 128,
+    "num_layers": 2,
+    "rank": 16,
+    "num_heads": 4,
+    "rope_theta": 10000.0,
+    "scan_impl": "triton_hybrid",
+    "connection_impl": "identity",
+    "connection_damping": 1.0,
+    "scan_block_size": 256,
+    "readout_init_std": 0.02,
+    "transport_gate": true,
+    "transport_gate_mode": "multiply",
+    "transport_gate_width": "rank",
+    "transport_gate_scale": 1.0,
+    "transport_gate_bias": 8.0,
+    "value_gate": true,
+    "value_gate_width": "rank",
+    "value_gate_bias": -2.0,
+    "gradient_checkpointing": false,
+    "train_context": 128,
+    "eval_contexts": [
+      128
+    ],
+    "num_slots": 2,
+    "num_values": 16,
+    "min_updates": 2,
+    "max_updates": 3,
+    "batch_size": 2,
+    "eval_batch_size": 2,
+    "steps": 2,
+    "eval_batches": 1,
+    "dense_loss": true,
+    "lr": 0.001,
+    "weight_decay": 0.1,
+    "grad_clip": 1.0,
+    "log_every": 1,
+    "output": "benchmark_runs/synthetic_multislot_rankgate_smoke.json"
+  },
+  "train_trace": [
+    {
+      "step": 1,
+      "loss": 4.820488452911377,
+      "accuracy": 0.0,
+      "dense_accuracy": 0.0,
+      "grad_norm": 20.957456588745117
+    },
+    {
+      "step": 2,
+      "loss": 4.434112071990967,
+      "accuracy": 0.5,
+      "dense_accuracy": 0.4490740895271301,
+      "grad_norm": 12.888442993164062
+    }
+  ],
+  "eval_results": [
+    {
+      "context_length": 128,
+      "loss": 5.038342475891113,
+      "accuracy": 0.0,
+      "examples": 2,
+      "elapsed_s": 0.006996495998464525
+    }
+  ],
+  "train_elapsed_s": 1.9276129329991818,
+  "peak_memory_mb": 44.08984375
+}

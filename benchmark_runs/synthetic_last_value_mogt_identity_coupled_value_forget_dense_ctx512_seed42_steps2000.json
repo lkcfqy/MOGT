@@ -1,0 +1,170 @@
+{
+  "created_at": "2026-05-03T12:07:48.025931+00:00",
+  "status": "ok",
+  "task": "last_value_tracking",
+  "model_type": "mogt",
+  "params": 541826,
+  "config": {
+    "model_type": "mogt",
+    "device": "cuda",
+    "dtype": "bf16",
+    "seed": 42,
+    "vocab_size": 128,
+    "d_model": 128,
+    "num_layers": 2,
+    "rank": 16,
+    "num_heads": 4,
+    "rope_theta": 10000.0,
+    "scan_impl": "triton_hybrid",
+    "connection_impl": "identity",
+    "connection_damping": 1.0,
+    "scan_block_size": 256,
+    "readout_init_std": 0.02,
+    "transport_gate": false,
+    "transport_gate_mode": "multiply",
+    "transport_gate_width": "scalar",
+    "transport_gate_scale": 1.0,
+    "transport_gate_bias": 2.0,
+    "value_gate": true,
+    "value_gate_width": "scalar",
+    "value_gate_bias": -2.0,
+    "couple_forget_to_value_gate": true,
+    "gradient_checkpointing": false,
+    "train_context": 512,
+    "min_train_context": 0,
+    "curriculum_steps": 0,
+    "eval_contexts": [
+      512,
+      1024,
+      2048,
+      4096,
+      8192
+    ],
+    "num_values": 16,
+    "min_updates": 1,
+    "max_updates": 4,
+    "batch_size": 16,
+    "eval_batch_size": 4,
+    "steps": 2000,
+    "eval_batches": 16,
+    "dense_loss": true,
+    "lr": 0.001,
+    "weight_decay": 0.1,
+    "grad_clip": 1.0,
+    "log_every": 400,
+    "output": "benchmark_runs/synthetic_last_value_mogt_identity_coupled_value_forget_dense_ctx512_seed42_steps2000.json"
+  },
+  "train_trace": [
+    {
+      "step": 1,
+      "loss": 4.891629695892334,
+      "accuracy": 0.0,
+      "dense_accuracy": 0.010193883441388607,
+      "context_length": 512,
+      "grad_norm": 4.589585304260254
+    },
+    {
+      "step": 400,
+      "loss": 7.94863881310448e-05,
+      "accuracy": 1.0,
+      "dense_accuracy": 1.0,
+      "context_length": 512,
+      "grad_norm": 0.0003991265839431435
+    },
+    {
+      "step": 800,
+      "loss": 7.55951035102953e-09,
+      "accuracy": 1.0,
+      "dense_accuracy": 1.0,
+      "context_length": 512,
+      "grad_norm": 1.9219005764625763e-07
+    },
+    {
+      "step": 1200,
+      "loss": 3.8737329788318675e-08,
+      "accuracy": 1.0,
+      "dense_accuracy": 0.9999999403953552,
+      "context_length": 512,
+      "grad_norm": 3.0953066243455396e-07
+    },
+    {
+      "step": 1600,
+      "loss": 2.2826103673878606e-08,
+      "accuracy": 1.0,
+      "dense_accuracy": 1.0,
+      "context_length": 512,
+      "grad_norm": 3.5019198207919544e-07
+    },
+    {
+      "step": 2000,
+      "loss": 3.4641183255246233e-09,
+      "accuracy": 1.0,
+      "dense_accuracy": 1.0,
+      "context_length": 512,
+      "grad_norm": 4.5071266185914283e-07
+    }
+  ],
+  "eval_results": [
+    {
+      "context_length": 512,
+      "loss": 1.3038515267460582e-08,
+      "accuracy": 1.0,
+      "examples": 64,
+      "elapsed_s": 0.12637103999804822
+    },
+    {
+      "context_length": 1024,
+      "loss": 5.587935114625964e-09,
+      "accuracy": 1.0,
+      "examples": 64,
+      "elapsed_s": 0.11751423900204827
+    },
+    {
+      "context_length": 2048,
+      "loss": 7.450580152834618e-09,
+      "accuracy": 1.0,
+      "examples": 64,
+      "elapsed_s": 0.13477610200061463
+    },
+    {
+      "context_length": 4096,
+      "loss": 5.587935114625964e-09,
+      "accuracy": 1.0,
+      "examples": 64,
+      "elapsed_s": 0.17082537900205352
+    },
+    {
+      "context_length": 8192,
+      "loss": 7.450580152834618e-09,
+      "accuracy": 1.0,
+      "examples": 64,
+      "elapsed_s": 0.2593834940016677
+    }
+  ],
+  "gate_diagnostics": [
+    {
+      "block": 0,
+      "couple_forget_to_value_gate": true,
+      "value_gate_width": "scalar",
+      "mean_gate": {
+        "set": 1.0065940614367719e-06,
+        "query": 8.768408861214994e-07,
+        "value": 0.8883420825004578,
+        "filler": 1.3201912452132092e-06
+      }
+    },
+    {
+      "block": 1,
+      "couple_forget_to_value_gate": true,
+      "value_gate_width": "scalar",
+      "mean_gate": {
+        "set": 0.42149239778518677,
+        "query": 0.3755888342857361,
+        "value": 0.26965799927711487,
+        "filler": 0.3926078677177429
+      }
+    }
+  ],
+  "train_elapsed_s": 60.488635993999196,
+  "peak_memory_mb": 593.52392578125
+}

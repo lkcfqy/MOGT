@@ -1,3 +1,11 @@
+"""
+Synthetic long-context retrieval probe.
+
+This script performs short supervised adaptation at 8k before probing longer
+lengths. It is therefore not a zero-shot benchmark; it is a controlled stress
+test for long-range signal transport.
+"""
+
 import torch
 import random
 import os
@@ -60,8 +68,9 @@ def finetune_passkey(model, device, vocab_size, steps=50):
 
 if __name__ == "__main__":
     print("==================================================")
-    print("🔍 MOGT - 终极时空穿越测试 (Zero-Shot Length Extrapolation)")
+    print("🔍 Synthetic Long-Context Retrieval Probe")
     print("==================================================")
+    print("注意：该脚本包含 8K 长度的短程 SFT，属于合成长程记忆实验，不是零样本结论。")
     
     device = "cuda" if torch.cuda.is_available() else "cpu"
     vocab_size = 50257
@@ -106,20 +115,24 @@ if __name__ == "__main__":
                 x = x.to(device)
                 
                 # 重置测高仪
-                torch.cuda.reset_peak_memory_stats(device)
+                if device == "cuda":
+                    torch.cuda.reset_peak_memory_stats(device)
                 
                 with torch.autocast(device_type=device, dtype=torch.bfloat16):
                     logits, _ = model(x)
                     
-                peak_mem = torch.cuda.max_memory_allocated(device) / (1024**3)
+                peak_mem = 0.0
+                if device == "cuda":
+                    peak_mem = torch.cuda.max_memory_allocated(device) / (1024**3)
                 
                 # 获取在提问结尾后的真实第一响应预测
                 pred_token = logits[0, -2, :].argmax().item()
                 correct_token = 9999
                 
-                status = "✅ 贯穿成功！完美的零样本异空泛化！" if pred_token == correct_token else "❌ 信号磨灭"
+                status = "✅ 合成检索成功" if pred_token == correct_token else "❌ 合成检索失败"
                 
-                print(f"   [资源消耗]: {peak_mem:.2f} GB (峰值)")
+                if device == "cuda":
+                    print(f"   [资源消耗]: {peak_mem:.2f} GB (峰值)")
                 print(f"   [记忆召回]: {status} (预测: {pred_token} | 真实: {correct_token})")
                 
             except torch.cuda.OutOfMemoryError:

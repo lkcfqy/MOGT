@@ -1,0 +1,145 @@
+{
+  "created_at": "2026-05-03T17:15:29.182248+00:00",
+  "status": "ok",
+  "task": "tracked_multislot_last_value",
+  "model_type": "gru",
+  "params": 222976,
+  "config": {
+    "model_type": "gru",
+    "device": "cuda",
+    "dtype": "bf16",
+    "seed": 42,
+    "vocab_size": 192,
+    "d_model": 128,
+    "num_layers": 2,
+    "rank": 16,
+    "num_heads": 4,
+    "rope_theta": 10000.0,
+    "scan_impl": "triton_hybrid",
+    "connection_impl": "cayley",
+    "connection_damping": 0.999,
+    "scan_block_size": 256,
+    "readout_init_std": 0.0,
+    "transport_gate": false,
+    "transport_gate_mode": "multiply",
+    "transport_gate_width": "scalar",
+    "transport_gate_scale": 1.0,
+    "transport_gate_bias": 2.0,
+    "value_gate": false,
+    "value_gate_width": "scalar",
+    "value_gate_input": "current",
+    "value_gate_bias": 0.0,
+    "couple_forget_to_value_gate": false,
+    "prefix_condition_position": null,
+    "gradient_checkpointing": false,
+    "train_context": 512,
+    "eval_contexts": [
+      512,
+      1024,
+      2048,
+      4096
+    ],
+    "num_slots": 6,
+    "min_train_slots": 2,
+    "slot_curriculum_steps": 2000,
+    "num_values": 16,
+    "min_updates": 6,
+    "max_updates": 18,
+    "batch_size": 16,
+    "eval_batch_size": 4,
+    "steps": 500,
+    "eval_batches": 8,
+    "dense_loss": false,
+    "state_label_mode": "hold",
+    "state_label_mode_after": "",
+    "dense_loss_steps": 0,
+    "lr": 0.001,
+    "weight_decay": 0.1,
+    "grad_clip": 1.0,
+    "log_every": 100,
+    "output": "benchmark_runs/synthetic_multislot6_gru_slotcurr2000_finalonly_ctx512_seed42_steps500.json"
+  },
+  "train_trace": [
+    {
+      "step": 1,
+      "loss": 5.250324726104736,
+      "accuracy": 0.0,
+      "dense_accuracy": null,
+      "grad_norm": 22.96925926208496,
+      "active_num_slots": 2
+    },
+    {
+      "step": 100,
+      "loss": 2.931776523590088,
+      "accuracy": 0.0625,
+      "dense_accuracy": null,
+      "grad_norm": 3.9378793239593506,
+      "active_num_slots": 2
+    },
+    {
+      "step": 200,
+      "loss": 2.764760971069336,
+      "accuracy": 0.125,
+      "dense_accuracy": null,
+      "grad_norm": 2.2931253910064697,
+      "active_num_slots": 2
+    },
+    {
+      "step": 300,
+      "loss": 2.8020336627960205,
+      "accuracy": 0.1875,
+      "dense_accuracy": null,
+      "grad_norm": 3.283998966217041,
+      "active_num_slots": 3
+    },
+    {
+      "step": 400,
+      "loss": 2.878908395767212,
+      "accuracy": 0.0,
+      "dense_accuracy": null,
+      "grad_norm": 3.152402400970459,
+      "active_num_slots": 3
+    },
+    {
+      "step": 500,
+      "loss": 2.8415188789367676,
+      "accuracy": 0.0625,
+      "dense_accuracy": null,
+      "grad_norm": 3.1224982738494873,
+      "active_num_slots": 3
+    }
+  ],
+  "eval_results": [
+    {
+      "context_length": 512,
+      "loss": 2.799759030342102,
+      "accuracy": 0.03125,
+      "examples": 32,
+      "elapsed_s": 0.7417326060021878
+    },
+    {
+      "context_length": 1024,
+      "loss": 2.7935922741889954,
+      "accuracy": 0.0625,
+      "examples": 32,
+      "elapsed_s": 1.4431199980026577
+    },
+    {
+      "context_length": 2048,
+      "loss": 2.8121348917484283,
+      "accuracy": 0.03125,
+      "examples": 32,
+      "elapsed_s": 2.8289928770027473
+    },
+    {
+      "context_length": 4096,
+      "loss": 2.7988583743572235,
+      "accuracy": 0.0625,
+      "examples": 32,
+      "elapsed_s": 5.643693072001042
+    }
+  ],
+  "gate_diagnostics": null,
+  "train_elapsed_s": 228.09549086999323,
+  "peak_memory_mb": 278.853515625
+}

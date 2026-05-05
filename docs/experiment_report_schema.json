@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.mogt/experiment_report_schema.json",
+  "title": "MOGT Experiment Report",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "run_name",
+    "task",
+    "model",
+    "variant",
+    "status",
+    "command",
+    "environment",
+    "data",
+    "model_config",
+    "training",
+    "metrics"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "mogt-experiment-v1"
+    },
+    "run_name": {
+      "type": "string"
+    },
+    "task": {
+      "type": "string"
+    },
+    "model": {
+      "type": "string"
+    },
+    "variant": {
+      "type": "string"
+    },
+    "status": {
+      "enum": ["ok", "failed", "oom", "skipped", "partial"]
+    },
+    "failure_reason": {
+      "type": ["string", "null"]
+    },
+    "command": {
+      "type": "string"
+    },
+    "git_commit": {
+      "type": ["string", "null"]
+    },
+    "environment": {
+      "type": "object",
+      "required": ["device", "torch_version", "cuda_available"],
+      "properties": {
+        "device": {"type": "string"},
+        "gpu_name": {"type": ["string", "null"]},
+        "torch_version": {"type": "string"},
+        "cuda_available": {"type": "boolean"},
+        "amp_dtype": {"type": ["string", "null"]},
+        "peak_memory_mb": {"type": ["number", "null"]},
+        "elapsed_seconds": {"type": ["number", "null"]}
+      },
+      "additionalProperties": true
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "dataset": {"type": ["string", "null"]},
+        "tokenizer": {"type": ["string", "null"]},
+        "train_context": {"type": ["integer", "null"]},
+        "eval_contexts": {
+          "type": "array",
+          "items": {"type": "integer"}
+        },
+        "train_examples": {"type": ["integer", "null"]},
+        "eval_examples": {"type": ["integer", "null"]},
+        "tokens_seen": {"type": ["integer", "null"]}
+      },
+      "additionalProperties": true
+    },
+    "model_config": {
+      "type": "object",
+      "properties": {
+        "num_params": {"type": ["integer", "null"]},
+        "d_model": {"type": ["integer", "null"]},
+        "num_layers": {"type": ["integer", "null"]},
+        "rank": {"type": ["integer", "null"]},
+        "num_heads": {"type": ["integer", "null"]},
+        "scan_impl": {"type": ["string", "null"]},
+        "connection_impl": {"type": ["string", "null"]},
+        "gate_config": {"type": ["object", "string", "null"]}
+      },
+      "additionalProperties": true
+    },
+    "training": {
+      "type": "object",
+      "properties": {
+        "seed": {"type": ["integer", "null"]},
+        "steps": {"type": ["integer", "null"]},
+        "batch_size": {"type": ["integer", "null"]},
+        "grad_accum_steps": {"type": ["integer", "null"]},
+        "optimizer": {"type": ["string", "null"]},
+        "lr": {"type": ["number", "null"]},
+        "weight_decay": {"type": ["number", "null"]},
+        "scheduler": {"type": ["string", "null"]}
+      },
+      "additionalProperties": true
+    },
+    "metrics": {
+      "type": "object",
+      "properties": {
+        "loss": {"type": ["number", "null"]},
+        "ppl": {"type": ["number", "null"]},
+        "accuracy_by_context": {
+          "type": "object",
+          "additionalProperties": {"type": "number"}
+        },
+        "loss_by_context": {
+          "type": "object",
+          "additionalProperties": {"type": "number"}
+        }
+      },
+      "additionalProperties": true
+    },
+    "notes": {
+      "type": ["string", "null"]
+    }
+  },
+  "additionalProperties": true
+}

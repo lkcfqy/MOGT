@@ -1,0 +1,109 @@
+{
+  "created_at": "2026-05-03T09:57:57.204478+00:00",
+  "status": "ok",
+  "task": "modular_state_tracking",
+  "model_type": "transformer",
+  "params": 533120,
+  "config": {
+    "model_type": "transformer",
+    "device": "cuda",
+    "dtype": "bf16",
+    "seed": 42,
+    "vocab_size": 64,
+    "d_model": 128,
+    "num_layers": 2,
+    "rank": 16,
+    "num_heads": 4,
+    "scan_impl": "triton_hybrid",
+    "connection_impl": "cayley",
+    "scan_block_size": 256,
+    "gradient_checkpointing": false,
+    "train_context": 128,
+    "eval_contexts": [
+      128,
+      256,
+      512,
+      1024
+    ],
+    "num_states": 2,
+    "max_delta": 1,
+    "batch_size": 64,
+    "steps": 500,
+    "eval_batches": 32,
+    "lr": 0.001,
+    "weight_decay": 0.1,
+    "grad_clip": 1.0,
+    "log_every": 100,
+    "output": "benchmark_runs/synthetic_state_binary_transformer_ctx128_seed42_steps500.json"
+  },
+  "train_trace": [
+    {
+      "step": 1,
+      "loss": 4.156877517700195,
+      "accuracy": 0.0,
+      "grad_norm": 23.0919246673584
+    },
+    {
+      "step": 100,
+      "loss": 0.7062606811523438,
+      "accuracy": 0.390625,
+      "grad_norm": 2.214564085006714
+    },
+    {
+      "step": 200,
+      "loss": 0.694591760635376,
+      "accuracy": 0.5,
+      "grad_norm": 0.3888774514198303
+    },
+    {
+      "step": 300,
+      "loss": 0.6814093589782715,
+      "accuracy": 0.59375,
+      "grad_norm": 0.8699373602867126
+    },
+    {
+      "step": 400,
+      "loss": 0.6889294385910034,
+      "accuracy": 0.578125,
+      "grad_norm": 0.9892742037773132
+    },
+    {
+      "step": 500,
+      "loss": 0.6971807479858398,
+      "accuracy": 0.375,
+      "grad_norm": 2.023061513900757
+    }
+  ],
+  "eval_results": [
+    {
+      "context_length": 128,
+      "loss": 0.693219380453229,
+      "accuracy": 0.50732421875,
+      "examples": 2048,
+      "elapsed_s": 0.10377408700151136
+    },
+    {
+      "context_length": 256,
+      "loss": 0.6927448511123657,
+      "accuracy": 0.51806640625,
+      "examples": 2048,
+      "elapsed_s": 0.10688829100035946
+    },
+    {
+      "context_length": 512,
+      "loss": 0.6934711970388889,
+      "accuracy": 0.49462890625,
+      "examples": 2048,
+      "elapsed_s": 0.18487522100258502
+    },
+    {
+      "context_length": 1024,
+      "loss": 0.6933095771819353,
+      "accuracy": 0.49951171875,
+      "examples": 2048,
+      "elapsed_s": 0.4776072060012666
+    }
+  ],
+  "train_elapsed_s": 5.249454598000739,
+  "peak_memory_mb": 313.84130859375
+}

@@ -90,6 +90,8 @@ class MOGTOptimizer(Optimizer):
                 displacement = p - ref_W
                 # 施加阻尼：仅当且仅当发生位移时
                 thermodynamic_pull = gamma * displacement * (1.0 - sensitive_mask)
+                # ⚠️ 防骤崩截断：强制设定弹力钳制范围，防止剧烈拉断导致第 43 步 NaN
+                thermodynamic_pull = torch.clamp(thermodynamic_pull, min=-0.01, max=0.01)
                 
                 # 合并动力系统方程
                 p.add_(projected_grad + thermodynamic_pull, alpha=-lr)

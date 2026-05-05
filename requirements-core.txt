@@ -1,0 +1,9 @@
+torch
+datasets
+transformers>=4.39.0
+wandb
+scipy
+matplotlib
+triton
+packaging
+ninja

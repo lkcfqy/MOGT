@@ -1,3 +1,11 @@
+"""
+Toy continual-learning probe.
+
+The tasks in this file intentionally use synthetic constant-target objectives.
+This is useful for fast optimizer debugging, but it is not a substitute for a
+real language or multimodal continual-learning benchmark.
+"""
+
 import torch
 import torch.nn as nn
 from torch.optim import AdamW
@@ -8,7 +16,7 @@ from optimizer_mogt import MOGTOptimizer
 
 def create_task_data(vocab_size, pattern_id, batch_size=16, seq_len=128):
     """
-    创建一个隔离的任务：
+    创建一个玩具任务：
     Task A: 强制回答 pattern_id_A
     Task B: 强制回答 pattern_id_B
     """
@@ -44,8 +52,9 @@ def compute_fisher_diagonals(model, x, y, device):
 
 def run_lifelong_experiment():
     print("==================================================")
-    print("🛡️ MOGT - 持续学习抗遗忘 (莫尔斯与耗散机制验证) 🛡️")
+    print("🛡️ Toy Continual-Learning Probe")
     print("==================================================")
+    print("注意：这是优化器调试脚本，任务为 synthetic constant-target probe。")
     
     device = "cuda" if torch.cuda.is_available() else "cpu"
     vocab_size = 50257
@@ -65,7 +74,7 @@ def run_lifelong_experiment():
     loss_fct = nn.CrossEntropyLoss()
     
     # 阶段一：纯学习 Task A
-    print("\\n➡️ [Stage 1] 让模型沉浸于 Task A (法国历史)，建立记忆底座...")
+    print("\\n➡️ [Stage 1] 先拟合 Task A 的玩具模式...")
     optimizer_init = AdamW(base_model.parameters(), lr=1e-3)
     base_model.train()
     for _ in range(50):
@@ -83,7 +92,7 @@ def run_lifelong_experiment():
     print(f"   🎯 Task A 初始掌握度 (准确率): {acc_A_initial * 100:.2f}%")
     
     # 分轨决斗开始！
-    print("\\n➡️ [Stage 2] 双轨对撞测验：强行灌输互斥的 Task B (天体物理学)")
+    print("\\n➡️ [Stage 2] 注入互斥的 Task B 玩具模式...")
     
     # 分支 1：传统大模型更新 (AdamW) - 预判：灾难性遗忘
     model_adam = copy.deepcopy(base_model)
@@ -152,15 +161,15 @@ def run_lifelong_experiment():
         
         with torch.no_grad():
             preds_adam = model_adam(x_A)[0].argmax(dim=-1)
-            acc_adam = (preds_adam == y_A[0]).float().mean().item()
+            acc_adam = (preds_adam == y_A).float().mean().item()
             adam_retention_A.append(acc_adam * 100)
             
             preds_mogt = model_mogt(x_A)[0].argmax(dim=-1)
-            acc_mogt = (preds_mogt == y_A[0]).float().mean().item()
+            acc_mogt = (preds_mogt == y_A).float().mean().item()
             mogt_retention_A.append(acc_mogt * 100)
             
             preds_ewc = model_ewc(x_A)[0].argmax(dim=-1)
-            acc_ewc = (preds_ewc == y_A[0]).float().mean().item()
+            acc_ewc = (preds_ewc == y_A).float().mean().item()
             ewc_retention_A.append(acc_ewc * 100)
             
     print("✅ 对撞数据采集完成，正在渲染科研级对比图报...")

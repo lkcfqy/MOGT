@@ -1,0 +1,219 @@
+{
+  "created_at": "2026-05-04T02:56:27.044472+00:00",
+  "status": "ok",
+  "task": "last_value_tracking",
+  "model_type": "transformer",
+  "params": 541312,
+  "config": {
+    "model_type": "transformer",
+    "device": "cuda",
+    "dtype": "bf16",
+    "seed": 123,
+    "vocab_size": 128,
+    "d_model": 128,
+    "num_layers": 2,
+    "rank": 16,
+    "num_heads": 4,
+    "rope_theta": 0.0,
+    "scan_impl": "triton_hybrid",
+    "connection_impl": "cayley",
+    "connection_damping": 0.999,
+    "scan_block_size": 256,
+    "readout_init_std": 0.0,
+    "transport_gate": false,
+    "transport_gate_mode": "multiply",
+    "transport_gate_width": "scalar",
+    "transport_gate_scale": 1.0,
+    "transport_gate_bias": 2.0,
+    "value_gate": false,
+    "value_gate_width": "scalar",
+    "value_gate_input": "current",
+    "value_gate_bias": 0.0,
+    "couple_forget_to_value_gate": false,
+    "prefix_condition_position": null,
+    "gradient_checkpointing": false,
+    "train_context": 128,
+    "min_train_context": 0,
+    "curriculum_steps": 0,
+    "eval_contexts": [
+      128,
+      256,
+      512,
+      1024
+    ],
+    "num_values": 16,
+    "min_updates": 1,
+    "max_updates": 4,
+    "batch_size": 64,
+    "eval_batch_size": 0,
+    "steps": 2000,
+    "eval_batches": 32,
+    "dense_loss": false,
+    "lr": 0.001,
+    "weight_decay": 0.1,
+    "grad_clip": 1.0,
+    "log_every": 500,
+    "output": "benchmark_runs/synthetic_last_value_transformer_nope_matchedeval_ctx128_seed123_steps2000.json"
+  },
+  "train_trace": [
+    {
+      "step": 1,
+      "loss": 4.874217987060547,
+      "accuracy": 0.0,
+      "dense_accuracy": null,
+      "context_length": 128,
+      "grad_norm": 5.981359958648682
+    },
+    {
+      "step": 500,
+      "loss": 0.012777185998857021,
+      "accuracy": 1.0,
+      "dense_accuracy": null,
+      "context_length": 128,
+      "grad_norm": 0.3450062870979309
+    },
+    {
+      "step": 1000,
+      "loss": 0.0739731416106224,
+      "accuracy": 0.96875,
+      "dense_accuracy": null,
+      "context_length": 128,
+      "grad_norm": 3.1187167167663574
+    },
+    {
+      "step": 1500,
+      "loss": 0.07242516428232193,
+      "accuracy": 0.984375,
+      "dense_accuracy": null,
+      "context_length": 128,
+      "grad_norm": 2.175285816192627
+    },
+    {
+      "step": 2000,
+      "loss": 0.004230767022818327,
+      "accuracy": 1.0,
+      "dense_accuracy": null,
+      "context_length": 128,
+      "grad_norm": 0.41773325204849243
+    }
+  ],
+  "eval_results": [
+    {
+      "context_length": 128,
+      "loss": 0.03585491404373897,
+      "accuracy": 0.9912109375,
+      "examples": 2048,
+      "elapsed_s": 0.44445393698697444
+    },
+    {
+      "context_length": 256,
+      "loss": 0.10672148477897281,
+      "accuracy": 0.97607421875,
+      "examples": 2048,
+      "elapsed_s": 0.4510200399963651
+    },
+    {
+      "context_length": 512,
+      "loss": 0.5482011437416077,
+      "accuracy": 0.86328125,
+      "examples": 2048,
+      "elapsed_s": 0.5407847830065293
+    },
+    {
+      "context_length": 1024,
+      "loss": 2.104248519986868,
+      "accuracy": 0.5693359375,
+      "examples": 2048,
+      "elapsed_s": 0.7795405020006001
+    }
+  ],
+  "gate_diagnostics": null,
+  "train_elapsed_s": 39.79752114501025,
+  "peak_memory_mb": 313.98193359375,
+  "standard_report": {
+    "schema_version": "mogt-experiment-v1",
+    "run_name": "benchmark_runs/synthetic_last_value_transformer_nope_matchedeval_ctx128_seed123_steps2000.json",
+    "task": "last_value_tracking",
+    "model": "transformer",
+    "variant": "transformer_nope",
+    "status": "ok",
+    "failure_reason": null,
+    "command": "benchmark_synthetic_last_value.py --model-type transformer --rope-theta 0.0 --seed 123 --d-model 128 --num-layers 2 --num-heads 4 --train-context 128 --eval-contexts 128 256 512 1024 --batch-size 64 --steps 2000 --eval-batches 32 --log-every 500 --output benchmark_runs/synthetic_last_value_transformer_nope_matchedeval_ctx128_seed123_steps2000.json",
+    "git_commit": "9d2f00afad246773f1bff7eaa01ca45b6f33fbd3",
+    "environment": {
+      "device": "cuda",
+      "gpu_name": "NVIDIA L4",
+      "torch_version": "2.9.1+cu129",
+      "cuda_available": true,
+      "amp_dtype": "bf16",
+      "peak_memory_mb": 313.98193359375,
+      "elapsed_seconds": 39.79752114501025
+    },
+    "data": {
+      "dataset": "synthetic",
+      "tokenizer": null,
+      "train_context": 128,
+      "eval_contexts": [
+        128,
+        256,
+        512,
+        1024
+      ],
+      "train_examples": null,
+      "eval_examples": 8192,
+      "tokens_seen": null,
+      "num_values": 16,
+      "min_updates": 1,
+      "max_updates": 4,
+      "num_slots": null
+    },
+    "model_config": {
+      "num_params": 541312,
+      "d_model": 128,
+      "num_layers": 2,
+      "rank": 16,
+      "num_heads": 4,
+      "scan_impl": "triton_hybrid",
+      "connection_impl": "cayley",
+      "gate_config": {
+        "transport_gate": false,
+        "transport_gate_mode": "multiply",
+        "transport_gate_width": "scalar",
+        "value_gate": false,
+        "value_gate_width": "scalar",
+        "value_gate_input": "current",
+        "couple_forget_to_value_gate": false,
+        "prefix_condition_position": null
+      }
+    },
+    "training": {
+      "seed": 123,
+      "steps": 2000,
+      "batch_size": 64,
+      "grad_accum_steps": null,
+      "optimizer": "AdamW",
+      "lr": 0.001,
+      "weight_decay": 0.1,
+      "scheduler": null,
+      "dense_loss": false,
+      "curriculum_steps": 0
+    },
+    "metrics": {
+      "loss": null,
+      "ppl": null,
+      "accuracy_by_context": {
+        "128": 0.9912109375,
+        "256": 0.97607421875,
+        "512": 0.86328125,
+        "1024": 0.5693359375
+      },
+      "loss_by_context": {
+        "128": 0.03585491404373897,
+        "256": 0.10672148477897281,
+        "512": 0.5482011437416077,
+        "1024": 2.104248519986868
+      }
+    },
+    "notes": "Synthetic last-value tracking benchmark."
+  }
+}

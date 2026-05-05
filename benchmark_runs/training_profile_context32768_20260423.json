@@ -1,0 +1,275 @@
+{
+  "config": {
+    "context_length": 32768,
+    "d_model": 768,
+    "num_layers": 12,
+    "rank": 16,
+    "batch_size": 1,
+    "grad_accum_steps": 8
+  },
+  "hybrid_profile": {
+    "carry_scan": "doubling",
+    "profiled_loss": 1.3526945114135742,
+    "peak_memory_mb": 12560.96875,
+    "phase_wall_ms": {
+      "forward_wall_ms": 672.4863490017015,
+      "backward_wall_ms": 2611.616148002213,
+      "optimizer_wall_ms": 50.53174899876467,
+      "total_wall_ms": 3337.2376800034544
+    },
+    "events": {
+      "train_step.total": {
+        "count": 1,
+        "total_ms": 680.5270420000014,
+        "self_ms": 0.0
+      },
+      "train_step.forward": {
+        "count": 1,
+        "total_ms": 671.9792000000001,
+        "self_ms": 671.9792000000001
+      },
+      "mogt.connection": {
+        "count": 24,
+        "total_ms": 25.503430000000407,
+        "self_ms": 25.503430000000407
+      },
+      "mogt.matrix_exp": {
+        "count": 24,
+        "total_ms": 314.8383739999996,
+        "self_ms": 314.8383739999996
+      },
+      "mogt.value_projection": {
+        "count": 24,
+        "total_ms": 30.400649999998734,
+        "self_ms": 30.400649999998734
+      },
+      "mogt.affine_scan": {
+        "count": 24,
+        "total_ms": 114.28538399999768,
+        "self_ms": 0.0
+      },
+      "triton_hybrid.forward": {
+        "count": 24,
+        "total_ms": 6.333632000000009,
+        "self_ms": 6.333632000000009
+      },
+      "triton_hybrid.local_scan": {
+        "count": 48,
+        "total_ms": 71.193106000001,
+        "self_ms": 71.193106000001
+      },
+      "triton_hybrid.carry_scan": {
+        "count": 48,
+        "total_ms": 54.899886999998884,
+        "self_ms": 54.899886999998884
+      },
+      "triton_hybrid.carry_apply": {
+        "count": 48,
+        "total_ms": 133.03876700000046,
+        "self_ms": 133.03876700000046
+      },
+      "mogt.readout": {
+        "count": 24,
+        "total_ms": 101.17865899999985,
+        "self_ms": 101.17865899999985
+      },
+      "mogt.ffn": {
+        "count": 24,
+        "total_ms": 271.6745229999998,
+        "self_ms": 271.6745229999998
+      },
+      "mogt.lm_head_loss": {
+        "count": 1,
+        "total_ms": 145.765424,
+        "self_ms": 145.765424
+      },
+      "train_step.backward": {
+        "count": 1,
+        "total_ms": 0.16192000000004192,
+        "self_ms": 0.16192000000004192
+      },
+      "triton_hybrid.backward_recompute": {
+        "count": 12,
+        "total_ms": 139.10071999999974,
+        "self_ms": 139.10071999999974
+      },
+      "affine_backward.recompute_prefix_hybrid": {
+        "count": 12,
+        "total_ms": 0.19680000000051223,
+        "self_ms": 0.19680000000051223
+      },
+      "affine_backward.reverse_scan_hybrid": {
+        "count": 12,
+        "total_ms": 69.20526899999939,
+        "self_ms": 69.20526899999939
+      },
+      "affine_backward.grad_u_matmul": {
+        "count": 12,
+        "total_ms": 31.48928999999957,
+        "self_ms": 31.48928999999957
+      },
+      "train_step.optimizer": {
+        "count": 1,
+        "total_ms": 50.18606499999994,
+        "self_ms": 50.18606499999994
+      }
+    },
+    "artifacts": {
+      "trace_json": "profile_runs_ctx32768_d768_l12_hybrid_doubling_20260423/train_step_triton_hybrid.trace.json",
+      "table_txt": "profile_runs_ctx32768_d768_l12_hybrid_doubling_20260423/train_step_triton_hybrid.table.txt"
+    }
+  },
+  "hybrid_profile_previous_sequential_carry": {
+    "carry_scan": "sequential",
+    "profiled_loss": 1.3527026176452637,
+    "peak_memory_mb": 12560.96875,
+    "phase_wall_ms": {
+      "forward_wall_ms": 1088.5663490007573,
+      "backward_wall_ms": 3054.200652997679,
+      "optimizer_wall_ms": 50.957550000021,
+      "total_wall_ms": 4196.311919000436
+    },
+    "events": {
+      "train_step.total": {
+        "count": 1,
+        "total_ms": 683.9195739999989,
+        "self_ms": 0.0
+      },
+      "train_step.forward": {
+        "count": 1,
+        "total_ms": 1088.064799,
+        "self_ms": 1088.064799
+      },
+      "mogt.connection": {
+        "count": 24,
+        "total_ms": 25.409943999998816,
+        "self_ms": 25.409943999998816
+      },
+      "mogt.matrix_exp": {
+        "count": 24,
+        "total_ms": 307.8547869999999,
+        "self_ms": 307.8547869999999
+      },
+      "mogt.value_projection": {
+        "count": 24,
+        "total_ms": 30.015922000000298,
+        "self_ms": 30.015922000000298
+      },
+      "mogt.affine_scan": {
+        "count": 24,
+        "total_ms": 143.4053749999901,
+        "self_ms": 0.0
+      },
+      "triton_hybrid.forward": {
+        "count": 24,
+        "total_ms": 7.061214000000357,
+        "self_ms": 7.061214000000357
+      },
+      "triton_hybrid.local_scan": {
+        "count": 48,
+        "total_ms": 70.83904100000017,
+        "self_ms": 70.83904100000017
+      },
+      "triton_hybrid.carry_scan": {
+        "count": 48,
+        "total_ms": 947.9077309999982,
+        "self_ms": 947.9077309999982
+      },
+      "triton_hybrid.carry_apply": {
+        "count": 48,
+        "total_ms": 127.06705599999894,
+        "self_ms": 127.06705599999894
+      },
+      "mogt.readout": {
+        "count": 24,
+        "total_ms": 100.76075899999853,
+        "self_ms": 100.76075899999853
+      },
+      "mogt.ffn": {
+        "count": 24,
+        "total_ms": 270.0819090000005,
+        "self_ms": 270.0819090000005
+      },
+      "mogt.lm_head_loss": {
+        "count": 1,
+        "total_ms": 142.14202100000006,
+        "self_ms": 142.14202100000006
+      },
+      "train_step.backward": {
+        "count": 1,
+        "total_ms": 0.13241600000020118,
+        "self_ms": 0.13241600000020118
+      },
+      "triton_hybrid.backward_recompute": {
+        "count": 12,
+        "total_ms": 162.2086690000002,
+        "self_ms": 162.2086690000002
+      },
+      "affine_backward.recompute_prefix_hybrid": {
+        "count": 12,
+        "total_ms": 0.17411300000059418,
+        "self_ms": 0.17411300000059418
+      },
+      "affine_backward.reverse_scan_hybrid": {
+        "count": 12,
+        "total_ms": 80.81091099999985,
+        "self_ms": 80.81091099999985
+      },
+      "affine_backward.grad_u_matmul": {
+        "count": 12,
+        "total_ms": 30.610227999999655,
+        "self_ms": 30.610227999999655
+      },
+      "train_step.optimizer": {
+        "count": 1,
+        "total_ms": 50.5866389999995,
+        "self_ms": 50.5866389999995
+      }
+    },
+    "artifacts": {
+      "trace_json": "profile_runs_ctx32768_d768_l12_hybrid_20260423_auto/train_step_triton_hybrid.trace.json",
+      "table_txt": "profile_runs_ctx32768_d768_l12_hybrid_20260423_auto/train_step_triton_hybrid.table.txt"
+    }
+  },
+  "recommended_carry_scan": "doubling",
+  "real_step_wallclock": {
+    "sequential": null,
+    "triton_hybrid": {
+      "carry_scan": "doubling",
+      "loss": 1.3526945114135742,
+      "phase_wall_ms": {
+        "forward_wall_ms": 672.4863490017015,
+        "backward_wall_ms": 2611.616148002213,
+        "optimizer_wall_ms": 50.53174899876467,
+        "total_wall_ms": 3337.2376800034544
+      },
+      "peak_memory_mb": 12560.96875
+    }
+  },
+  "notes": [
+    "ctx=32768 is trainable on a single L4 24GB GPU with triton_hybrid, but it now relies on three memory controls together: PYTORCH_ALLOC_CONF=expandable_segments:True, chunked LM-head/loss, and activation checkpointing.",
+    "The profiled triton_hybrid step peaked at about 12.6 GB, well below the 16k-era full-graph memory wall, because checkpointing trades memory for recompute.",
+    "Switching carry propagation from sequential to doubling cut profiled carry_scan time from about 947.9 ms to 54.9 ms at ctx=32768, and reduced total profiled step wall-clock from about 4196.3 ms to 3337.2 ms.",
+    "After that switch, the next notable hotspots are matrix_exp, ffn, carry_apply, and the chunked lm_head_loss path rather than carry_scan itself.",
+    "No paired sequential step was recorded at ctx=32768 on L4; the development bottleneck has shifted from basic correctness to the remaining operator and training-step hotspots."
+  ],
+  "hybrid_short_run_cached": {
+    "elapsed_s": 845.92,
+    "final_loss": 9.3471,
+    "num_steps": 20,
+    "checkpoint": "mogt_checkpoints/hybrid_ctx32768_d768_l12_short_20260423/mogt_ckpt_e0_s159.pt",
+    "status": "ok",
+    "carry_scan": "sequential",
+    "allocator_conf": "expandable_segments:True",
+    "loss_chunk_size": 256,
+    "activation_checkpointing": true,
+    "dataset_cache": "dataset_cache/wikitext-103-raw-v1_gpt2_ctx32768"
+  },
+  "hybrid_short_run_doubling_smoke": {
+    "final_loss": 10.0396,
+    "num_steps": 5,
+    "checkpoint": "mogt_checkpoints/hybrid_ctx32768_d768_l12_doubling_short_20260423/mogt_ckpt_e0_s39.pt",
+    "status": "ok",
+    "carry_scan": "doubling"
+  }
+}

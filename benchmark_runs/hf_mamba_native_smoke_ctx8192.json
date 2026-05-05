@@ -1,0 +1,37 @@
+{
+  "config": {
+    "models": [
+      "state-spaces/mamba-130m-hf"
+    ],
+    "context_lengths": [
+      8192
+    ],
+    "tokenization_mode": "native_text",
+    "batch_size": 1,
+    "num_workers": 2,
+    "max_batches": 2,
+    "device": "cuda",
+    "dtype": "bfloat16"
+  },
+  "interpretation": {
+    "gpt2_stream": "Uses this repo's GPT-2 tokenized WikiText-103 chunks and is tokenization-compatible with MOGT.",
+    "native_text": "Uses each HF model's own tokenizer on WikiText-103 raw validation text; useful as a pretrained anchor, not a tokenization-matched comparison."
+  },
+  "results": [
+    {
+      "model": "state-spaces/mamba-130m-hf",
+      "context_length": 8192,
+      "tokenization_mode": "native_text",
+      "tokenizer": "state-spaces/mamba-130m-hf",
+      "model_type": "mamba",
+      "vocab_size": 50280,
+      "status": "ok",
+      "metrics": {
+        "loss": 2.791454792022705,
+        "ppl": 16.30472253661193,
+        "num_batches": 2,
+        "num_loss_tokens": 16384
+      }
+    }
+  ]
+}

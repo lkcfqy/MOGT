@@ -1,0 +1,76 @@
+{
+  "created_at": "2026-05-03T09:49:20.982532+00:00",
+  "status": "ok",
+  "model_type": "transformer",
+  "params": 1049216,
+  "config": {
+    "model_type": "transformer",
+    "device": "cuda",
+    "dtype": "bf16",
+    "seed": 42,
+    "vocab_size": 4096,
+    "d_model": 128,
+    "num_layers": 2,
+    "rank": 16,
+    "num_heads": 4,
+    "scan_impl": "triton_hybrid",
+    "connection_impl": "cayley",
+    "scan_block_size": 256,
+    "gradient_checkpointing": false,
+    "train_context": 512,
+    "eval_contexts": [
+      512,
+      1024
+    ],
+    "eval_depths": [
+      0.5
+    ],
+    "train_min_depth": 0.05,
+    "train_max_depth": 0.95,
+    "num_pairs": 4,
+    "batch_size": 2,
+    "steps": 2,
+    "eval_batches": 2,
+    "lr": 0.0003,
+    "weight_decay": 0.1,
+    "grad_clip": 1.0,
+    "log_every": 20,
+    "output": "benchmark_runs/synthetic_recall_transformer_smoke.json"
+  },
+  "train_trace": [
+    {
+      "step": 1,
+      "loss": 8.213449478149414,
+      "accuracy": 0.0,
+      "depth": 0.6254841186120954,
+      "grad_norm": 18.32442283630371
+    },
+    {
+      "step": 2,
+      "loss": 7.9871110916137695,
+      "accuracy": 0.0,
+      "depth": 0.6590295386806202,
+      "grad_norm": 15.49077320098877
+    }
+  ],
+  "eval_results": [
+    {
+      "context_length": 512,
+      "depth": 0.5,
+      "loss": 8.386702060699463,
+      "accuracy": 0.0,
+      "examples": 4,
+      "elapsed_s": 0.008879770000930876
+    },
+    {
+      "context_length": 1024,
+      "depth": 0.5,
+      "loss": 8.381770133972168,
+      "accuracy": 0.0,
+      "examples": 4,
+      "elapsed_s": 0.008760433000134071
+    }
+  ],
+  "train_elapsed_s": 0.5520866359984211,
+  "peak_memory_mb": 51.4619140625
+}

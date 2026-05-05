@@ -1,0 +1,120 @@
+{
+  "created_at": "2026-05-03T15:53:12.527220+00:00",
+  "status": "ok",
+  "task": "tracked_multislot_last_value",
+  "model_type": "mogt",
+  "params": 87312,
+  "config": {
+    "model_type": "mogt",
+    "device": "cuda",
+    "dtype": "bf16",
+    "seed": 42,
+    "vocab_size": 160,
+    "d_model": 64,
+    "num_layers": 1,
+    "rank": 16,
+    "num_heads": 4,
+    "rope_theta": 10000.0,
+    "scan_impl": "triton_hybrid",
+    "connection_impl": "identity",
+    "connection_damping": 1.0,
+    "scan_block_size": 256,
+    "readout_init_std": 0.02,
+    "transport_gate": false,
+    "transport_gate_mode": "multiply",
+    "transport_gate_width": "scalar",
+    "transport_gate_scale": 1.0,
+    "transport_gate_bias": 2.0,
+    "value_gate": true,
+    "value_gate_width": "rank",
+    "value_gate_input": "current_prev_prefix",
+    "value_gate_bias": -2.0,
+    "couple_forget_to_value_gate": true,
+    "prefix_condition_position": 1,
+    "gradient_checkpointing": false,
+    "train_context": 128,
+    "eval_contexts": [
+      128,
+      256
+    ],
+    "num_slots": 4,
+    "min_train_slots": 2,
+    "slot_curriculum_steps": 10,
+    "num_values": 8,
+    "min_updates": 4,
+    "max_updates": 6,
+    "batch_size": 4,
+    "eval_batch_size": 2,
+    "steps": 10,
+    "eval_batches": 2,
+    "dense_loss": false,
+    "state_label_mode": "hold",
+    "state_label_mode_after": "",
+    "dense_loss_steps": 0,
+    "lr": 0.001,
+    "weight_decay": 0.1,
+    "grad_clip": 1.0,
+    "log_every": 5,
+    "output": "benchmark_runs/synthetic_multislot_slot_curriculum_smoke.json"
+  },
+  "train_trace": [
+    {
+      "step": 1,
+      "loss": 5.1578264236450195,
+      "accuracy": 0.0,
+      "dense_accuracy": null,
+      "grad_norm": 8.416412353515625,
+      "active_num_slots": 2
+    },
+    {
+      "step": 5,
+      "loss": 4.812557220458984,
+      "accuracy": 0.0,
+      "dense_accuracy": null,
+      "grad_norm": 8.495843887329102,
+      "active_num_slots": 3
+    },
+    {
+      "step": 10,
+      "loss": 4.663456439971924,
+      "accuracy": 0.0,
+      "dense_accuracy": null,
+      "grad_norm": 6.109609603881836,
+      "active_num_slots": 4
+    }
+  ],
+  "eval_results": [
+    {
+      "context_length": 128,
+      "loss": 4.308801889419556,
+      "accuracy": 0.25,
+      "examples": 4,
+      "elapsed_s": 0.01010783099627588
+    },
+    {
+      "context_length": 256,
+      "loss": 4.444402694702148,
+      "accuracy": 0.25,
+      "examples": 4,
+      "elapsed_s": 0.0092034280023654
+    }
+  ],
+  "gate_diagnostics": [
+    {
+      "block": 0,
+      "couple_forget_to_value_gate": true,
+      "value_gate_width": "rank",
+      "value_gate_input_mode": "current_prev_prefix",
+      "mean_gate": {
+        "matched_value": 0.11856836080551147,
+        "unmatched_value": 0.119563989341259,
+        "set": 0.11949140578508377,
+        "query": 0.1300753355026245,
+        "slot": 0.12077789008617401,
+        "filler": 0.11965091526508331
+      }
+    }
+  ],
+  "train_elapsed_s": 1.893352972001594,
+  "peak_memory_mb": 23.70849609375
+}

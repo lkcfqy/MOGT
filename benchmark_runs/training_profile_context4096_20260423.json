@@ -1,0 +1,150 @@
+{
+  "config": {
+    "context_length": 4096,
+    "d_model": 768,
+    "num_layers": 12,
+    "rank": 16,
+    "batch_size": 1,
+    "grad_accum_steps": 8
+  },
+  "hybrid_profile": {
+    "profiled_loss": 1.3040180206298828,
+    "peak_memory_mb": 6076.197265625,
+    "phase_wall_ms": {
+      "forward_wall_ms": 166.07045400087372,
+      "backward_wall_ms": 276.190709999355,
+      "optimizer_wall_ms": 49.48279300151626,
+      "total_wall_ms": 494.30334600037895
+    },
+    "events": {
+      "train_step.total": {
+        "count": 1,
+        "total_ms": 99.0255370000002,
+        "self_ms": 0.0
+      },
+      "train_step.forward": {
+        "count": 1,
+        "total_ms": 165.619803,
+        "self_ms": 165.619803
+      },
+      "mogt.connection": {
+        "count": 12,
+        "total_ms": 1.997407000000002,
+        "self_ms": 1.997407000000002
+      },
+      "mogt.matrix_exp": {
+        "count": 12,
+        "total_ms": 27.506804000000002,
+        "self_ms": 27.506804000000002
+      },
+      "mogt.value_projection": {
+        "count": 12,
+        "total_ms": 2.5050240000000024,
+        "self_ms": 2.5050240000000024
+      },
+      "mogt.affine_scan": {
+        "count": 12,
+        "total_ms": 6.568141000000227,
+        "self_ms": 0.0
+      },
+      "triton_hybrid.forward": {
+        "count": 12,
+        "total_ms": 2.988158000000016,
+        "self_ms": 2.988158000000016
+      },
+      "triton_hybrid.local_scan": {
+        "count": 36,
+        "total_ms": 10.231256000000007,
+        "self_ms": 10.231256000000007
+      },
+      "triton_hybrid.carry_scan": {
+        "count": 36,
+        "total_ms": 110.82207099999997,
+        "self_ms": 110.82207099999997
+      },
+      "triton_hybrid.carry_apply": {
+        "count": 36,
+        "total_ms": 7.181566999999984,
+        "self_ms": 7.181566999999984
+      },
+      "mogt.readout": {
+        "count": 12,
+        "total_ms": 6.336540999999994,
+        "self_ms": 6.336540999999994
+      },
+      "mogt.ffn": {
+        "count": 12,
+        "total_ms": 19.97448900000001,
+        "self_ms": 19.97448900000001
+      },
+      "train_step.backward": {
+        "count": 1,
+        "total_ms": 0.09951999999998952,
+        "self_ms": 0.09951999999998952
+      },
+      "triton_hybrid.backward_recompute": {
+        "count": 12,
+        "total_ms": 79.88137399999995,
+        "self_ms": 79.88137399999995
+      },
+      "affine_backward.recompute_prefix_hybrid": {
+        "count": 12,
+        "total_ms": 2.8451200000000534,
+        "self_ms": 2.8451200000000534
+      },
+      "affine_backward.reverse_scan_hybrid": {
+        "count": 12,
+        "total_ms": 43.486830999999945,
+        "self_ms": 43.486830999999945
+      },
+      "affine_backward.grad_u_matmul": {
+        "count": 12,
+        "total_ms": 4.013982999999891,
+        "self_ms": 4.013982999999891
+      },
+      "train_step.optimizer": {
+        "count": 1,
+        "total_ms": 49.25188300000003,
+        "self_ms": 49.25188300000003
+      }
+    },
+    "artifacts": {
+      "trace_json": "profile_runs_ctx4096_d768_l12_hybrid_20260423/train_step_triton_hybrid.trace.json",
+      "table_txt": "profile_runs_ctx4096_d768_l12_hybrid_20260423/train_step_triton_hybrid.table.txt"
+    }
+  },
+  "real_step_wallclock": {
+    "sequential": {
+      "loss": 10.617538452148438,
+      "phase_wall_ms": {
+        "forward_wall_ms": 4597.679591002816,
+        "backward_wall_ms": 11193.857171998388,
+        "optimizer_wall_ms": 75.39890599946375,
+        "total_wall_ms": 15866.935669000668
+      },
+      "peak_memory_mb": 6054.46435546875
+    },
+    "triton_hybrid": {
+      "loss": 10.4320068359375,
+      "phase_wall_ms": {
+        "forward_wall_ms": 102.75858000022708,
+        "backward_wall_ms": 189.96856400190154,
+        "optimizer_wall_ms": 44.6394729988242,
+        "total_wall_ms": 337.36661700095283
+      },
+      "peak_memory_mb": 6075.06982421875
+    }
+  },
+  "real_step_speedup_vs_sequential": 47.031730080619845,
+  "hybrid_short_run": {
+    "elapsed_s": 293.77,
+    "final_loss": 8.9927,
+    "num_steps": 20,
+    "checkpoint": "mogt_checkpoints/hybrid_ctx4096_d768_l12_short_20260423/mogt_ckpt_e0_s159.pt"
+  },
+  "notes": [
+    "The 20-step short run was executed before dataset.py gained local processed-data caching, so elapsed_s includes a full uncached WikiText-103 regroup at seq_len=4097.",
+    "A local processed-data cache keyed by tokenizer name and context length is now available under ./dataset_cache for future context-length reruns.",
+    "Full sequential profiler at ctx=4096, d_model=768, num_layers=12 was not captured because host-side trace assembly became disproportionately expensive; hybrid-only profiler plus real step wall-clock were captured instead."
+  ]
+}

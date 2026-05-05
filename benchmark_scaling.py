@@ -1,3 +1,11 @@
+"""
+Synthetic scaling probe.
+
+This file currently uses random-token / random-label streams to stress training
+dynamics quickly. It is not a valid compute-optimal or iso-FLOP scaling-law
+study and should be treated as an exploratory diagnostic only.
+"""
+
 import torch
 import torch.nn as nn
 from torch.optim import AdamW
@@ -58,8 +66,9 @@ def scaling_law(N, a, alpha, c):
 
 def run_scaling_experiment():
     print("==================================================")
-    print("📈 MOGT - 微观 Scaling Laws 收敛物理定律测绘")
+    print("📈 Synthetic Scaling Probe")
     print("==================================================")
+    print("注意：该脚本当前使用随机标签流，只适合做训练动力学探针，不代表严格 scaling law。")
     
     configs = [
         {"name": "10M",  "N": 10e6,  "d_model": 256, "layers": 4},
@@ -76,7 +85,7 @@ def run_scaling_experiment():
         losses.append(l)
         parameter_counts.append(cfg["N"])
         
-    print("\\n✅ 实况采点跑批结束！正在启用 SciPy 拟合大预言物理衰减定律...")
+    print("\\n✅ 采样结束；以下拟合仅作探索性可视化。")
     
     N_arr = np.array(parameter_counts)
     L_arr = np.array(losses)
@@ -84,7 +93,7 @@ def run_scaling_experiment():
     try:
         popt, pcov = curve_fit(scaling_law, N_arr, L_arr, p0=[10.0, 0.1, 8.0], maxfev=10000)
         a, alpha, c = popt
-        print(f"   [理论提取]: Loss = {a:.2f} * N^(-{alpha:.4f})  + {c:.2f}")
+        print(f"   [探索性拟合]: Loss = {a:.2f} * N^(-{alpha:.4f})  + {c:.2f}")
     except Exception as e:
         print("   [注意] SciPy 回归波动，退回简易绘图: ", e)
         a, alpha, c = None, None, None

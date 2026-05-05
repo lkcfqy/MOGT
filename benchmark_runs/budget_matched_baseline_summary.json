@@ -1,0 +1,61 @@
+{
+  "records": [
+    {
+      "model": "MOGT baseline_v1 Cayley",
+      "run_name": "baseline_v1_cayley",
+      "status": "ok",
+      "context_length": 32768,
+      "parameter_count": null,
+      "config": "12L d768 r16, triton_hybrid, cayley",
+      "seeds": 3,
+      "steps": 200,
+      "validation_batches": "5/5/5",
+      "best_loss_mean": 6.40666831334432,
+      "best_loss_std": 0.08779631946546072,
+      "best_ppl_mean": 607.4518620786916,
+      "best_ppl_std": 54.414706797018326,
+      "peak_memory_mb": null,
+      "elapsed_s": null,
+      "notes": "Checkpoint-only eval of three 200-step seeds.",
+      "source": "benchmark_runs/baseline_v1_cayley_multiseed_eval_ctx8192_16384_32768.json"
+    },
+    {
+      "model": "Scratch Mamba SSM",
+      "run_name": "mamba_scratch_budget_v1_ctx32768_multiseed_20260429",
+      "status": "ok",
+      "context_length": 32768,
+      "parameter_count": 129123072,
+      "config": "24L d768",
+      "seeds": 3,
+      "steps": 200,
+      "validation_batches": "5/5/5",
+      "best_loss_mean": 9.616751289367675,
+      "best_loss_std": 0.09486504776106584,
+      "best_ppl_mean": 15059.185430456046,
+      "best_ppl_std": 1423.1135413407906,
+      "peak_memory_mb": null,
+      "elapsed_s": null,
+      "notes": "Aggregate scratch baseline report.",
+      "source": "benchmark_runs/mamba_scratch_budget_v1_ctx32768_multiseed_20260429.json"
+    },
+    {
+      "model": "Scratch Transformer",
+      "run_name": "transformer_scratch_budget_v1_ctx32768_seed42",
+      "status": "ok",
+      "context_length": 32768,
+      "parameter_count": 123551232,
+      "config": "12L d768 h12",
+      "seeds": 1,
+      "steps": 200,
+      "validation_batches": 5,
+      "best_loss_mean": 6.100865364074707,
+      "best_loss_std": null,
+      "best_ppl_mean": 446.24376636874695,
+      "best_ppl_std": null,
+      "peak_memory_mb": 10103.3271484375,
+      "elapsed_s": 5959.121810436249,
+      "notes": "Single-seed scratch report.",
+      "source": "benchmark_runs/transformer_scratch_budget_v1_ctx32768_seed42.json"
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "config": {
+    "context_length": 32768,
+    "d_model": 768,
+    "num_layers": 12,
+    "rank": 16,
+    "batch_size": 1,
+    "grad_accum_steps": 8,
+    "max_global_steps": 10,
+    "eval_max_batches": 2,
+    "scan_impl": "triton_hybrid",
+    "carry_scan": "doubling",
+    "seed": 42
+  },
+  "matrix_exp": {
+    "train_loss_step10": 9.0269,
+    "val_loss": 9.200400829315186,
+    "val_ppl": 9901.096913369936,
+    "elapsed_s": 277.86,
+    "best_checkpoint": "mogt_checkpoints/matrixexp_eval10_ctx32768_20260423/mogt_best.pt",
+    "last_checkpoint": "mogt_checkpoints/matrixexp_eval10_ctx32768_20260423/mogt_ckpt_e0_s79.pt",
+    "log": "train_matrixexp_eval10_ctx32768_20260423.log"
+  },
+  "cayley": {
+    "train_loss_step10": 9.0076,
+    "val_loss": 9.88814926147461,
+    "val_ppl": 19695.57482802928,
+    "elapsed_s": 207.68,
+    "best_checkpoint": "mogt_checkpoints/cayley_eval10_ctx32768_20260423/mogt_best.pt",
+    "last_checkpoint": "mogt_checkpoints/cayley_eval10_ctx32768_20260423/mogt_ckpt_e0_s79.pt",
+    "log": "train_cayley_eval10_ctx32768_20260423.log"
+  },
+  "comparison": {
+    "cayley_speedup_vs_matrix_exp": 1.3379237288135593,
+    "train_loss_delta": -0.01929999999999943,
+    "val_loss_delta": 0.6877484321594237,
+    "note": "In this 10-step / 2-batch-val probe, Cayley was faster but produced a worse validation loss."
+  },
+  "notes": [
+    "Both runs used the same seed, data pipeline, optimizer settings, scan path, and evaluation protocol; only the connection map changed.",
+    "The train-step loss at step 10 remained very close between the two runs, but the lightweight validation probe favored matrix_exp.",
+    "Because the validation probe used only 2 batches, this should be treated as an early directional signal rather than a final quality verdict.",
+    "Current evidence supports keeping Cayley opt-in while running a longer train+validation comparison."
+  ]
+}

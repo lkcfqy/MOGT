@@ -1,0 +1,48 @@
+{
+  "config": {
+    "context_length": 32768,
+    "d_model": 768,
+    "num_layers": 12,
+    "rank": 16,
+    "batch_size": 1,
+    "grad_accum_steps": 8,
+    "max_global_steps": 50,
+    "eval_max_batches": 5,
+    "scan_impl": "triton_hybrid",
+    "carry_scan": "doubling",
+    "seed": 42
+  },
+  "matrix_exp": {
+    "run_date": "2026-04-23",
+    "train_loss_step50": 8.308165550231934,
+    "val_loss": 8.228244400024414,
+    "val_ppl": 3745.252811286536,
+    "elapsed_s": 1399.60,
+    "best_checkpoint": "mogt_checkpoints/matrixexp_eval50_ctx32768_20260423/mogt_best.pt",
+    "last_checkpoint": "mogt_checkpoints/matrixexp_eval50_ctx32768_20260423/mogt_ckpt_e0_s399.pt",
+    "log": "train_matrixexp_eval50_ctx32768_20260423.log"
+  },
+  "cayley": {
+    "run_date": "2026-04-28",
+    "train_loss_step50": 7.32353401184082,
+    "val_loss": 7.368661785125733,
+    "val_ppl": 1585.5106088495857,
+    "elapsed_s": 991.60,
+    "best_checkpoint": "mogt_checkpoints/cayley_eval50_ctx32768_20260428/mogt_best.pt",
+    "last_checkpoint": "mogt_checkpoints/cayley_eval50_ctx32768_20260428/mogt_ckpt_e0_s399.pt",
+    "log": "train_cayley_eval50_ctx32768_20260428.log"
+  },
+  "comparison": {
+    "cayley_speedup_vs_matrix_exp": 1.4114562323517545,
+    "cayley_time_reduction_pct": 29.15118605315804,
+    "train_loss_delta_cayley_minus_matrix_exp": -0.9846315383911133,
+    "val_loss_delta_cayley_minus_matrix_exp": -0.8595826148986809,
+    "matrix_exp_ppl_over_cayley_ppl": 2.362174551455077,
+    "note": "In this 50-step / 5-batch-val probe, Cayley was both faster and better on the lightweight validation signal."
+  },
+  "notes": [
+    "Both runs used the same seed, data pipeline, optimizer settings, scan path, and evaluation protocol; only the connection map changed.",
+    "The earlier 10-step / 2-batch-val probe favored matrix_exp on validation loss, so this result should supersede that probe but not be treated as final proof.",
+    "Cayley is now the strongest candidate for the next baseline_v1 run, but it still needs a longer-step and ideally multi-seed validation before becoming the default training route."
+  ]
+}

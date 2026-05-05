@@ -1,0 +1,221 @@
+{
+  "config": {
+    "context_lengths": [
+      8192,
+      16384,
+      32768
+    ],
+    "batch_size": 1,
+    "num_workers": 2,
+    "max_batches": 20,
+    "d_model": 768,
+    "num_layers": 12,
+    "rank": 16,
+    "scan_impl": "triton_hybrid",
+    "connection_impl": "cayley",
+    "connection_damping": 0.999,
+    "device": "cuda"
+  },
+  "aggregate_by_context": {
+    "8192": {
+      "num_checkpoints": 3,
+      "num_batches_per_checkpoint": [20, 20, 20],
+      "loss_mean": 6.406527829170227,
+      "loss_sample_std": 0.08674410342609573,
+      "loss_min": 6.34077250957489,
+      "loss_max": 6.504840326309204,
+      "ppl_mean": 607.3282684446226,
+      "ppl_sample_std": 53.72268078128844,
+      "ppl_min": 567.234336126522,
+      "ppl_max": 668.3689398982897
+    },
+    "16384": {
+      "num_checkpoints": 3,
+      "num_batches_per_checkpoint": [13, 13, 13],
+      "loss_mean": 6.418643890283047,
+      "loss_sample_std": 0.08660155298201136,
+      "loss_min": 6.353985823117769,
+      "loss_max": 6.517035997830904,
+      "ppl_mean": 614.7268196705105,
+      "ppl_sample_std": 54.31306980874048,
+      "ppl_min": 574.779117270483,
+      "ppl_max": 676.5700553509324
+    },
+    "32768": {
+      "num_checkpoints": 3,
+      "num_batches_per_checkpoint": [5, 5, 5],
+      "loss_mean": 6.40666831334432,
+      "loss_sample_std": 0.08779631946546072,
+      "loss_min": 6.340744209289551,
+      "loss_max": 6.506328964233399,
+      "ppl_mean": 607.4518620786916,
+      "ppl_sample_std": 54.414706797018326,
+      "ppl_min": 567.218283460104,
+      "ppl_max": 669.3646401843032
+    }
+  },
+  "results": [
+    {
+      "checkpoint": "mogt_checkpoints/baseline_v1_cayley_ctx32768_seed42/mogt_best.pt",
+      "context_length": 8192,
+      "loss_chunk_size": 4096,
+      "carry_scan": "sequential",
+      "metrics": {
+        "loss": 6.34077250957489,
+        "ppl": 567.234336126522,
+        "num_batches": 20
+      },
+      "checkpoint_meta": {
+        "epoch": 0,
+        "step": 1599,
+        "global_accum_step": 200,
+        "best_val_loss": 6.340744209289551,
+        "best_val_ppl": 567.218283460104
+      }
+    },
+    {
+      "checkpoint": "mogt_checkpoints/baseline_v1_cayley_ctx32768_seed42/mogt_best.pt",
+      "context_length": 16384,
+      "loss_chunk_size": 4096,
+      "carry_scan": "sequential",
+      "metrics": {
+        "loss": 6.353985823117769,
+        "ppl": 574.779117270483,
+        "num_batches": 13
+      },
+      "checkpoint_meta": {
+        "epoch": 0,
+        "step": 1599,
+        "global_accum_step": 200,
+        "best_val_loss": 6.340744209289551,
+        "best_val_ppl": 567.218283460104
+      }
+    },
+    {
+      "checkpoint": "mogt_checkpoints/baseline_v1_cayley_ctx32768_seed42/mogt_best.pt",
+      "context_length": 32768,
+      "loss_chunk_size": 256,
+      "carry_scan": "doubling",
+      "metrics": {
+        "loss": 6.340744209289551,
+        "ppl": 567.218283460104,
+        "num_batches": 5
+      },
+      "checkpoint_meta": {
+        "epoch": 0,
+        "step": 1599,
+        "global_accum_step": 200,
+        "best_val_loss": 6.340744209289551,
+        "best_val_ppl": 567.218283460104
+      }
+    },
+    {
+      "checkpoint": "mogt_checkpoints/baseline_v1_cayley_ctx32768_seed7/mogt_best.pt",
+      "context_length": 8192,
+      "loss_chunk_size": 4096,
+      "carry_scan": "sequential",
+      "metrics": {
+        "loss": 6.373970651626587,
+        "ppl": 586.3815293090561,
+        "num_batches": 20
+      },
+      "checkpoint_meta": {
+        "epoch": 0,
+        "step": 1599,
+        "global_accum_step": 200,
+        "best_val_loss": 6.37293176651001,
+        "best_val_ppl": 585.7726625916678
+      }
+    },
+    {
+      "checkpoint": "mogt_checkpoints/baseline_v1_cayley_ctx32768_seed7/mogt_best.pt",
+      "context_length": 16384,
+      "loss_chunk_size": 4096,
+      "carry_scan": "sequential",
+      "metrics": {
+        "loss": 6.384909849900466,
+        "ppl": 592.8312863901161,
+        "num_batches": 13
+      },
+      "checkpoint_meta": {
+        "epoch": 0,
+        "step": 1599,
+        "global_accum_step": 200,
+        "best_val_loss": 6.37293176651001,
+        "best_val_ppl": 585.7726625916678
+      }
+    },
+    {
+      "checkpoint": "mogt_checkpoints/baseline_v1_cayley_ctx32768_seed7/mogt_best.pt",
+      "context_length": 32768,
+      "loss_chunk_size": 256,
+      "carry_scan": "doubling",
+      "metrics": {
+        "loss": 6.37293176651001,
+        "ppl": 585.7726625916678,
+        "num_batches": 5
+      },
+      "checkpoint_meta": {
+        "epoch": 0,
+        "step": 1599,
+        "global_accum_step": 200,
+        "best_val_loss": 6.37293176651001,
+        "best_val_ppl": 585.7726625916678
+      }
+    },
+    {
+      "checkpoint": "mogt_checkpoints/baseline_v1_cayley_ctx32768_seed123/mogt_best.pt",
+      "context_length": 8192,
+      "loss_chunk_size": 4096,
+      "carry_scan": "sequential",
+      "metrics": {
+        "loss": 6.504840326309204,
+        "ppl": 668.3689398982897,
+        "num_batches": 20
+      },
+      "checkpoint_meta": {
+        "epoch": 0,
+        "step": 1599,
+        "global_accum_step": 200,
+        "best_val_loss": 6.506328964233399,
+        "best_val_ppl": 669.3646401843032
+      }
+    },
+    {
+      "checkpoint": "mogt_checkpoints/baseline_v1_cayley_ctx32768_seed123/mogt_best.pt",
+      "context_length": 16384,
+      "loss_chunk_size": 4096,
+      "carry_scan": "sequential",
+      "metrics": {
+        "loss": 6.517035997830904,
+        "ppl": 676.5700553509324,
+        "num_batches": 13
+      },
+      "checkpoint_meta": {
+        "epoch": 0,
+        "step": 1599,
+        "global_accum_step": 200,
+        "best_val_loss": 6.506328964233399,
+        "best_val_ppl": 669.3646401843032
+      }
+    },
+    {
+      "checkpoint": "mogt_checkpoints/baseline_v1_cayley_ctx32768_seed123/mogt_best.pt",
+      "context_length": 32768,
+      "loss_chunk_size": 256,
+      "carry_scan": "doubling",
+      "metrics": {
+        "loss": 6.506328964233399,
+        "ppl": 669.3646401843032,
+        "num_batches": 5
+      },
+      "checkpoint_meta": {
+        "epoch": 0,
+        "step": 1599,
+        "global_accum_step": 200,
+        "best_val_loss": 6.506328964233399,
+        "best_val_ppl": 669.3646401843032
+      }
+    }
+  ]
+}

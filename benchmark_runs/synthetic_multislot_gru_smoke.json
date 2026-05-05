@@ -1,0 +1,97 @@
+{
+  "created_at": "2026-05-03T17:02:29.753508+00:00",
+  "status": "ok",
+  "task": "tracked_multislot_last_value",
+  "model_type": "gru",
+  "params": 9472,
+  "config": {
+    "model_type": "gru",
+    "device": "cuda",
+    "dtype": "bf16",
+    "seed": 42,
+    "vocab_size": 96,
+    "d_model": 32,
+    "num_layers": 1,
+    "rank": 16,
+    "num_heads": 4,
+    "rope_theta": 10000.0,
+    "scan_impl": "triton_hybrid",
+    "connection_impl": "cayley",
+    "connection_damping": 0.999,
+    "scan_block_size": 256,
+    "readout_init_std": 0.0,
+    "transport_gate": false,
+    "transport_gate_mode": "multiply",
+    "transport_gate_width": "scalar",
+    "transport_gate_scale": 1.0,
+    "transport_gate_bias": 2.0,
+    "value_gate": false,
+    "value_gate_width": "scalar",
+    "value_gate_input": "current",
+    "value_gate_bias": 0.0,
+    "couple_forget_to_value_gate": false,
+    "prefix_condition_position": null,
+    "gradient_checkpointing": false,
+    "train_context": 64,
+    "eval_contexts": [
+      64,
+      128
+    ],
+    "num_slots": 3,
+    "min_train_slots": 2,
+    "slot_curriculum_steps": 5,
+    "num_values": 8,
+    "min_updates": 3,
+    "max_updates": 5,
+    "batch_size": 2,
+    "eval_batch_size": 2,
+    "steps": 5,
+    "eval_batches": 1,
+    "dense_loss": false,
+    "state_label_mode": "hold",
+    "state_label_mode_after": "",
+    "dense_loss_steps": 0,
+    "lr": 0.001,
+    "weight_decay": 0.1,
+    "grad_clip": 1.0,
+    "log_every": 5,
+    "output": "benchmark_runs/synthetic_multislot_gru_smoke.json"
+  },
+  "train_trace": [
+    {
+      "step": 1,
+      "loss": 4.563676357269287,
+      "accuracy": 0.0,
+      "dense_accuracy": null,
+      "grad_norm": 14.520573616027832,
+      "active_num_slots": 2
+    },
+    {
+      "step": 5,
+      "loss": 4.44398307800293,
+      "accuracy": 0.0,
+      "dense_accuracy": null,
+      "grad_norm": 8.553475379943848,
+      "active_num_slots": 3
+    }
+  ],
+  "eval_results": [
+    {
+      "context_length": 64,
+      "loss": 4.325030326843262,
+      "accuracy": 0.0,
+      "examples": 2,
+      "elapsed_s": 0.007710411002335604
+    },
+    {
+      "context_length": 128,
+      "loss": 4.524990558624268,
+      "accuracy": 0.0,
+      "examples": 2,
+      "elapsed_s": 0.012652397002966609
+    }
+  ],
+  "gate_diagnostics": null,
+  "train_elapsed_s": 0.5603668500043568,
+  "peak_memory_mb": 17.3740234375
+}

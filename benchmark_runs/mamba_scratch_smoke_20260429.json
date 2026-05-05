@@ -1,0 +1,49 @@
+{
+  "config": {
+    "model_type": "mamba_ssm",
+    "run_name": "mamba_scratch_smoke_20260429",
+    "context_length": 8192,
+    "d_model": 128,
+    "num_layers": 2,
+    "vocab_size": 50257,
+    "parameter_count": 6667136,
+    "batch_size": 1,
+    "grad_accum_steps": 1,
+    "max_steps": 2,
+    "eval_interval": 1,
+    "eval_max_batches_requested": 1,
+    "seed": 42,
+    "loss_chunk_size": 4096,
+    "gradient_checkpointing": true
+  },
+  "result": {
+    "elapsed_s": 5.446901321411133,
+    "train_loss_final": 10.823673248291016,
+    "best_val": {
+      "loss": 10.819002151489258,
+      "ppl": 49961.208409611194,
+      "num_batches": 1
+    },
+    "checkpoint_dir": "baseline_checkpoints/mamba_scratch_smoke_20260429",
+    "best_checkpoint": "baseline_checkpoints/mamba_scratch_smoke_20260429/best.pt",
+    "last_checkpoint": "baseline_checkpoints/mamba_scratch_smoke_20260429/last.pt"
+  },
+  "validation_trace": [
+    {
+      "step": 1,
+      "loss": 10.830690383911133,
+      "ppl": 50548.59268042051,
+      "num_batches": 1
+    },
+    {
+      "step": 2,
+      "loss": 10.819002151489258,
+      "ppl": 49961.208409611194,
+      "num_batches": 1
+    }
+  ],
+  "notes": [
+    "Scratch Mamba-style baseline trained with the same GPT-2 tokenizer and WikiText-103 data pipeline as MOGT.",
+    "This is a training-budget matched baseline, not a pretrained quality anchor."
+  ]
+}

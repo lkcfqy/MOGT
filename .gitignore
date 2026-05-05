@@ -7,12 +7,22 @@ __pycache__/
 *.pth
 *.safetensors
 mogt_checkpoints/
+baseline_checkpoints/
+
+# Runtime artifacts / profiler dumps
+*.log
+*.pid
+profile_runs*/
+benchmark_runs/*.pdf
+handoff_archives/
+*.tar.gz
 
 # IDE / Gemini / Cache
 .gemini/
 .vscode/
 .idea/
 .ipynb_checkpoints/
+dataset_cache/
 
 # Virtual Environment
 venv/

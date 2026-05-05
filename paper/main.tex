@@ -1,0 +1,726 @@
+\documentclass[10pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{xcolor}
+
+\title{Slot-Addressed Coupled Write-Forget Affine Transport for Recurrent State Tracking}
+\author{Anonymous Authors}
+\date{}
+
+\newcommand{\mogt}{MOGT}
+\newcommand{\R}{\mathbb{R}}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Transformers remain the dominant backbone for language modeling, but attention
+couples sequence modeling to explicit pairwise token interactions. This paper
+studies a non-attention alternative based on matrix-valued affine transport:
+\[
+    H_t = U_t H_{t-1} + V_t.
+\]
+The transition/value pair admits an associative composition law, enabling
+parallel scan implementations while preserving recurrent state semantics. Our
+initial language-modeling experiments do not support the broad claim that this
+operator replaces Transformers. Instead, controlled synthetic experiments reveal
+a sharper result: ungated skew-symmetric transport is poorly matched to
+overwrite-style memory, while token-dependent gates and identity-like transport
+make recurrent state tracking learnable. On a single-slot last-value task
+trained at context 128, gated \mogt{} reaches 69.71\% $\pm$ 18.69\% accuracy at
+context 1024 across three seeds, compared with 10.51\% $\pm$ 1.24\% for a
+matched RoPE Transformer. However, a NoPE Transformer is a much stronger
+position-robust baseline, reaching 68.64\% $\pm$ 15.51\% at the same length
+under the matched 2048-example evaluation protocol.
+At train context 512 with dense state supervision, an identity-transport,
+dual-gated \mogt{} learns the task across all three seeds, but still trails NoPE
+Transformer at far extrapolation. We then test a coupled write-forget gate,
+which uses the same token-dependent scalar to write a new value and erase the
+old state. This variant reaches 100.00\% $\pm$ 0.00\% accuracy from context 512
+through 8192 after training only at context 512, compared with 78.65\% $\pm$
+12.63\% for the current standard-schema NoPE Transformer rerun at 8192.
+Finally, we add a slot-addressed gate
+input that sees the current token, previous token, and tracked-slot prefix. On
+a tracked 2-slot task, this reaches 86.46\% $\pm$ 3.25\% at context 4096 across
+three seeds, compared with 44.79\% $\pm$ 9.42\% for NoPE Transformer. On a
+tracked 4-slot task it reaches 98.96\% $\pm$ 0.90\% at context 4096, compared
+with 24.48\% $\pm$ 7.05\% for NoPE Transformer. These results do not establish
+a general Transformer replacement. They do, however, extend beyond dense
+supervision: with final-query-only supervision and a 2-to-4-slot curriculum,
+the 4-slot variant reaches 94.27\% $\pm$ 2.39\% at context 4096, compared with
+21.35\% $\pm$ 6.31\% for the current standard-schema NoPE Transformer rerun
+and 19.79\% $\pm$ 10.97\% for parameter-matched HF-Mamba d192; a 6-slot
+version reaches 96.88\% $\pm$ 2.71\% versus 21.88\% $\pm$ 8.27\%, and an
+8-slot version
+reaches 85.42\% $\pm$ 11.93\%, versus 10.94\% $\pm$ 2.71\% for NoPE
+Transformer, 18.23\% $\pm$ 1.80\% for HF Mamba at $d=128$, and 16.15\% $\pm$
+6.31\% for a parameter-matched HF Mamba at $d=192$. The isolated mechanism is
+concrete: affine transport needs write-aligned forgetting and task-relevant
+addressing signals to preserve routed recurrent state.
+\end{abstract}
+
+\section{Introduction}
+
+Self-attention made it possible to train large sequence models with strong
+parallelism and flexible token-to-token interactions \cite{vaswani2017attention}.
+Its success, however, comes with an explicit interaction pattern over the
+sequence. This has motivated a long line of recurrent, linear-attention, and
+state-space alternatives that seek better scaling at long context while
+retaining parallel training \cite{katharopoulos2020transformers,gu2021s4,
+sun2023retnet,peng2023rwkv,gu2023mamba,koo2023gateloop}.
+
+This project began with an ambitious question: can a matrix-valued transport
+operator replace attention? The current evidence says: not yet. On a
+short-budget WikiText-103 protocol, a matched scratch Transformer is stronger
+than the current \mogt{} language model. Rather than hiding that negative
+result, we use it to narrow the claim. The useful contribution is not a broad
+Transformer overthrow; it is a mechanistic study of when affine recurrent
+transport works, when it fails, and what gates it needs.
+
+The operator we study evolves a rank-valued state $H_t \in \R^{r \times c}$ by
+a matrix transition $U_t \in \R^{r \times r}$ and value update
+$V_t \in \R^{r \times c}$:
+\begin{equation}
+    H_t = U_t H_{t-1} + V_t.
+    \label{eq:affine}
+\end{equation}
+This recurrence is attractive because transition/value pairs compose
+associatively. It can therefore be trained with scan-style implementations
+rather than a strictly sequential loop.
+
+Our main empirical findings are:
+\begin{itemize}
+    \item Ungated \mogt{} and Cayley/Magnus-style transport stay near chance on
+    overwrite memory tasks.
+    \item Adding token-dependent forget/write gates makes the operator
+    learnable on single-slot state tracking.
+    \item Identity transport is much better than learned orthogonal-like
+    transport for overwrite-style memory.
+    \item On train-context-512 dense supervision, coupling the write gate to the
+    forget gate yields 100\% accuracy through context 8192 across three seeds,
+    outperforming the NoPE Transformer baseline on this synthetic task.
+    \item Prefix-conditioned slot-addressed gates turn multi-slot tracking from
+    a weak signal into a strong result on 2-slot and 4-slot probes.
+    \item A slot-count curriculum makes 4-slot, 6-slot, and 8-slot final-query-only training
+    reliable across three seeds, separating the operator's routing bias from
+    dense state supervision alone.
+\end{itemize}
+
+\section{Affine Transport}
+
+\subsection{Associative Composition}
+
+Define an affine transition as a pair $(U,V)$ acting on state $H$ by
+\[
+    (U,V) \cdot H = UH + V.
+\]
+Two consecutive transitions compose as
+\begin{equation}
+    (U_2,V_2) \circ (U_1,V_1)
+    =
+    (U_2 U_1,\; U_2 V_1 + V_2).
+    \label{eq:compose}
+\end{equation}
+This composition is associative:
+\[
+    ((U_3,V_3)\circ(U_2,V_2))\circ(U_1,V_1)
+    =
+    (U_3,V_3)\circ((U_2,V_2)\circ(U_1,V_1)).
+\]
+Equation~\ref{eq:compose} is the systems hook: prefix states can be computed by
+a parallel scan over affine pairs.
+
+\subsection{MOGT Block}
+
+The \mogt{} block maps token features $x_t$ to a transition and value update.
+The transition is produced by a skew-symmetric connection
+\[
+    A_t = \Phi_{\mathrm{conn}}(x_t)
+          - \Phi_{\mathrm{conn}}(x_t)^\top,
+\]
+then mapped to $U_t$ either by a matrix exponential, Cayley transform, or an
+identity ablation. Values are produced by a projection
+\[
+    V_t = \Phi_{\mathrm{val}}(x_t).
+\]
+The accumulated state is normalized and projected back to the residual stream.
+
+\subsection{Gates}
+
+Experiments show that pure transport is insufficient for overwrite-style state
+tracking. We therefore study two optional gates:
+\begin{align}
+    U_t &\leftarrow g^{(U)}_t U_t, \\
+    V_t &\leftarrow g^{(V)}_t V_t.
+\end{align}
+The transport gate controls forgetting, while the value gate controls selective
+writing. Gates may be scalar or rank-wise. Scalar gates are simpler, but they
+can only reset the entire state at once. Rank-wise gates allow different
+subspaces to be retained or cleared independently, which is important for
+multi-slot routing.
+
+We also evaluate several transport choices. Cayley/Magnus transport is natural
+for norm-preserving motion but can hurt overwrite memory. Identity transport is
+a strong diagnostic: if the identity variant works while Cayley fails, the
+problem is not the affine scan itself but the chosen connection dynamics.
+
+\paragraph{Coupled write-forget gate.}
+The strongest variant ties writing and forgetting:
+\begin{align}
+    z_t &= \sigma(\Phi_z(x_t)), \\
+    U_t &\leftarrow (1-z_t) U_t, \\
+    V_t &\leftarrow z_t V_t.
+\end{align}
+This preserves the affine scan law while imposing the correct overwrite bias:
+non-write tokens keep state nearly unchanged, and write tokens both erase the
+old value and insert the new one.
+
+\paragraph{Slot-addressed gate input.}
+For tracked multi-slot tasks, the gate must decide whether the current write
+belongs to the tracked slot. We therefore test a minimal addressing input for
+the write gate:
+\[
+    z_t = \sigma(\Phi_z([x_t, x_{t-1}, x_{\mathrm{track}}])).
+\]
+Here $x_{t-1}$ exposes the slot token immediately before a value token, and
+$x_{\mathrm{track}}$ is the prefix slot selected by the query. This is still a
+scan-compatible recurrent operator; the extra signal changes gate
+parameterization, not the affine recurrence.
+
+\section{Related Work}
+
+\paragraph{Attention and position extrapolation.}
+The Transformer replaces recurrence with attention over all previous tokens
+\cite{vaswani2017attention}. This makes content-based retrieval easy, but long
+context behavior depends strongly on the positional mechanism. Our experiments
+therefore include both RoPE and NoPE Transformer baselines. RoPE is the more
+standard small-decoder baseline, while NoPE is a stronger control for
+position-agnostic synthetic state tasks.
+
+\paragraph{Linear attention and recurrent views of attention.}
+Linear attention rewrites attention-like computation as recurrent state updates
+\cite{katharopoulos2020transformers}. This line of work shows that some
+attention mechanisms can be interpreted as fast recurrent updates. \mogt{}
+differs in that the recurrent state is explicitly matrix-valued and evolves
+through affine transport pairs $(U_t,V_t)$ with a scan composition law.
+
+\paragraph{Structured state-space and gated recurrence.}
+S4 and related state-space models demonstrate that carefully parameterized
+linear systems can model long sequences efficiently \cite{gu2021s4}. Mamba
+introduces selective state spaces, making the recurrent dynamics input-dependent
+\cite{gu2023mamba}. GateLoop similarly studies data-controlled linear
+recurrence \cite{koo2023gateloop}. Our findings are consistent with this
+direction: fixed or ungated transport is too rigid for overwrite memory, and
+input-dependent gates are necessary.
+
+\paragraph{Other recurrent Transformer alternatives.}
+RetNet and RWKV also pursue recurrent or retention-based alternatives to
+attention while preserving parallelizable training or efficient inference
+\cite{sun2023retnet,peng2023rwkv}. Compared with these works, this draft is
+much narrower: it does not claim language-modeling superiority, but isolates a
+specific affine transport mechanism and its failure modes on controlled state
+tracking tasks.
+
+\section{Experimental Setup}
+
+\subsection{Models}
+
+We compare small matched models to isolate mechanism rather than scale. Unless
+otherwise stated, synthetic experiments use 2 layers, $d_{\mathrm{model}}=128$,
+rank $r=16$, BF16 on one NVIDIA L4, and roughly 0.54M parameters. Transformer
+baselines use causal self-attention with either RoPE or no positional encoding
+(NoPE). NoPE is included because state-tracking tasks can be position-agnostic,
+and RoPE can be an artificially weak extrapolation baseline.
+
+\subsection{Tasks}
+
+\paragraph{Single-slot last-value tracking.}
+Sequences contain a small number of write events. Each write sets a latent
+state to a value token. At the final query token, the model must output the most
+recent value. Dense supervision optionally asks the model to predict the current
+state after each write.
+
+\paragraph{Tracked multi-slot last-value tracking.}
+The first two tokens specify a tracked slot. The sequence then contains writes
+to multiple slots. At the query token, the model must output the latest value
+written to the tracked slot. This tests selective routing rather than a single
+global memory.
+
+\paragraph{Language modeling sanity.}
+We also run a short-budget WikiText-style language-modeling protocol. These
+results are included as a boundary condition: current \mogt{} does not beat the
+matched scratch Transformer on this protocol.
+
+\section{Results}
+
+\subsection{Single-Slot Extrapolation From Context 128}
+
+Table~\ref{tab:ctx128} shows the first positive signal. Gated \mogt{} trained at
+context 128 extrapolates better than a matched RoPE Transformer. The result is
+not a broad attention win because NoPE Transformer is much stronger than RoPE on
+this task.
+
+\begin{table}[h]
+\centering
+\caption{Train context 128, three seeds. Accuracy is mean $\pm$ standard deviation.}
+\label{tab:ctx128}
+\begin{tabular}{lccc}
+\toprule
+Eval context & Gated \mogt{} & RoPE Transformer & Gap \\
+\midrule
+128  & 100.00 $\pm$ 0.00 & 99.48 $\pm$ 0.25 & +0.52 \\
+256  & 98.26 $\pm$ 3.02  & 70.25 $\pm$ 13.68 & +28.01 \\
+512  & 89.49 $\pm$ 15.11 & 22.88 $\pm$ 8.35 & +66.60 \\
+1024 & 69.71 $\pm$ 18.69 & 10.51 $\pm$ 1.24 & +59.20 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+NoPE Transformer reaches 68.64\% $\pm$ 15.51\% at context 1024 under the same
+2048-example evaluation protocol, narrowing the gap substantially. This makes
+NoPE or other position-robust attention a mandatory baseline for future
+claims.
+
+\subsection{Train-Context-512 Dense Supervision}
+
+Table~\ref{tab:ctx512dense} is the strongest scaled diagnostic. We train at
+context 512 with dense state supervision. Identity dual-gated \mogt{} reaches
+100\% at contexts 512 and 1024 across all seeds, but it decays faster than NoPE
+Transformer at longer contexts. The coupled write-forget variant fixes this
+specific failure mode on the single-slot task, staying at 100\% through context
+8192 across all three seeds.
+
+\begin{table}[h]
+\centering
+\caption{Train context 512 with dense state supervision, three seeds.}
+\label{tab:ctx512dense}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lcccc}
+\toprule
+Eval context & Coupled \mogt{} & Dual-gated \mogt{} & NoPE Transformer & Coupled gap \\
+\midrule
+512  & 100.00 $\pm$ 0.00 & 100.00 $\pm$ 0.00 & 97.40 $\pm$ 0.90 & +2.60 \\
+1024 & 100.00 $\pm$ 0.00 & 100.00 $\pm$ 0.00 & 98.44 $\pm$ 1.56 & +1.56 \\
+2048 & 100.00 $\pm$ 0.00 & 94.27 $\pm$ 8.61  & 95.31 $\pm$ 2.71 & +4.69 \\
+4096 & 100.00 $\pm$ 0.00 & 70.83 $\pm$ 7.05  & 90.10 $\pm$ 5.49 & +9.90 \\
+8192 & 100.00 $\pm$ 0.00 & 47.40 $\pm$ 8.88  & 78.65 $\pm$ 12.63 & +21.35 \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+This table changes the story. The useful claim is not that \mogt{} dominates
+attention. It is that the affine recurrent operator can learn long-context
+state tracking once writing and forgetting are coupled. The remaining gap is
+whether this mechanism scales to slot-addressed routing, language modeling, and
+stronger recurrent baselines.
+
+A seed-42 stress probe with fewer evaluation examples extends the same trained
+setting to contexts 16k, 32k, and 65k, remaining at 100\% accuracy with 16
+examples per context. We treat this as a capacity probe rather than a final
+statistical result.
+
+The learned gate is also interpretable. In the seed-42 coupled model, the first
+block's mean write gate on a fresh training-context batch is 88.83\% on value
+tokens, but only about $10^{-4}$\% on SET, QUERY, and filler tokens. Since the
+same gate controls forgetting through $(1-z_t)$, this implements the intended
+behavior: keep state on non-write tokens and overwrite on value tokens. The
+second block is less selective, suggesting that the first recurrent layer
+performs most of the explicit state update.
+
+\subsection{Ablations}
+
+Table~\ref{tab:ablation} summarizes seed-42 ablations. Cayley transport fails
+on direct train512. Dense supervision helps. Identity transport plus dual gates
+solves the train context and improves extrapolation. A value-gate-only variant
+learns in-distribution but forgets faster at long context, suggesting that
+explicit transport/forget gating is not just an optimization detail. Among the
+non-coupled variants, NoPE Transformer has better far-context behavior and
+lower memory in this implementation; the coupled variant closes the single-slot
+quality gap but not the systems gap.
+
+\begin{table}[h]
+\centering
+\caption{Seed-42 train512 stress probe.}
+\label{tab:ablation}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lccccc}
+\toprule
+Variant & 512 & 1024 & 2048 & 4096 & 8192 \\
+\midrule
+Gated \mogt{}, direct & 12.50 & 7.81 & 3.12 & 10.94 & 6.25 \\
+\mogt{} Cayley dual-gate dense & 100.00 & 100.00 & 79.69 & 60.94 & 40.62 \\
+\mogt{} identity dual-gate dense & 100.00 & 100.00 & 100.00 & 78.12 & 54.69 \\
+\mogt{} identity value-gate-only dense & 87.50 & 92.19 & 64.06 & 48.44 & 25.00 \\
+\mogt{} identity coupled write-forget dense & 100.00 & 100.00 & 100.00 & 100.00 & 100.00 \\
+\mogt{} identity forget-ReLU dual-gate dense & 87.50 & 85.94 & 68.75 & 34.38 & 4.69 \\
+NoPE Transformer dense & 98.44 & 100.00 & 96.88 & 89.06 & 82.81 \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+\subsection{Tracked Multi-Slot State Routing}
+
+Unconditioned multi-slot routing is weak: scalar, rank-wise, and coupled gates
+without an explicit addressing signal stay near 50--67\% in the 2-slot probe.
+Adding the slot-addressed gate input changes the result sharply.
+Table~\ref{tab:multislot} shows the 3-seed 2-slot result.
+
+\begin{table}[h]
+\centering
+\caption{Tracked 2-slot task, train context 512, dense supervision, 3000 steps, three seeds.}
+\label{tab:multislot}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lcccc}
+\toprule
+Model & 512 & 1024 & 2048 & 4096 \\
+\midrule
+Slot-addressed \mogt{} & 100.00 $\pm$ 0.00 & 100.00 $\pm$ 0.00 & 98.44 $\pm$ 1.56 & 86.46 $\pm$ 3.25 \\
+NoPE Transformer & 45.31 $\pm$ 4.69 & 41.15 $\pm$ 3.93 & 34.90 $\pm$ 3.25 & 44.79 $\pm$ 9.42 \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+The 4-slot result shows the same direction across three seeds: slot-addressed
+\mogt{} reaches 100.00 $\pm$ 0.00, 100.00 $\pm$ 0.00, 100.00 $\pm$ 0.00, and
+98.96 $\pm$ 0.90\% at contexts 512/1024/2048/4096, while NoPE Transformer
+reaches 23.96 $\pm$ 3.61, 25.00 $\pm$ 4.13, 21.35 $\pm$ 4.77, and 24.48
+$\pm$ 7.05\%.
+
+Dense state supervision is not necessary for the easier 2-slot setting. With
+final-query-only training, slot-addressed \mogt{} reaches 100.00 $\pm$ 0.00,
+100.00 $\pm$ 0.00, 100.00 $\pm$ 0.00, and 96.35 $\pm$ 3.25\% at
+512/1024/2048/4096 across three seeds, while NoPE Transformer reaches 42.19
+$\pm$ 2.71, 40.62 $\pm$ 7.16, 47.92 $\pm$ 3.93, and 42.71 $\pm$ 21.67\%.
+Direct 4-slot final-only training remains weak across three seeds: \mogt{}
+reaches 44.79\% $\pm$ 17.21\% at 4096, compared with 25.00\% $\pm$ 5.63\%
+for NoPE Transformer. However, a slot-count curriculum that trains on 2 active
+slots and increases to all 4 active slots over the first 1500 steps changes the
+result sharply (Table~\ref{tab:multislot4final}). This curriculum does not use
+dense state labels; the loss is still only on the final query.
+
+\begin{table}[h]
+\centering
+\caption{Tracked 4-slot task, final-query-only supervision with a 2-to-4-slot curriculum, train context 512, 3000 steps, three seeds.}
+\label{tab:multislot4final}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lcccc}
+\toprule
+Model & 512 & 1024 & 2048 & 4096 \\
+\midrule
+Slot-addressed \mogt{} & 100.00 $\pm$ 0.00 & 100.00 $\pm$ 0.00 & 99.48 $\pm$ 0.90 & 94.27 $\pm$ 2.39 \\
+NoPE Transformer & 31.25 $\pm$ 5.41 & 29.69 $\pm$ 5.63 & 23.44 $\pm$ 5.63 & 21.35 $\pm$ 6.31 \\
+HF-Mamba $d=192$ & 17.71 $\pm$ 10.97 & 20.83 $\pm$ 9.92 & 15.62 $\pm$ 5.63 & 19.79 $\pm$ 10.97 \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+The same curriculum also extends to a 6-slot version across three seeds.
+Slot-addressed \mogt{} reaches 100.00 $\pm$ 0.00, 100.00 $\pm$ 0.00,
+98.96 $\pm$ 0.90, and 96.88 $\pm$ 2.71\% at contexts
+512/1024/2048/4096, while NoPE Transformer reaches 20.83 $\pm$ 1.80,
+22.92 $\pm$ 5.02, 21.35 $\pm$ 5.49, and 21.88 $\pm$ 8.27\%.
+An 8-slot version remains positive but shows higher extrapolation variance:
+slot-addressed \mogt{} reaches 100.00 $\pm$ 0.00, 100.00 $\pm$ 0.00,
+97.40 $\pm$ 0.90, and 85.42 $\pm$ 11.93\% at contexts 512/1024/2048/4096,
+while NoPE Transformer reaches 17.19 $\pm$ 2.71, 16.15 $\pm$ 6.51,
+22.92 $\pm$ 5.02, and 10.94 $\pm$ 2.71\%. A small HF-Mamba baseline reaches
+18.23 $\pm$ 3.61, 13.02 $\pm$ 1.80, 13.54 $\pm$ 7.86, and 18.23 $\pm$
+1.80\%; a parameter-matched HF-Mamba baseline with $d=192$ reaches
+17.71 $\pm$ 8.02, 13.54 $\pm$ 6.51, 19.27 $\pm$ 7.71, and 16.15 $\pm$
+6.31\%. The 8-slot setting is therefore a useful scaling boundary: the
+mechanism still works, but long-context extrapolation is no longer uniformly
+saturated across seeds.
+A seed-42 ablation without the active-slot curriculum reaches only 23.44\% at
+4096, compared with 95.31\% for the curriculum run at the same seed. The
+curriculum is therefore an optimization condition, not part of the recurrent
+operator itself.
+The same ablation is sharper at 8 slots: direct final-only training reaches
+12.50\% at 4096, compared with 98.44\% for the curriculum run at the same
+seed. Its gate diagnostic also fails to separate matched from unmatched value
+tokens, suggesting that the curriculum is needed to discover the addressing
+solution.
+
+As recurrent controls, we added both a scratch 2-layer GRU and a small
+HF-Mamba baseline. In a seed-42 500-step early-learning probe on the 6-slot
+curriculum, the GRU reaches 6.25\% training accuracy at step 500 and 6.25\%
+evaluation accuracy at context 4096. The HF-Mamba baselines are more useful SSM
+controls and are included in the 8-slot comparison above, where both remain far
+below \mogt{}.
+
+A gate diagnostic confirms the intended mechanism. In a seed-42 2-slot run,
+block 0 opens its mean rank-wise value gate to 32.64\% on value tokens whose
+preceding slot matches the tracked prefix, but only 2.04\% on value tokens from
+other slots and below 0.2\% on SET, slot, filler, and QUERY tokens. Block 1 is
+less selective, again suggesting that the first recurrent layer performs the
+explicit state-write operation.
+
+\subsection{Language Modeling Boundary}
+
+The current language-modeling results are negative for the broad replacement
+claim. On a 32k-context, 200-step WikiText-style protocol, the scratch
+Transformer baseline reaches loss 6.1009, while the \mogt{} baseline-v1
+three-seed mean is 6.4067. A fair paper must present this boundary clearly.
+
+We have also added an initial hybrid MOGT/Transformer causal LM path. In a
+one-seed wiring pilot at context 8192 with two layers and
+$d_{\mathrm{model}}=128$, an alternating hybrid reaches validation loss 10.4828
+after 10 steps, compared with 10.5214 for the same-size Transformer. This is
+not a language-modeling quality result; it only establishes that hybrid layers
+can be trained under the same data and reporting protocol, motivating a
+matched layer-ratio sweep.
+
+A first four-layer ratio pilot gives the same kind of weak but useful signal:
+with 0/25/50/75/100\% \mogt{} layers, validation loss after 5 steps is
+10.6355/10.6159/10.6100/10.5838/10.5526. This monotone pattern is encouraging,
+but the run uses one seed and one validation batch, so it remains a scheduling
+signal rather than a result. Moreover, after zero-initializing the attention
+output projection to match the identity-like start of \mogt{} residual
+branches, the 0\% control improves to 10.6032 and the hybrid/all-\mogt{} points
+cluster near 10.55. Thus this pilot mainly motivates larger controlled sweeps;
+it does not yet identify an optimal layer ratio.
+Extending only the 0/25/100\% zero-initialized controls to 50 steps gives
+validation loss 9.5796/9.5618/9.6249, respectively. This makes pure \mogt{} a
+negative control at the current budget and points instead toward low-ratio
+hybrid insertion.
+Across three seeds at 50 steps, 0/25/50\% \mogt{} layers obtain mean validation
+loss 9.5865/9.5784/9.6034 with standard deviations 0.0091/0.0163/0.0167. This
+keeps the 25\% insertion point alive, but the effect is small and
+variance-overlapping.
+Across three seeds, a 200-step follow-up with four validation batches
+strengthens the candidate: 0\% and 25\% \mogt{} reach validation loss
+7.6069 $\pm$ 0.0091 and 7.4897 $\pm$ 0.0107, respectively. This is the first
+clear small-LM positive signal for low-ratio insertion, but it remains a
+WikiText-103 pilot rather than a broad language-modeling result.
+A same-budget single-layer position ablation suggests the insertion point
+matters: attention-only gives 7.6069 $\pm$ 0.0091, while placing the single
+\mogt{} layer at layer 1/2/3 gives 7.4897 $\pm$ 0.0107,
+7.4675 $\pm$ 0.0110, and 7.4539 $\pm$ 0.0092, respectively. Layer 0 currently
+has only seed 42 and gives 7.5189. This points toward late-layer insertion as
+the next scale-up target, not as a final architecture rule.
+The first such scale-up keeps the signal alive: with 500 optimizer steps and
+eight validation batches, attention-only reaches 6.8137 $\pm$ 0.0139, while a
+single layer-3 \mogt{} insertion reaches 6.7241 $\pm$ 0.0132. This is stronger
+than the 50/200-step probes, but remains a small WikiText-103 experiment.
+A 1000-step continuation in the same setting gives 6.3868 $\pm$ 0.0098 for
+attention-only and 6.3357 $\pm$ 0.0128 for layer-3 \mogt{}. The gap narrows but
+persists, making larger-model scale-up the next meaningful falsification test.
+The first width scale probe is also positive: at $d_{\mathrm{model}}=192$,
+four layers, 500 steps, and eight validation batches, attention-only reaches
+6.5024 $\pm$ 0.0141 while layer-3 \mogt{} reaches 6.4544 $\pm$ 0.0134. The
+hybrid has slightly fewer parameters in this setting, so the effect is not
+explained by a larger parameter count.
+However, the same width at 1000 steps is a boundary: attention-only reaches
+6.0997 $\pm$ 0.0126, layer-2 \mogt{} nearly matches it at
+6.1049 $\pm$ 0.0147, and layer-3 \mogt{} trails at
+6.1337 $\pm$ 0.0162. A two-\mogt{} middle hybrid using layers 1 and 2 reaches
+6.1416 $\pm$ 0.0180, so simply increasing the \mogt{} layer count does not fix
+the boundary. Thus the present evidence supports a promising hybrid
+optimization signal, not a durable language-modeling scaling law.
+A learning-rate fairness check further weakens the simple hybrid claim:
+at $d_{\mathrm{model}}=192$, 1000 steps, and learning rate $5\cdot10^{-4}$,
+attention-only reaches 5.8753 $\pm$ 0.0108, while layer-2 \mogt{} reaches
+5.9058 $\pm$ 0.0430. The higher learning rate improves both models, but the
+tuned attention control remains stronger.
+A residual-scale diagnostic suggests the boundary is partly a fusion problem:
+in the same seed-42 layer-2 setting, \mogt{} readout residual scales
+0.25/0.5/0.75/1.0 give validation losses
+5.9199/5.9110/5.9174/5.9545, while the same-seed attention-only control
+remains better at 5.8877. A three-seed fixed-scale confirmation at scale 0.5
+nearly closes the gap: attention-only reaches 5.8753 $\pm$ 0.0108, while the
+layer-2 \mogt{} hybrid reaches 5.8775 $\pm$ 0.0293. The scaled hybrid beats
+attention on two paired seeds, but its mean is still 0.0022 worse, so this is a
+stabilization result rather than a language-modeling win.
+The naive learned scalar gate is negative in the same setting: initialized at
+0.5, it reaches validation loss 5.9752, worse than the fixed 0.5 residual
+scale. A simple bounded residual schedule is also negative: warming the readout
+scale from 0.25 to 0.5 over 250 steps reaches 5.9497. Future residual mixing
+therefore needs richer dynamics or auxiliary supervision rather than an
+unconstrained scalar gate or a naive linear scale warmup.
+The strongest follow-up is optimizer partitioning. With fixed residual scale
+0.5 but a 0.5 learning-rate multiplier on MOGT block parameters, the seed-42
+layer-2 hybrid reaches validation loss 5.8601, beating the same-seed
+attention-only control at 5.8877. The three-seed confirmation is also positive:
+attention-only reaches 5.8753 $\pm$ 0.0108, while the layer-2 hybrid with
+\mogt{} learning-rate multiplier 0.5 reaches 5.8511 $\pm$ 0.0117, winning on
+all paired seeds. This is the first matched small-budget language-modeling
+win, but it still requires larger-scale confirmation.
+The first width migration diagnostic is neutral: at $d_{\mathrm{model}}=256$,
+seed 42, and the same budget, attention-only reaches 5.7550 while the
+corresponding layer-2 \mogt{} hybrid reaches 5.7558. Thus the recipe does not
+collapse at the next width, but it also does not yet provide a width-scaling
+win.
+
+\begin{table}[h]
+\centering
+\caption{WikiText-103 wiring pilot, context 8192, two layers, $d_{\mathrm{model}}=128$, seed 42, 10 optimizer steps.}
+\label{tab:lm-pilot}
+\begin{tabular}{lcc}
+\toprule
+Model & Best val loss & PPL \\
+\midrule
+Transformer & 10.5214 & 37099.21 \\
+Alternating hybrid & 10.4828 & 35694.57 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Systems Boundary}
+
+We also run two bounded systems probes on one NVIDIA L4. These are not
+end-to-end throughput claims. The first times only the core affine scan and the
+core attention operation; it excludes connection/value projection, the
+connection map, FFN, normalization, LM head, loss, and backward pass. The
+second times backbone hidden-state forward only: embeddings, sequence blocks,
+and final normalization, without LM head, loss, backward pass, optimizer, or
+KV-cache decode behavior.
+
+\begin{table}[h]
+\centering
+\caption{Core operator timing, $d_{\mathrm{model}}=768$, rank 16, batch size 1. Lower is better.}
+\label{tab:systems-core}
+\begin{tabular}{lccc}
+\toprule
+Length & Affine Triton hybrid & Attention core & Attention / affine \\
+\midrule
+8192  & 3.12 ms & 1.48 ms  & 0.47$\times$ \\
+16384 & 5.36 ms & 6.39 ms  & 1.19$\times$ \\
+32768 & 5.48 ms & 27.32 ms & 4.98$\times$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\centering
+\caption{Backbone hidden-state forward timing, two layers, $d_{\mathrm{model}}=768$, batch size 1. Lower is better.}
+\label{tab:systems-backbone}
+\begin{tabular}{lccc}
+\toprule
+Length & Identity coupled \mogt{} & NoPE Transformer & Transformer / \mogt{} \\
+\midrule
+8192  & 14.07 ms & 10.81 ms & 0.77$\times$ \\
+16384 & 37.88 ms & 35.29 ms & 0.93$\times$ \\
+32768 & 77.56 ms & 97.05 ms & 1.25$\times$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The system story is therefore promising but still immature. The affine scan
+core has a strong long-context signal, and the small backbone forward probe
+crosses over at 32k. However, the current \mogt{} backbone uses more peak
+memory in this probe and the measurement does not cover training throughput or
+autoregressive decoding.
+
+\section{Reproducibility}
+
+All experiments in this draft are produced by scripts in the repository. The
+main synthetic scripts are:
+\begin{itemize}
+    \item \texttt{benchmark\_synthetic\_last\_value.py}
+    \item \texttt{benchmark\_synthetic\_multislot.py}
+    \item \texttt{train\_budget\_hybrid.py}
+    \item \texttt{summarize\_synthetic\_last\_value.py}
+    \item \texttt{summarize\_standard\_multislot.py}
+    \item \texttt{validate\_experiment\_reports.py}
+\end{itemize}
+
+The primary result artifacts are:
+\begin{itemize}
+    \item \texttt{benchmark\_runs/synthetic\_last\_value\_summary\_20260503.md}
+    \item \texttt{benchmark\_runs/synthetic\_multislot\_standard\_summary\_20260504.md}
+    \item \texttt{benchmark\_runs/standard\_report\_index.md}
+    \item \texttt{benchmark\_runs/budget\_matched\_baseline\_summary.md}
+    \item \texttt{benchmark\_runs/hybrid\_lm\_ratio\_sweep\_summary\_20260504.md}
+    \item \texttt{benchmark\_runs/hybrid\_layer\_position\_summary\_20260504.md}
+    \item \texttt{benchmark\_runs/hybrid\_layer\_position\_steps500\_summary\_20260504.md}
+    \item \texttt{benchmark\_runs/hybrid\_layer\_position\_steps1000\_summary\_20260504.md}
+    \item \texttt{benchmark\_runs/hybrid\_scale\_d192\_l4\_steps500\_summary\_20260504.md}
+    \item \texttt{benchmark\_runs/hybrid\_scale\_d192\_l4\_steps1000\_summary\_20260504.md}
+    \item \texttt{benchmark\_runs/hybrid\_scale\_d192\_l4\_steps1000\_lr5e4\_summary\_20260504.md}
+    \item \texttt{benchmark\_runs/hybrid\_scale\_d192\_l4\_steps1000\_lr5e4\_mogtscale\_sweep\_seed42\_20260505.md}
+    \item \texttt{benchmark\_runs/hybrid\_scale\_d192\_l4\_steps1000\_lr5e4\_mogtscale0p5\_summary\_20260505.md}
+    \item \texttt{benchmark\_runs/hybrid\_scale\_d192\_l4\_steps1000\_lr5e4\_mogtgate0p5\_diagnostic\_seed42\_20260505.md}
+    \item \texttt{benchmark\_runs/hybrid\_scale\_d192\_l4\_steps1000\_lr5e4\_mogtsched0p25to0p5s250\_diagnostic\_seed42\_20260505.md}
+    \item \texttt{benchmark\_runs/hybrid\_scale\_d192\_l4\_steps1000\_lr5e4\_mogtscale0p5\_mogtlr0p5\_diagnostic\_seed42\_20260505.md}
+    \item \texttt{benchmark\_runs/hybrid\_scale\_d192\_l4\_steps1000\_lr5e4\_mogtscale0p5\_mogtlr0p5\_summary\_20260505.md}
+    \item \texttt{benchmark\_runs/hybrid\_scale\_d256\_l4\_steps1000\_lr5e4\_mogtscale0p5\_mogtlr0p5\_summary\_seed42\_20260505.md}
+\end{itemize}
+
+The code paths were checked with affine scan sanity tests and Triton hybrid
+training regression tests. PDF compilation was not verified in this environment
+because \texttt{pdflatex} was not installed.
+
+\section{Discussion}
+
+\paragraph{Why identity transport helps.}
+Overwrite-style memory requires preserving a value indefinitely until a new
+write arrives. Cayley/Magnus transport rotates state, which is useful for some
+dynamical systems but can make simple persistence difficult. Identity transport
+is the correct inductive bias for this family of tasks.
+
+\paragraph{Why NoPE Transformer is strong.}
+The single-slot and multi-slot tasks are largely position-agnostic. A RoPE
+Transformer trained at short context can fail due to positional extrapolation,
+whereas NoPE attention can attend by content without depending on absolute
+position. This is why RoPE-only comparisons are insufficient.
+
+\paragraph{What remains missing.}
+The current \mogt{} implementation is not yet a top-tier model result. It lacks
+non-synthetic evidence, the hardest final-query-only 4-slot result requires a
+slot-count curriculum, and language modeling quality is behind a matched
+scratch Transformer. The strongest contribution is mechanistic: it identifies
+write-aligned forgetting and prefix-conditioned addressing as missing
+ingredients for affine scan operators on recurrent state tracking.
+
+\section{Limitations}
+
+This draft has several important limitations.
+\begin{itemize}
+    \item The strongest positive results are synthetic. They do not imply
+    language-modeling superiority.
+    \item NoPE Transformer is a very strong baseline for these state-tracking
+    tasks. The coupled write-forget variant beats it on single-slot dense
+    tracking, but this does not imply general attention replacement.
+    \item Some of the strongest results use dense state supervision. The
+    strongest 4/6/8-slot final-only results remove dense labels but use an
+    explicit slot-count curriculum, which is still not ordinary language-model
+    training.
+    \item The current Triton path is a hybrid implementation, not a final fused
+    production kernel.
+    \item Multi-slot routing is solved in tracked, prefix-conditioned 2-slot
+    final-only training, 4-slot dense-supervision training, and 4/6/8-slot
+    final-only training with a slot-count curriculum. Direct final-only
+    learning without curriculum and non-synthetic tasks remain open.
+    \item The experiments are small. A submission-quality result needs larger
+    model scales, more seeds for every table, stronger recurrent baselines, and
+    real language-modeling or hybrid-attention evidence.
+    \item The scratch GRU control is only an early-learning probe. The HF-Mamba
+    control is stronger, but a submission should still include more optimized
+    recurrent or linear-attention baselines where practical.
+\end{itemize}
+
+\section{Conclusion}
+
+Matrix-valued affine transport provides an associative scan-compatible
+alternative to attention. In its ungated Cayley/Magnus form, it does not solve
+the tasks studied here. With identity transport, dense state supervision, and
+a coupled write-forget gate, it learns single-slot recurrent state tracking and
+extrapolates from context 512 to 8192 across three seeds. With a
+prefix-conditioned slot-addressed gate, it also learns tracked multi-slot
+routing in controlled 2-slot, 4-slot, 6-slot, and 8-slot probes, including
+4/6/8-slot final-query-only training when slots are introduced by curriculum.
+These results define the next target: transfer the mechanism to harder routing,
+language modeling, or hybrid attention settings while retaining the scan
+structure.
+
+\bibliographystyle{plain}
+\bibliography{references}
+
+\end{document}

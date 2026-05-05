@@ -1,0 +1,69 @@
+{
+  "config": {
+    "run_preset": "baseline_v1",
+    "context_length": 32768,
+    "d_model": 768,
+    "num_layers": 12,
+    "rank": 16,
+    "batch_size": 1,
+    "grad_accum_steps": 8,
+    "max_global_steps": 200,
+    "eval_interval": 50,
+    "eval_max_batches_requested": 10,
+    "eval_batches_actual": 5,
+    "scan_impl": "triton_hybrid",
+    "carry_scan": "doubling",
+    "connection_impl": "cayley",
+    "connection_damping": 0.999,
+    "seed": 42
+  },
+  "result": {
+    "run_date": "2026-04-28",
+    "train_loss_step200": 6.381220817565918,
+    "best_val_step": 200,
+    "best_val_loss": 6.340744209289551,
+    "best_val_ppl": 567.218283460104,
+    "best_val_batches": 5,
+    "elapsed_s": 3961.47,
+    "best_checkpoint": "mogt_checkpoints/baseline_v1_cayley_ctx32768_seed42/mogt_best.pt",
+    "last_checkpoint": "mogt_checkpoints/baseline_v1_cayley_ctx32768_seed42/mogt_ckpt_e0_s1599.pt",
+    "log": "train_baseline_v1_cayley_ctx32768_seed42_20260428.log"
+  },
+  "validation_trace": [
+    {
+      "step": 50,
+      "val_loss": 7.3687,
+      "val_ppl": 1585.51,
+      "batches": 5
+    },
+    {
+      "step": 100,
+      "val_loss": 6.9336,
+      "val_ppl": 1026.16,
+      "batches": 5
+    },
+    {
+      "step": 150,
+      "val_loss": 6.5821,
+      "val_ppl": 722.07,
+      "batches": 5
+    },
+    {
+      "step": 200,
+      "val_loss": 6.3407,
+      "val_ppl": 567.22,
+      "batches": 5
+    }
+  ],
+  "comparison_to_50_step_probe": {
+    "val_loss_delta_step200_minus_step50": -1.0279175758361818,
+    "ppl_reduction_ratio_step50_over_step200": 2.7952388967044017,
+    "ppl_reduction_pct": 64.22488248932841
+  },
+  "notes": [
+    "This run used the baseline_v1 preset added to train.py.",
+    "The preset requests up to 10 validation batches, but the current WikiText-103 validation loader at ctx=32768 exposes 5 batches.",
+    "Validation loss improved monotonically at every eval interval, supporting Cayley as the current strongest baseline_v1 candidate.",
+    "The final step initially ran a duplicate eval/save because EVAL_INTERVAL and MAX_GLOBAL_STEPS both hit 200; train.py was patched after this run to avoid that duplicate in future runs."
+  ]
+}

@@ -1,111 +1,51 @@
-# MOGT / GMAR Research Freeze
+# MOGT
 
-This repository is the clean handoff version of the MOGT research project. It
-keeps the code, reports, and paper materials needed to resume the work on a new
-GPU VM. Large checkpoints, caches, logs, and old exploratory scripts are not
-tracked.
+MOGT 是一个长上下文状态跟踪研究仓库，核心关注“可扫描的矩阵值递归算子”能否在受控长上下文任务上承担显式写入、遗忘和按槽位路由。当前仓库是一次清理后的研究交接版本，重点服务论文复现、结果核对和新机器启动。
 
-## Current Claim
+## 当前结论
 
-The project is currently scoped as a mechanism paper:
+当前最稳妥的结论是：耦合 write-forget gating 与 prefix-conditioned slot addressing 可以让 scan-compatible 的矩阵值 recurrent operator 在若干受控长上下文状态跟踪任务上表现很好，而匹配的 NoPE Transformer 和 HF-Mamba baseline 在这些任务上更吃力。
 
-> Coupled write-forget gating and prefix-conditioned slot addressing make a
-> scan-compatible matrix-valued recurrent operator solve controlled
-> long-context state-tracking tasks where matched NoPE Transformer and
-> HF-Mamba baselines struggle.
+这不是“替代 Transformer”的通用结论。语言模型混合层实验仍是边界探索，仓库里也保留了中性或负向结果。
 
-It does **not** yet claim that MOGT generally replaces Transformer for language
-modeling.
+## 结果快照
 
-## Resume On A New VM
+`paper/results_snapshot.md` 和 `docs/claim_ledger.md` 中记录了当前主张依据。已整理结果包括：
+
+- 单槽 overwrite：Coupled MOGT 在 512 到 8192 长度上保持 `100%`，NoPE Transformer 在 8192 长度上约为 `78.65% ± 12.63`。
+- 4 槽 final-query routing：slot-addressed MOGT 在 4096 长度上约为 `94.27% ± 2.39`，NoPE Transformer 约为 `21.35% ± 6.31`，HF-Mamba d192 约为 `19.79% ± 10.97`。
+- Core timing：32768 长度下 affine Triton core 约 `5.48 ms`，attention core 约 `27.32 ms`，注意这是 core-only 对比。
+- Backbone forward：d768、4 层、32768 长度下 MOGT 约 `77.56 ms`，Transformer 约 `97.05 ms`；在 8K/16K 长度上 Transformer 仍有竞争力。
+
+## 主要目录
+
+- `docs/PROJECT_FREEZE_20260505.md`：当前冻结状态说明。
+- `docs/NEW_VM_QUICKSTART.md`：新机器启动步骤。
+- `docs/claim_ledger.md`：论文主张与证据台账。
+- `paper/`：论文草稿和结果快照。
+- `src/`：MOGT、hybrid 模型、affine scan、Triton scan 和训练入口。
+- `reports/`：实验报告与汇总数据。
+- `scripts/`：环境启动、结果汇总和校验脚本。
+
+## 快速开始
 
 ```bash
-git clone https://github.com/lkcfqy/MOGT.git
-cd MOGT
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements-core.txt
+python scripts/summarize_standard_reports.py
+python scripts/summarize_paper_results.py
+python scripts/validate_experiment_reports.py
+```
+
+新机器可直接使用：
+
+```bash
 bash scripts/bootstrap_new_vm.sh
 ```
 
-The bootstrap script creates `.venv`, installs `requirements-core.txt`,
-regenerates paper/report summaries, and validates the stored experiment reports.
-Optional CUDA-extension baselines can be installed with:
+如需安装 FlashAttention、Mamba SSM 等 GPU 可选依赖，可在确认 CUDA/PyTorch 环境后再参考 `requirements-optional-gpu.txt`。
 
-```bash
-INSTALL_OPTIONAL_GPU=1 bash scripts/bootstrap_new_vm.sh
-```
+## 许可证
 
-## Start Here
-
-- [Project freeze / VM handoff](./docs/PROJECT_FREEZE_20260505.md)
-- [New VM quickstart](./docs/NEW_VM_QUICKSTART.md)
-- [Top-tier roadmap](./docs/TOP_TIER_TRANSFORMER_DISRUPTION_ROADMAP.md)
-- [Claim ledger](./docs/claim_ledger.md)
-- [Paper draft](./paper/main.tex)
-- [Result snapshot](./paper/results_snapshot.md)
-
-## Strongest Evidence
-
-- Single-slot overwrite tracking:
-  - Coupled MOGT: `100.00% +/- 0.00%` through context 8192.
-  - NoPE Transformer: `78.65% +/- 12.63%` at context 8192.
-- Tracked 4-slot final-query routing with curriculum:
-  - Slot-addressed MOGT: `94.27% +/- 2.39%` at context 4096.
-  - NoPE Transformer: `21.35% +/- 6.31%`.
-  - Parameter-matched HF-Mamba d192: `19.79% +/- 10.97%`.
-- Hybrid LM boundary:
-  - d192/layer2/residual-scale-0.5/MOGT-LR-mult-0.5 wins a 3-seed small-budget
-    WikiText-103 check.
-  - d256 seed42 is neutral, so this is not yet a width-scaling claim.
-
-## Core Files
-
-- `affine_scan.py`: associative affine recurrence reference implementations.
-- `model_mogt.py`: MOGT/GMAR-style recurrent block and language-model wrapper.
-- `model_hybrid.py`: hybrid Transformer + MOGT backbone.
-- `triton_scan.py`: current Triton/hybrid scan code paths.
-- `chunked_lm_loss.py`: memory-efficient language-modeling loss.
-- `train_budget_hybrid.py`: main hybrid LM budget runner.
-- `train_budget_transformer.py`: matched scratch Transformer runner.
-- `train_budget_baseline.py`: Mamba-style budget baseline runner.
-- `benchmark_synthetic_last_value.py`: single-slot state-tracking experiments.
-- `benchmark_synthetic_multislot.py`: tracked multi-slot routing experiments.
-- `benchmark_backbone_throughput.py`: bounded backbone timing probe.
-- `experiment_report.py`: standard report schema helpers.
-- `summarize_paper_results.py`: regenerates `paper/results_snapshot.md`.
-- `validate_experiment_reports.py`: validates stored JSON reports.
-
-## Preserved Evidence
-
-- `benchmark_runs/`: JSON and Markdown experiment artifacts.
-- `paper/`: paper draft, BibTeX, and generated result snapshot.
-- `docs/`: roadmap, claim ledger, protocol, and VM handoff notes.
-
-## Not In Git
-
-The following are intentionally excluded:
-
-- `baseline_checkpoints/`
-- `mogt_checkpoints/`
-- `dataset_cache/`
-- `profile_runs*/`
-- logs, pid files, model weights, local archives, and virtual environments
-
-This keeps the GitHub repo small and easy to clone.
-
-## Quick Verification
-
-```bash
-python3 -m py_compile \
-  affine_scan.py model_mogt.py model_hybrid.py train_budget_hybrid.py \
-  benchmark_backbone_throughput.py experiment_report.py \
-  summarize_paper_results.py summarize_standard_reports.py \
-  validate_experiment_reports.py
-
-python3 validate_experiment_reports.py
-python3 summarize_paper_results.py
-```
-
-Expected freeze-time validation:
-
-```text
-checked=118 skipped=153 failures=0
-```
+当前仓库未包含独立 `LICENSE` 文件。如需公开复用或分发，请先补充明确的开源许可证。
